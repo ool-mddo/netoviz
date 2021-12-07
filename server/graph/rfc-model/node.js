@@ -7,7 +7,11 @@ import RfcModelBase from './base'
 import RfcTermPoint from './term-point'
 
 /**
- * @typedef {RfcTermPoint|RfcL2TermPoint|RfcL3TermPoint|OpsTermPoint} AllRfcTermPoint
+ * @typedef {
+ *   RfcTermPoint|RfcL2TermPoint|RfcL3TermPoint|
+ *   OpsTermPoint|
+ *   MddoL1TermPoint|MddoL2TermPoint|MddoL3TermPoint
+ * } AllRfcTermPoint
  */
 
 /**

@@ -54,5 +54,9 @@
   {
     "file": "target3b.json",
     "label": "[3b] L2 Aggr, L3.5 and L2 separate"
+  },
+  {
+    "file": "mddo_trial_pushed_conf.json",
+    "label": "OOL-MDDO PJ Trial Target Network"
   }
 ]
