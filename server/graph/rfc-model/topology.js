@@ -36,7 +36,6 @@ class RfcTopology extends RfcModelBase {
    * @param {RfcTopologyData} rfcTopologyData
    */
   constructor(rfcTopologyData) {
-    console.log('[RfcTopology.constructor] nw type = ', rfcTopologyData.types)
     const nwKey = 'ietf-network:networks' // alias
     super(rfcTopologyData[nwKey])
     /** @type {Array<AllRfcNetwork>} */
