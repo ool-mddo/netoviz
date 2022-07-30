@@ -3,6 +3,7 @@
  */
 import RfcModelBase from './base'
 import RfcL3Prefix from './node-attr-rfc-l3prefix.js'
+import MddoStaticRoute from './node-attr-mddo-static-route'
 import MddoOspfRedistribute from './node-attr-mddo-ospf-redistribute'
 
 /**
@@ -95,6 +96,7 @@ export class MddoL3NodeAttribute extends RfcModelBase {
    * @prop {string} nodeType
    * @prop {Array<string>} flag
    * @prop {Array<RfcL3Prefix>} prefix
+   * @prop {Array<MddoStaticRoute>} static_routes
    */
   /**
    * @param {MddoL3NodeAttributeData|MddoL3NodeAttribute} data - L3 node attribute data.
@@ -113,6 +115,9 @@ export class MddoL3NodeAttribute extends RfcModelBase {
     if (data.prefix) {
       this.prefix = data.prefix.map((d) => new RfcL3Prefix(d))
     }
+    /** @type {Array<MddoStaticroute>} */
+    const sr = data.static_routes || data['static-route'] || []
+    this.static_routes = sr.map((d) => new MddoStaticRoute(d))
   }
 
   /**
@@ -122,14 +127,22 @@ export class MddoL3NodeAttribute extends RfcModelBase {
    */
   toHtml() {
     const prefixList = this.prefix.map((d) => {
-      return ['<li>', d.toHtml(), '</li>'].join('')
+      return `<li>${d.toHtml()}</li>`
     })
+    const staticRoutes = this.static_routes.map((d) => {
+      return `<li>${d.toHtml()}</li>`
+    })
+
     return `
 <ul>
   <li><span class="attr">Node type: </span> ${this.nodeType}</li>
   <li><span class="attr">Flag:</span> ${this.flag}</li>
-  <li><span class="attr">prefix:</span></li>
-  <ul>${prefixList.join('')}</ul>
+  <li><span class="attr">Prefix:</span>
+    <ul>${prefixList.join('')}</ul>
+  </li>
+  <li><span class="attr">Static Route:</span>
+    <ul>${staticRoutes.join('')}</ul>
+  </li>
 </ul>
 `
   }
