@@ -2,7 +2,7 @@
  * @file Attribute class for layer3 prefix
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * L3 prefix class.

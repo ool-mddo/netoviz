@@ -2,8 +2,8 @@
  * @file Attribute class for MDDO layer1-3 term-point of topology model.
  */
 
-import RfcModelBase from './base'
-import MddoOspfTimer from './term-point-attr-mddo-ospf-timer.js'
+import RfcModelBase from '../base'
+import MddoOspfTimer from '../tp-attr/mddo-ospf-timer'
 
 /**
  * Attribute class for MDDO Layer1 term-point.

@@ -2,14 +2,14 @@
  * @file definition of MDDO L1-type network elements.
  */
 
-import RfcTermPoint from './term-point'
-import RfcNode from './node'
-import RfcLink from './link'
-import RfcNetwork from './network'
-import { MddoL1TermPointAttribute } from './term-point-attr-mddo.js'
-import { MddoL1NodeAttribute } from './node-attr-mddo'
-import { MddoL1LinkAttribute } from './link-attr-mddo'
-import { MddoL1NetworkAttribute } from './network-attr-mddo'
+import RfcTermPoint from '../term-point'
+import RfcNode from '../node'
+import RfcLink from '../link'
+import RfcNetwork from '../network'
+import { MddoL1TermPointAttribute } from '../tp-attr/mddo.js'
+import { MddoL1NodeAttribute } from '../node-attr/mddo'
+import { MddoL1LinkAttribute } from '../link-attr/mddo'
+import { MddoL1NetworkAttribute } from '../network-attr/mddo'
 
 /**
  * MDDO layer1 term-point of topology model.

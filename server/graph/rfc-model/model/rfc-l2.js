@@ -2,14 +2,14 @@
  * @file definition of L2-type network elements.
  */
 
-import RfcTermPoint from './term-point'
-import RfcNode from './node'
-import RfcLink from './link'
-import RfcNetwork from './network'
-import RfcL2TermPointAttribute from './term-point-attr-rfc-l2.js'
-import RfcL2NodeAttribute from './node-attr-rfc-l2.js'
-import RfcL2LinkAttribute from './link-attr-rfc-l2.js'
-import RfcL2NetworkAttribute from './network-attr-rfc-l2.js'
+import RfcTermPoint from '../term-point'
+import RfcNode from '../node'
+import RfcLink from '../link'
+import RfcNetwork from '../network'
+import RfcL2TermPointAttribute from '../tp-attr/rfc-l2'
+import RfcL2NodeAttribute from '../node-attr/rfc-l2'
+import RfcL2LinkAttribute from '../link-attr/rfc-l2'
+import RfcL2NetworkAttribute from '../network-attr/rfc-l2'
 
 /**
  * Layer2 term-point of topology model.

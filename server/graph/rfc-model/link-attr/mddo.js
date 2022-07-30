@@ -3,7 +3,7 @@
  * TODO: Link attribute details is not defined (TBA)
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * Attribute class for layer1 link.

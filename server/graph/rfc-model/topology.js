@@ -4,13 +4,13 @@
 
 import RfcModelBase from './base'
 import RfcNetwork from './network'
-import { RfcL2Network } from './model-rfc-l2'
-import { RfcL3Network } from './model-rfc-l3'
-import { OpsNetwork } from './model-ops'
-import { MddoL1Network } from './model-mddo-l1'
-import { MddoL2Network } from './model-mddo-l2'
-import { MddoL3Network } from './model-mddo-l3'
-import { MddoOspfAreaNetwork } from './model-mddo-ospf-area'
+import { RfcL2Network } from './model/rfc-l2'
+import { RfcL3Network } from './model/rfc-l3'
+import { OpsNetwork } from './model/ops'
+import { MddoL1Network } from './model/mddo-l1'
+import { MddoL2Network } from './model/mddo-l2'
+import { MddoL3Network } from './model/mddo-l3'
+import { MddoOspfAreaNetwork } from './model/mddo-ospf-area'
 
 /**
  * @typedef {

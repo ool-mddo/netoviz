@@ -2,7 +2,7 @@
  * @file Definition of aggregated node attribute.
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * Node attribute for aggregated node.

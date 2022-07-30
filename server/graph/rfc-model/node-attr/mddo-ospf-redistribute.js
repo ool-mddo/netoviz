@@ -2,7 +2,7 @@
  * @file Attribute class for ospf-area redistribute config
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * ospf redistribute config class

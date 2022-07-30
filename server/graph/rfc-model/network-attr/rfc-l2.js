@@ -2,7 +2,7 @@
  * @file Attribute class for layer2 network of topology model.
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * Attribute class for layer2 network.

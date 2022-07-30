@@ -2,14 +2,14 @@
  * @file definition of L3-type network elements.
  */
 
-import RfcTermPoint from './term-point'
-import RfcNode from './node'
-import RfcLink from './link'
-import RfcNetwork from './network'
-import { MddoL3TermPointAttribute } from './term-point-attr-mddo'
-import { MddoL3NodeAttribute } from './node-attr-mddo'
-import { MddoL3LinkAttribute } from './link-attr-mddo'
-import { MddoL3NetworkAttribute } from './network-attr-mddo'
+import RfcTermPoint from '../term-point'
+import RfcNode from '../node'
+import RfcLink from '../link'
+import RfcNetwork from '../network'
+import { MddoL3TermPointAttribute } from '../tp-attr/mddo'
+import { MddoL3NodeAttribute } from '../node-attr/mddo'
+import { MddoL3LinkAttribute } from '../link-attr/mddo'
+import { MddoL3NetworkAttribute } from '../network-attr/mddo'
 
 /**
  * MDDO layer3 term-point of topology model.

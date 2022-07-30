@@ -2,14 +2,14 @@
  * @file definition of ospf-area-type network elements.
  */
 
-import RfcTermPoint from './term-point'
-import RfcNode from './node'
-import RfcLink from './link'
-import RfcNetwork from './network'
-import { MddoOspfAreaTermPointAttribute } from './term-point-attr-mddo'
-import { MddoOspfAreaNodeAttribute } from './node-attr-mddo'
-import { MddoOspfAreaLinkAttribute } from './link-attr-mddo'
-import { MddoOspfAreaNetworkAttribute } from './network-attr-mddo'
+import RfcTermPoint from '../term-point'
+import RfcNode from '../node'
+import RfcLink from '../link'
+import RfcNetwork from '../network'
+import { MddoOspfAreaTermPointAttribute } from '../tp-attr/mddo'
+import { MddoOspfAreaNodeAttribute } from '../node-attr/mddo'
+import { MddoOspfAreaLinkAttribute } from '../link-attr/mddo'
+import { MddoOspfAreaNetworkAttribute } from '../network-attr/mddo'
 
 /**
  * MDDO ospf-area term-point of topology model.

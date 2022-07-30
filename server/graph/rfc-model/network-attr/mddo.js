@@ -2,7 +2,7 @@
  * @file Attribute class for layer1-3 network of MDDO topology model.
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * Attribute class for MDDO layer1 network.

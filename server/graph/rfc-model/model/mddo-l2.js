@@ -2,14 +2,14 @@
  * @file definition of MDDO L2-type network elements.
  */
 
-import RfcTermPoint from './term-point'
-import RfcNode from './node'
-import RfcLink from './link'
-import RfcNetwork from './network'
-import { MddoL2TermPointAttribute } from './term-point-attr-mddo'
-import { MddoL2NodeAttribute } from './node-attr-mddo'
-import { MddoL2LinkAttribute } from './link-attr-mddo'
-import { MddoL2NetworkAttribute } from './network-attr-mddo'
+import RfcTermPoint from '../term-point'
+import RfcNode from '../node'
+import RfcLink from '../link'
+import RfcNetwork from '../network'
+import { MddoL2TermPointAttribute } from '../tp-attr/mddo'
+import { MddoL2NodeAttribute } from '../node-attr/mddo'
+import { MddoL2LinkAttribute } from '../link-attr/mddo'
+import { MddoL2NetworkAttribute } from '../network-attr/mddo'
 
 /**
  * MDDO layer2 term-point of topology model.

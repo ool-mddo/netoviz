@@ -2,7 +2,7 @@
  * @file Attribute class for ospf-area static route config
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * layer3 static route config class

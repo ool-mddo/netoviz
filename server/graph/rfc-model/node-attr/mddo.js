@@ -1,10 +1,10 @@
 /**
  * @file Attribute class for MDDO layer1-3 node of topology model.
  */
-import RfcModelBase from './base'
-import RfcL3Prefix from './node-attr-rfc-l3prefix.js'
-import MddoStaticRoute from './node-attr-mddo-static-route'
-import MddoOspfRedistribute from './node-attr-mddo-ospf-redistribute'
+import RfcModelBase from '../base'
+import RfcL3Prefix from '../node-attr/rfc-l3prefix.js'
+import MddoStaticRoute from '../node-attr/mddo-static-route'
+import MddoOspfRedistribute from '../node-attr/mddo-ospf-redistribute'
 
 /**
  * Attribute class for MDDO layer1 node.

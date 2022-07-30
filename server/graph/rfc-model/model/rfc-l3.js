@@ -2,14 +2,14 @@
  * @file definition of L3-type network elements.
  */
 
-import RfcTermPoint from './term-point'
-import RfcNode from './node'
-import RfcLink from './link'
-import RfcNetwork from './network'
-import RfcL3TermPointAttribute from './term-point-attr-rfc-l3.js'
-import RfcL3NodeAttribute from './node-attr-rfc-l3.js'
-import RfcL3LinkAttribute from './link-attr-rfc-l3.js'
-import RfcL3NetworkAttribute from './network-attr-rfc-l3.js'
+import RfcTermPoint from '../term-point'
+import RfcNode from '../node'
+import RfcLink from '../link'
+import RfcNetwork from '../network'
+import RfcL3TermPointAttribute from '../tp-attr/rfc-l3'
+import RfcL3NodeAttribute from '../node-attr/rfc-l3'
+import RfcL3LinkAttribute from '../link-attr/rfc-l3'
+import RfcL3NetworkAttribute from '../network-attr/rfc-l3'
 
 /**
  * Layer3 term-point of topology model.

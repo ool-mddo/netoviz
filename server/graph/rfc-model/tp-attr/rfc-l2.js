@@ -2,7 +2,7 @@
  * @file Attribute class for layer2 term-point of topology model.
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * VLAN ID/Name class.

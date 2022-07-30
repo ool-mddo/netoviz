@@ -2,16 +2,16 @@
  * @file definition of L2-type network elements.
  */
 
-import RfcTermPoint from './term-point'
-import RfcNode from './node'
-import RfcLink from './link'
-import RfcNetwork from './network'
+import RfcTermPoint from '../term-point'
+import RfcNode from '../node'
+import RfcLink from '../link'
+import RfcNetwork from '../network'
 import {
   OpsTermPointAttribute,
   OpsNodeAttribute,
   OpsLinkAttribute,
   OpsNetworkAttribute
-} from './model-ops-attr.js'
+} from './ops-attr.js'
 
 /**
  * Ops term-point.

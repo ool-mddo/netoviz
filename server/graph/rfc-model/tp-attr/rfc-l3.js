@@ -1,7 +1,7 @@
 /**
  * @file Attribute class for layer3 term-point of topology model.
  */
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * Attribute class for layer3 node.

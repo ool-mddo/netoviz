@@ -2,7 +2,7 @@
  * @file Attribute class for ospf-area timer config
  */
 
-import RfcModelBase from './base'
+import RfcModelBase from '../base'
 
 /**
  * ospf timer config class
