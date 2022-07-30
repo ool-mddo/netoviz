@@ -38,6 +38,7 @@ class MddoL3Node extends RfcNode {
   constructor(data, nwPath, nwId, nodeNum) {
     super(data, nwPath, nwId, nodeNum)
     const attrKey = 'mddo-topology:l3-node-attributes' // alias
+    /** @type {MddoL3NodeAttribute} */
     this.attribute = new MddoL3NodeAttribute(data[attrKey] || {}) // avoid undefined
   }
 
@@ -77,6 +78,7 @@ export class MddoL3Network extends RfcNetwork {
   constructor(data, nwNum) {
     super(data, nwNum)
     const attrKey = 'mddo-topology:l3-topology-attributes'
+    /** @type {MddoL3NetworkAttribute} */
     this.attribute = new MddoL3NetworkAttribute(data[attrKey] || {}) // avoid undefined
   }
 

@@ -3,6 +3,7 @@
  */
 import RfcModelBase from './base'
 import RfcL3Prefix from './node-attr-rfc-l3prefix.js'
+import MddoOspfRedistribute from './node-attr-mddo-ospf-redistribute'
 
 /**
  * Attribute class for MDDO layer1 node.
@@ -129,6 +130,69 @@ export class MddoL3NodeAttribute extends RfcModelBase {
   <li><span class="attr">Flag:</span> ${this.flag}</li>
   <li><span class="attr">prefix:</span></li>
   <ul>${prefixList.join('')}</ul>
+</ul>
+`
+  }
+}
+
+/**
+ * Attribute class MDDO for ospf-area node (ospf-proc).
+ * @extends {RfcModelBase}
+ */
+export class MddoOspfAreaNodeAttribute extends RfcModelBase {
+  /**
+   * @typedef {Object} MddoOspfAreaNodeAttributeData
+   * @prop {string} nodeType
+   * @prop {string} routerId
+   * @prop {string} routerIdSource
+   * @prop {boolean} logAdjacencyChange
+   * @prop {Array<MddoOspRedistributeData>} redistribute
+   */
+  /**
+   * @param {MddoOspfAreaNodeAttributeData|MddoOspfAreaNodeAttribute} data - ospf-area node attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoOspfAreaNodeAttribute'
+
+    /** @type {string} */
+    this.nodeType = data.nodeType || data['node-type'] || ''
+    /** @type {string} */
+    this.routerId = data.routerId || data['router-id'] || ''
+    /** @type {string} */
+    this.routerIdSource = data.routerIdSource || data['router-id-source'] || ''
+    /** @type {boolean} */
+    this.logAdjacencyChange =
+      data.logAdjacencyChange || data['log-adjacency-change'] || false
+    /** @type {Array<MddoOspfRedistribute>} */
+    this.redistribute = data.redistribute.map(
+      (d) => new MddoOspfRedistribute(d)
+    )
+  }
+
+  /**
+   * Convert attribute to html string.
+   * @returns {string} HTML string of attribute.
+   * @public
+   */
+  toHtml() {
+    const redistributeList = this.redistribute.map((d) => {
+      return ['<li>', d.toHtml(), '</li>'].join('')
+    })
+
+    return `
+<ul>
+  <li><span class="attr">Node type: </span> ${this.nodeType}</li>
+  <li><span class="attr">Router ID: </span> ${this.routerId} (${
+      this.routerIdSource
+    })</li>
+  <li><span class="attr">Log adjacency change: </span> ${
+    this.logAdjacencyChange
+  }</li>
+  <li><span class="attr">Redistribute: </span>
+    <ul>${redistributeList.join('')}</ul>
+  </li>
 </ul>
 `
   }

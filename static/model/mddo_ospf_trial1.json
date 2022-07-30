@@ -1,0 +1,2356 @@
+{
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "ospf_area0",
+        "network-types": {
+          "mddo-topology:ospf-area-network": {
+          }
+        },
+        "node": [
+          {
+            "node-id": "rt1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "rt1",
+                    "tp-ref": "eth2"
+                  }
+                ],
+                "mddo-topology:ospf-area-termination-point-attributes": {
+                  "network-type": "",
+                  "priority": 10,
+                  "metric": 10,
+                  "passive": false,
+                  "timer": {
+                    "hello-interval": 10,
+                    "dead-interval": 40,
+                    "retransmission-interval": 5
+                  }
+                }
+              },
+              {
+                "tp-id": "eth3",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "rt1",
+                    "tp-ref": "eth2"
+                  }
+                ],
+                "mddo-topology:ospf-area-termination-point-attributes": {
+                  "network-type": "",
+                  "priority": 10,
+                  "metric": 20,
+                  "passive": false,
+                  "timer": {
+                    "hello-interval": 10,
+                    "dead-interval": 40,
+                    "retransmission-interval": 5
+                  }
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l3",
+                "node-ref": "rt1"
+              }
+            ],
+            "mddo-topology:ospf-area-node-attributes": {
+              "node-type": "ospf_proc",
+              "router-id": "172.16.0.1",
+              "router-id-source": "static",
+              "log-adjacency-change": true,
+              "redistribute": [
+                {
+                  "protocol": "connected",
+                  "metric-type": 2
+                },
+                {
+                  "protocol": "static",
+                  "metric-type": 2
+                }
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_10.0.0.0/30",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "rt1_eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "Seg_10.0.0.0/30",
+                    "tp-ref": "rt1_eth2"
+                  }
+                ]
+              },
+              {
+                "tp-id": "rt2_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "Seg_10.0.0.0/30",
+                    "tp-ref": "rt2_eth1"
+                  }
+                ],
+                "mddo-topology:ospf-area-termination-point-attributes": {
+                  "network-type": "",
+                  "priority": 1,
+                  "metric": 1,
+                  "passive": false,
+                  "timer": {
+                    "hello-interval": 10,
+                    "dead-interval": 40,
+                    "retransmission-interval": 5
+                  }
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l3",
+                "node-ref": "Seg_10.0.0.0/30"
+              }
+            ],
+            "mddo-topology:ospf-area-node-attributes": {
+              "node-type": "segment",
+              "router-id": "",
+              "router-id-source": "auto",
+              "log-adjacency-change": false,
+              "redistribute": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_10.0.1.0/30",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "rt1_eth3",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "Seg_10.0.1.0/30",
+                    "tp-ref": "rt1_eth3"
+                  }
+                ]
+              },
+              {
+                "tp-id": "rt3_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "Seg_10.0.1.0/30",
+                    "tp-ref": "rt3_eth1"
+                  }
+                ],
+                "mddo-topology:ospf-area-termination-point-attributes": {
+                  "network-type": "",
+                  "priority": 10,
+                  "metric": 1,
+                  "passive": false,
+                  "timer": {
+                    "hello-interval": 10,
+                    "dead-interval": 40,
+                    "retransmission-interval": 5
+                  }
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l3",
+                "node-ref": "Seg_10.0.1.0/30"
+              }
+            ],
+            "mddo-topology:ospf-area-node-attributes": {
+              "node-type": "segment",
+              "router-id": "",
+              "router-id-source": "auto",
+              "log-adjacency-change": false,
+              "redistribute": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "rt2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "rt2",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "rt2",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l3",
+                "node-ref": "rt2"
+              }
+            ],
+            "mddo-topology:ospf-area-node-attributes": {
+              "node-type": "ospf_proc",
+              "router-id": "172.16.0.2",
+              "router-id-source": "static",
+              "log-adjacency-change": true,
+              "redistribute": [
+                {
+                  "protocol": "connected",
+                  "metric-type": 2
+                }
+              ]
+            }
+          },
+          {
+            "node-id": "rt3",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "rt3",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "rt3",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l3",
+                "node-ref": "rt3"
+              }
+            ],
+            "mddo-topology:ospf-area-node-attributes": {
+              "node-type": "ospf_proc",
+              "router-id": "172.16.0.3",
+              "router-id-source": "static",
+              "log-adjacency-change": true,
+              "redistribute": [
+                {
+                  "protocol": "connected",
+                  "metric-type": 2
+                }
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_10.1.0.0/24",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "sw2_vlan_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "Seg_10.1.0.0/24",
+                    "tp-ref": "sw2_vlan_eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "sw2_vlan_eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "Seg_10.1.0.0/24",
+                    "tp-ref": "sw2_vlan_eth2"
+                  }
+                ]
+              },
+              {
+                "tp-id": "sw2_vlan_eth3",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "Seg_10.1.0.0/24",
+                    "tp-ref": "sw2_vlan_eth3"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l3",
+                "node-ref": "Seg_10.1.0.0/24"
+              }
+            ],
+            "mddo-topology:ospf-area-node-attributes": {
+              "node-type": "segment",
+              "router-id": "",
+              "router-id-source": "auto",
+              "log-adjacency-change": false,
+              "redistribute": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "rt4",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "rt4",
+                    "tp-ref": "eth1"
+                  }
+                ],
+                "mddo-topology:ospf-area-termination-point-attributes": {
+                  "network-type": "",
+                  "priority": 0,
+                  "metric": 1,
+                  "passive": false,
+                  "timer": {
+                    "hello-interval": 10,
+                    "dead-interval": 40,
+                    "retransmission-interval": 5
+                  }
+                }
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "rt4",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l3",
+                "node-ref": "rt4"
+              }
+            ],
+            "mddo-topology:ospf-area-node-attributes": {
+              "node-type": "ospf_proc",
+              "router-id": "172.16.0.4",
+              "router-id-source": "static",
+              "log-adjacency-change": true,
+              "redistribute": [
+                {
+                  "protocol": "connected",
+                  "metric-type": 2
+                }
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_192.168.0.0/24",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "sw3_vlan_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l3",
+                    "node-ref": "Seg_192.168.0.0/24",
+                    "tp-ref": "sw3_vlan_eth1"
+                  }
+                ],
+                "mddo-topology:ospf-area-termination-point-attributes": {
+                  "network-type": "",
+                  "priority": 10,
+                  "metric": 1,
+                  "passive": true,
+                  "timer": {
+                    "hello-interval": 10,
+                    "dead-interval": 40,
+                    "retransmission-interval": 5
+                  }
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l3",
+                "node-ref": "Seg_192.168.0.0/24"
+              }
+            ],
+            "mddo-topology:ospf-area-node-attributes": {
+              "node-type": "segment",
+              "router-id": "",
+              "router-id-source": "auto",
+              "log-adjacency-change": false,
+              "redistribute": [
+
+              ]
+            }
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "rt1,eth2,Seg_10.0.0.0/30,rt2_eth1",
+            "source": {
+              "source-node": "rt1",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "Seg_10.0.0.0/30",
+              "dest-tp": "rt2_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_10.0.0.0/30,rt2_eth1,rt1,eth2",
+            "source": {
+              "source-node": "Seg_10.0.0.0/30",
+              "source-tp": "rt2_eth1"
+            },
+            "destination": {
+              "dest-node": "rt1",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "Seg_10.0.0.0/30,rt1_eth2,rt2,eth1",
+            "source": {
+              "source-node": "Seg_10.0.0.0/30",
+              "source-tp": "rt1_eth2"
+            },
+            "destination": {
+              "dest-node": "rt2",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt2,eth1,Seg_10.0.0.0/30,rt1_eth2",
+            "source": {
+              "source-node": "rt2",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_10.0.0.0/30",
+              "dest-tp": "rt1_eth2"
+            }
+          },
+          {
+            "link-id": "rt1,eth3,Seg_10.0.1.0/30,rt3_eth1",
+            "source": {
+              "source-node": "rt1",
+              "source-tp": "eth3"
+            },
+            "destination": {
+              "dest-node": "Seg_10.0.1.0/30",
+              "dest-tp": "rt3_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_10.0.1.0/30,rt3_eth1,rt1,eth3",
+            "source": {
+              "source-node": "Seg_10.0.1.0/30",
+              "source-tp": "rt3_eth1"
+            },
+            "destination": {
+              "dest-node": "rt1",
+              "dest-tp": "eth3"
+            }
+          },
+          {
+            "link-id": "Seg_10.0.1.0/30,rt1_eth3,rt3,eth1",
+            "source": {
+              "source-node": "Seg_10.0.1.0/30",
+              "source-tp": "rt1_eth3"
+            },
+            "destination": {
+              "dest-node": "rt3",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt3,eth1,Seg_10.0.1.0/30,rt1_eth3",
+            "source": {
+              "source-node": "rt3",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_10.0.1.0/30",
+              "dest-tp": "rt1_eth3"
+            }
+          },
+          {
+            "link-id": "rt2,eth2,Seg_10.1.0.0/24,sw2_vlan_eth1",
+            "source": {
+              "source-node": "rt2",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "Seg_10.1.0.0/24",
+              "dest-tp": "sw2_vlan_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_10.1.0.0/24,sw2_vlan_eth1,rt2,eth2",
+            "source": {
+              "source-node": "Seg_10.1.0.0/24",
+              "source-tp": "sw2_vlan_eth1"
+            },
+            "destination": {
+              "dest-node": "rt2",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "rt3,eth2,Seg_10.1.0.0/24,sw2_vlan_eth2",
+            "source": {
+              "source-node": "rt3",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "Seg_10.1.0.0/24",
+              "dest-tp": "sw2_vlan_eth2"
+            }
+          },
+          {
+            "link-id": "Seg_10.1.0.0/24,sw2_vlan_eth2,rt3,eth2",
+            "source": {
+              "source-node": "Seg_10.1.0.0/24",
+              "source-tp": "sw2_vlan_eth2"
+            },
+            "destination": {
+              "dest-node": "rt3",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "Seg_10.1.0.0/24,sw2_vlan_eth3,rt4,eth1",
+            "source": {
+              "source-node": "Seg_10.1.0.0/24",
+              "source-tp": "sw2_vlan_eth3"
+            },
+            "destination": {
+              "dest-node": "rt4",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt4,eth1,Seg_10.1.0.0/24,sw2_vlan_eth3",
+            "source": {
+              "source-node": "rt4",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_10.1.0.0/24",
+              "dest-tp": "sw2_vlan_eth3"
+            }
+          },
+          {
+            "link-id": "rt4,eth2,Seg_192.168.0.0/24,sw3_vlan_eth1",
+            "source": {
+              "source-node": "rt4",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "Seg_192.168.0.0/24",
+              "dest-tp": "sw3_vlan_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_192.168.0.0/24,sw3_vlan_eth1,rt4,eth2",
+            "source": {
+              "source-node": "Seg_192.168.0.0/24",
+              "source-tp": "sw3_vlan_eth1"
+            },
+            "destination": {
+              "dest-node": "rt4",
+              "dest-tp": "eth2"
+            }
+          }
+        ],
+        "supporting-network": [
+          {
+            "network-ref": "ospf_trial_l3"
+          }
+        ],
+        "mddo-topology:ospf-area-network-attributes": {
+          "name": "",
+          "identifier": "0.0.0.0",
+          "flag": [
+
+          ]
+        }
+      },
+      {
+        "network-id": "ospf_trial_l3",
+        "network-types": {
+          "mddo-topology:l3-network": {
+          }
+        },
+        "node": [
+          {
+            "node-id": "svr1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "svr1_eth1",
+                    "tp-ref": "eth1"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "pseudo internet gateway",
+                  "ip-address": [
+                    "203.0.113.2/24"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "svr1_eth1"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "node",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_203.0.113.0/24",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "sw1_vlan_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "sw1_vlan",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "sw1_vlan_eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "sw1_vlan",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "svr1_eth1"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "sw1_vlan"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt1_eth1"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "segment",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "rt1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt1_eth1",
+                    "tp-ref": "eth1"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "pseudo internet",
+                  "ip-address": [
+                    "203.0.113.1/24"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt1_eth2",
+                    "tp-ref": "eth2"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "10.0.0.1/30"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              },
+              {
+                "tp-id": "eth3",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt1_eth2",
+                    "tp-ref": "eth2"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "10.0.1.1/30"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt1_eth1"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt1_eth2"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt1_eth3"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "node",
+              "prefix": [
+
+              ],
+              "static-route": [
+                {
+                  "prefix": "0.0.0.0/0",
+                  "next-hop": "203.0.113.2",
+                  "interface": "",
+                  "metric": 10,
+                  "preference": 1,
+                  "description": "default route"
+                }
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_10.0.0.0/30",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "rt1_eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt1_eth2",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              },
+              {
+                "tp-id": "rt2_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt2_eth1",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt1_eth2"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt2_eth1"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "segment",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_10.0.1.0/30",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "rt1_eth3",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt1_eth3",
+                    "tp-ref": "eth3"
+                  }
+                ]
+              },
+              {
+                "tp-id": "rt3_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt3_eth1",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt1_eth3"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt3_eth1"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "segment",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "rt2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt2_eth1",
+                    "tp-ref": "eth1"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "10.0.0.2/30"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt2_eth2",
+                    "tp-ref": "eth2"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "10.1.0.1/24"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt2_eth1"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt2_eth2"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "node",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "rt3",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt3_eth1",
+                    "tp-ref": "eth1"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "10.0.1.2/30"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt3_eth2",
+                    "tp-ref": "eth2"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "10.1.0.2/24"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt3_eth1"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt3_eth2"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "node",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_10.1.0.0/24",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "sw2_vlan_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "sw2_vlan",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "sw2_vlan_eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "sw2_vlan",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              },
+              {
+                "tp-id": "sw2_vlan_eth3",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "sw2_vlan",
+                    "tp-ref": "eth3"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt2_eth2"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt3_eth2"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "sw2_vlan"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt4_eth1"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "segment",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "rt4",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt4_eth1",
+                    "tp-ref": "eth1"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "10.1.0.3/24"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "rt4_eth2",
+                    "tp-ref": "eth2"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "192.168.0.1/24"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt4_eth1"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt4_eth2"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "node",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "Seg_192.168.0.0/24",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "sw3_vlan_eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "sw3_vlan",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "sw3_vlan_eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "sw3_vlan",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "rt4_eth2"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "sw3_vlan"
+              },
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "svr2_eth1"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "segment",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          },
+          {
+            "node-id": "svr2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l2",
+                    "node-ref": "svr2_eth1",
+                    "tp-ref": "eth1"
+                  }
+                ],
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "",
+                  "ip-address": [
+                    "192.168.0.2/24"
+                  ],
+                  "flag": [
+
+                  ]
+                }
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l2",
+                "node-ref": "svr2_eth1"
+              }
+            ],
+            "mddo-topology:l3-node-attributes": {
+              "node-type": "node",
+              "prefix": [
+
+              ],
+              "static-route": [
+
+              ],
+              "flag": [
+
+              ]
+            }
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "svr1,eth1,Seg_203.0.113.0/24,sw1_vlan_eth1",
+            "source": {
+              "source-node": "svr1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_203.0.113.0/24",
+              "dest-tp": "sw1_vlan_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_203.0.113.0/24,sw1_vlan_eth1,svr1,eth1",
+            "source": {
+              "source-node": "Seg_203.0.113.0/24",
+              "source-tp": "sw1_vlan_eth1"
+            },
+            "destination": {
+              "dest-node": "svr1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "Seg_203.0.113.0/24,sw1_vlan_eth2,rt1,eth1",
+            "source": {
+              "source-node": "Seg_203.0.113.0/24",
+              "source-tp": "sw1_vlan_eth2"
+            },
+            "destination": {
+              "dest-node": "rt1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt1,eth1,Seg_203.0.113.0/24,sw1_vlan_eth2",
+            "source": {
+              "source-node": "rt1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_203.0.113.0/24",
+              "dest-tp": "sw1_vlan_eth2"
+            }
+          },
+          {
+            "link-id": "rt1,eth2,Seg_10.0.0.0/30,rt2_eth1",
+            "source": {
+              "source-node": "rt1",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "Seg_10.0.0.0/30",
+              "dest-tp": "rt2_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_10.0.0.0/30,rt2_eth1,rt1,eth2",
+            "source": {
+              "source-node": "Seg_10.0.0.0/30",
+              "source-tp": "rt2_eth1"
+            },
+            "destination": {
+              "dest-node": "rt1",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "Seg_10.0.0.0/30,rt1_eth2,rt2,eth1",
+            "source": {
+              "source-node": "Seg_10.0.0.0/30",
+              "source-tp": "rt1_eth2"
+            },
+            "destination": {
+              "dest-node": "rt2",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt2,eth1,Seg_10.0.0.0/30,rt1_eth2",
+            "source": {
+              "source-node": "rt2",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_10.0.0.0/30",
+              "dest-tp": "rt1_eth2"
+            }
+          },
+          {
+            "link-id": "rt1,eth3,Seg_10.0.1.0/30,rt3_eth1",
+            "source": {
+              "source-node": "rt1",
+              "source-tp": "eth3"
+            },
+            "destination": {
+              "dest-node": "Seg_10.0.1.0/30",
+              "dest-tp": "rt3_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_10.0.1.0/30,rt3_eth1,rt1,eth3",
+            "source": {
+              "source-node": "Seg_10.0.1.0/30",
+              "source-tp": "rt3_eth1"
+            },
+            "destination": {
+              "dest-node": "rt1",
+              "dest-tp": "eth3"
+            }
+          },
+          {
+            "link-id": "Seg_10.0.1.0/30,rt1_eth3,rt3,eth1",
+            "source": {
+              "source-node": "Seg_10.0.1.0/30",
+              "source-tp": "rt1_eth3"
+            },
+            "destination": {
+              "dest-node": "rt3",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt3,eth1,Seg_10.0.1.0/30,rt1_eth3",
+            "source": {
+              "source-node": "rt3",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_10.0.1.0/30",
+              "dest-tp": "rt1_eth3"
+            }
+          },
+          {
+            "link-id": "rt2,eth2,Seg_10.1.0.0/24,sw2_vlan_eth1",
+            "source": {
+              "source-node": "rt2",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "Seg_10.1.0.0/24",
+              "dest-tp": "sw2_vlan_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_10.1.0.0/24,sw2_vlan_eth1,rt2,eth2",
+            "source": {
+              "source-node": "Seg_10.1.0.0/24",
+              "source-tp": "sw2_vlan_eth1"
+            },
+            "destination": {
+              "dest-node": "rt2",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "rt3,eth2,Seg_10.1.0.0/24,sw2_vlan_eth2",
+            "source": {
+              "source-node": "rt3",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "Seg_10.1.0.0/24",
+              "dest-tp": "sw2_vlan_eth2"
+            }
+          },
+          {
+            "link-id": "Seg_10.1.0.0/24,sw2_vlan_eth2,rt3,eth2",
+            "source": {
+              "source-node": "Seg_10.1.0.0/24",
+              "source-tp": "sw2_vlan_eth2"
+            },
+            "destination": {
+              "dest-node": "rt3",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "Seg_10.1.0.0/24,sw2_vlan_eth3,rt4,eth1",
+            "source": {
+              "source-node": "Seg_10.1.0.0/24",
+              "source-tp": "sw2_vlan_eth3"
+            },
+            "destination": {
+              "dest-node": "rt4",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt4,eth1,Seg_10.1.0.0/24,sw2_vlan_eth3",
+            "source": {
+              "source-node": "rt4",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_10.1.0.0/24",
+              "dest-tp": "sw2_vlan_eth3"
+            }
+          },
+          {
+            "link-id": "rt4,eth2,Seg_192.168.0.0/24,sw3_vlan_eth1",
+            "source": {
+              "source-node": "rt4",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "Seg_192.168.0.0/24",
+              "dest-tp": "sw3_vlan_eth1"
+            }
+          },
+          {
+            "link-id": "Seg_192.168.0.0/24,sw3_vlan_eth1,rt4,eth2",
+            "source": {
+              "source-node": "Seg_192.168.0.0/24",
+              "source-tp": "sw3_vlan_eth1"
+            },
+            "destination": {
+              "dest-node": "rt4",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "Seg_192.168.0.0/24,sw3_vlan_eth2,svr2,eth1",
+            "source": {
+              "source-node": "Seg_192.168.0.0/24",
+              "source-tp": "sw3_vlan_eth2"
+            },
+            "destination": {
+              "dest-node": "svr2",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "svr2,eth1,Seg_192.168.0.0/24,sw3_vlan_eth2",
+            "source": {
+              "source-node": "svr2",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "Seg_192.168.0.0/24",
+              "dest-tp": "sw3_vlan_eth2"
+            }
+          }
+        ],
+        "supporting-network": [
+          {
+            "network-ref": "ospf_trial_l2"
+          }
+        ]
+      },
+      {
+        "network-id": "ospf_trial_l2",
+        "network-types": {
+          "mddo-topology:l2-network": {
+          }
+        },
+        "node": [
+          {
+            "node-id": "svr1_eth1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "svr1",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "svr1"
+              }
+            ]
+          },
+          {
+            "node-id": "sw1_vlan",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "sw1",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "sw1",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "sw1"
+              }
+            ]
+          },
+          {
+            "node-id": "rt1_eth1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt1",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt1"
+              }
+            ]
+          },
+          {
+            "node-id": "rt1_eth2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt1",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt1"
+              }
+            ]
+          },
+          {
+            "node-id": "rt2_eth1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt2",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt2"
+              }
+            ]
+          },
+          {
+            "node-id": "rt1_eth3",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth3",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt1",
+                    "tp-ref": "eth3"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt1"
+              }
+            ]
+          },
+          {
+            "node-id": "rt3_eth1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt3",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt3"
+              }
+            ]
+          },
+          {
+            "node-id": "rt2_eth2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt2",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt2"
+              }
+            ]
+          },
+          {
+            "node-id": "rt3_eth2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt3",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt3"
+              }
+            ]
+          },
+          {
+            "node-id": "sw2_vlan",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "sw2",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "sw2",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              },
+              {
+                "tp-id": "eth3",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "sw2",
+                    "tp-ref": "eth3"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "sw2"
+              }
+            ]
+          },
+          {
+            "node-id": "rt4_eth1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt4",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt4"
+              }
+            ]
+          },
+          {
+            "node-id": "rt4_eth2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "rt4",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "rt4"
+              }
+            ]
+          },
+          {
+            "node-id": "sw3_vlan",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "sw2",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              },
+              {
+                "tp-id": "eth2",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "sw2",
+                    "tp-ref": "eth2"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "sw2"
+              }
+            ]
+          },
+          {
+            "node-id": "svr2_eth1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1",
+                "supporting-termination-point": [
+                  {
+                    "network-ref": "ospf_trial_l1",
+                    "node-ref": "svr2",
+                    "tp-ref": "eth1"
+                  }
+                ]
+              }
+            ],
+            "supporting-node": [
+              {
+                "network-ref": "ospf_trial_l1",
+                "node-ref": "svr2"
+              }
+            ]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "svr1_eth1,eth1,sw1_vlan,eth1",
+            "source": {
+              "source-node": "svr1_eth1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "sw1_vlan",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "sw1_vlan,eth1,svr1_eth1,eth1",
+            "source": {
+              "source-node": "sw1_vlan",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "svr1_eth1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "sw1_vlan,eth2,rt1_eth1,eth1",
+            "source": {
+              "source-node": "sw1_vlan",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "rt1_eth1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt1_eth1,eth1,sw1_vlan,eth2",
+            "source": {
+              "source-node": "rt1_eth1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "sw1_vlan",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "rt1_eth2,eth2,rt2_eth1,eth1",
+            "source": {
+              "source-node": "rt1_eth2",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "rt2_eth1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt2_eth1,eth1,rt1_eth2,eth2",
+            "source": {
+              "source-node": "rt2_eth1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "rt1_eth2",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "rt1_eth3,eth3,rt3_eth1,eth1",
+            "source": {
+              "source-node": "rt1_eth3",
+              "source-tp": "eth3"
+            },
+            "destination": {
+              "dest-node": "rt3_eth1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt3_eth1,eth1,rt1_eth3,eth3",
+            "source": {
+              "source-node": "rt3_eth1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "rt1_eth3",
+              "dest-tp": "eth3"
+            }
+          },
+          {
+            "link-id": "rt2_eth2,eth2,sw2_vlan,eth1",
+            "source": {
+              "source-node": "rt2_eth2",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "sw2_vlan",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "sw2_vlan,eth1,rt2_eth2,eth2",
+            "source": {
+              "source-node": "sw2_vlan",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "rt2_eth2",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "rt3_eth2,eth2,sw2_vlan,eth2",
+            "source": {
+              "source-node": "rt3_eth2",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "sw2_vlan",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "sw2_vlan,eth2,rt3_eth2,eth2",
+            "source": {
+              "source-node": "sw2_vlan",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "rt3_eth2",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "sw2_vlan,eth3,rt4_eth1,eth1",
+            "source": {
+              "source-node": "sw2_vlan",
+              "source-tp": "eth3"
+            },
+            "destination": {
+              "dest-node": "rt4_eth1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt4_eth1,eth1,sw2_vlan,eth3",
+            "source": {
+              "source-node": "rt4_eth1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "sw2_vlan",
+              "dest-tp": "eth3"
+            }
+          },
+          {
+            "link-id": "rt4_eth2,eth2,sw3_vlan,eth1",
+            "source": {
+              "source-node": "rt4_eth2",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "sw3_vlan",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "sw3_vlan,eth1,rt4_eth2,eth2",
+            "source": {
+              "source-node": "sw3_vlan",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "rt4_eth2",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "sw3_vlan,eth2,svr2_eth1,eth1",
+            "source": {
+              "source-node": "sw3_vlan",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "svr2_eth1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "svr2_eth1,eth1,sw3_vlan,eth2",
+            "source": {
+              "source-node": "svr2_eth1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "sw3_vlan",
+              "dest-tp": "eth2"
+            }
+          }
+        ],
+        "supporting-network": [
+          {
+            "network-ref": "ospf_trial_l1"
+          }
+        ]
+      },
+      {
+        "network-id": "ospf_trial_l1",
+        "network-types": {
+          "mddo-topology:l1-network": {
+          }
+        },
+        "node": [
+          {
+            "node-id": "svr1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              }
+            ]
+          },
+          {
+            "node-id": "sw1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              },
+              {
+                "tp-id": "eth2"
+              }
+            ]
+          },
+          {
+            "node-id": "rt1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              },
+              {
+                "tp-id": "eth2"
+              },
+              {
+                "tp-id": "eth3"
+              }
+            ]
+          },
+          {
+            "node-id": "rt2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              },
+              {
+                "tp-id": "eth2"
+              }
+            ]
+          },
+          {
+            "node-id": "rt3",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              },
+              {
+                "tp-id": "eth2"
+              }
+            ]
+          },
+          {
+            "node-id": "sw2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              },
+              {
+                "tp-id": "eth2"
+              },
+              {
+                "tp-id": "eth3"
+              }
+            ]
+          },
+          {
+            "node-id": "rt4",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              },
+              {
+                "tp-id": "eth2"
+              }
+            ]
+          },
+          {
+            "node-id": "sw3",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              },
+              {
+                "tp-id": "eth2"
+              }
+            ]
+          },
+          {
+            "node-id": "svr2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth1"
+              }
+            ]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "svr1,eth1,sw1,eth1",
+            "source": {
+              "source-node": "svr1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "sw1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "sw1,eth1,svr1,eth1",
+            "source": {
+              "source-node": "sw1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "svr1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "sw1,eth2,rt1,eth1",
+            "source": {
+              "source-node": "sw1",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "rt1",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt1,eth1,sw1,eth2",
+            "source": {
+              "source-node": "rt1",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "sw1",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "rt1,eth2,rt2,eth1",
+            "source": {
+              "source-node": "rt1",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "rt2",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt2,eth1,rt1,eth2",
+            "source": {
+              "source-node": "rt2",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "rt1",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "rt1,eth3,rt3,eth1",
+            "source": {
+              "source-node": "rt1",
+              "source-tp": "eth3"
+            },
+            "destination": {
+              "dest-node": "rt3",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt3,eth1,rt1,eth3",
+            "source": {
+              "source-node": "rt3",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "rt1",
+              "dest-tp": "eth3"
+            }
+          },
+          {
+            "link-id": "rt2,eth2,sw2,eth1",
+            "source": {
+              "source-node": "rt2",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "sw2",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "sw2,eth1,rt2,eth2",
+            "source": {
+              "source-node": "sw2",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "rt2",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "rt3,eth2,sw2,eth2",
+            "source": {
+              "source-node": "rt3",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "sw2",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "sw2,eth2,rt3,eth2",
+            "source": {
+              "source-node": "sw2",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "rt3",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "sw2,eth3,rt4,eth1",
+            "source": {
+              "source-node": "sw2",
+              "source-tp": "eth3"
+            },
+            "destination": {
+              "dest-node": "rt4",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "rt4,eth1,sw2,eth3",
+            "source": {
+              "source-node": "rt4",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "sw2",
+              "dest-tp": "eth3"
+            }
+          },
+          {
+            "link-id": "rt4,eth2,sw3,eth1",
+            "source": {
+              "source-node": "rt4",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "sw3",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "sw3,eth1,rt4,eth2",
+            "source": {
+              "source-node": "sw3",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "rt4",
+              "dest-tp": "eth2"
+            }
+          },
+          {
+            "link-id": "sw3,eth2,svr2,eth1",
+            "source": {
+              "source-node": "sw3",
+              "source-tp": "eth2"
+            },
+            "destination": {
+              "dest-node": "svr2",
+              "dest-tp": "eth1"
+            }
+          },
+          {
+            "link-id": "svr2,eth1,sw3,eth2",
+            "source": {
+              "source-node": "svr2",
+              "source-tp": "eth1"
+            },
+            "destination": {
+              "dest-node": "sw3",
+              "dest-tp": "eth2"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

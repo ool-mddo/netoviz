@@ -75,3 +75,30 @@ export class MddoL3NetworkAttribute extends RfcModelBase {
     this.flag = data.flag || []
   }
 }
+
+/**
+ * Attribute class for MDDO ospf-area network.
+ * @extends {RfcModelBase}
+ */
+export class MddoOspfAreaNetworkAttribute extends RfcModelBase {
+  /**
+   * @typedef {Object} MddoOspfAreaNetworkAttributeData
+   * @prop {string} name
+   * @prop {string} identifier
+   * @prop {Array<string>} flag
+   */
+  /**
+   * @param {MddoOspfAreaNetworkAttributeData|MddoOspfAreaNetworkAttribute} data - L3 network attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoOspfAreaNetworkAttribute'
+    /** @type {string} */
+    this.name = data.name || ''
+    /** @type {string} */
+    this.identifier = data.identifier || ''
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
+  }
+}

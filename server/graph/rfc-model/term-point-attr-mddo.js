@@ -3,6 +3,7 @@
  */
 
 import RfcModelBase from './base'
+import MddoOspfTimer from './term-point-attr-mddo-ospf-timer.js'
 
 /**
  * Attribute class for MDDO Layer1 term-point.
@@ -92,7 +93,6 @@ export class MddoL2TermPointAttribute extends RfcModelBase {
   }
 }
 
-
 /**
  * Attribute class for MDDO Layer3 term-point.
  * @extends {RfcModelBase}
@@ -132,6 +132,60 @@ export class MddoL3TermPointAttribute extends RfcModelBase {
   <li><span class="attr">Description:</span> ${this.description}</li>
   <li><span class="attr">IP Address:</span> ${this.ipAddress}</li>
   <li><span class="attr">Flag:</span> ${this.flag}</li>
+</ul>
+`
+  }
+}
+
+/**
+ * Attribute class for MDDO ospf-area term-point.
+ * @extends {RfcModelBase}
+ */
+export class MddoOspfAreaTermPointAttribute extends RfcModelBase {
+  /**
+   * @typedef {Object} MddoOspfAreaTermPointAttributeData
+   * @prop {string} networkType
+   * @prop {number} priority
+   * @prop {number} metric
+   * @prop {boolean} passive
+   * @prop {MddoOspfTimerData} timer
+   */
+  /**
+   * @param {MddoOspfAreaTermPointAttributeData|MddoOspfAreaTermPointAttribute} data - ospf-area term-point attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoOspfAreaTermPointAttribute'
+
+    /** @type {string} */
+    this.networkType = data.networkType || data['network-type'] || ''
+    /** @type {number} */
+    this.priority = data.priority || 10
+    /** @type {number} */
+    this.metric = data.metric || 1
+    /** @type {boolean} */
+    this.passive = data.passive || false
+    /** @type {MddoOspfTimer} */
+    this.timer = data.timer ? new MddoOspfTimer(data.timer) : new MddoOspfTimer({}) // default timer config
+  }
+
+  /**
+   * Convert attribute to html string.
+   * @see {TooltipCreator}
+   * @returns {string} HTML string of attribute.
+   * @public
+   */
+  toHtml() {
+    return `
+<ul>
+  <li><span class="attr">Network type:</span> ${this.networkType}</li>
+  <li><span class="attr">Priority:</span> ${this.priority}</li>
+  <li><span class="attr">Metric:</span> ${this.metric}</li>
+  <li><span class="attr">Passive:</span> ${this.passive}</li>
+  <li><span class="attr">Timer:</span>
+  ${this.timer.toHtml()}
+  </li>
 </ul>
 `
   }

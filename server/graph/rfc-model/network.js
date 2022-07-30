@@ -280,6 +280,15 @@ class RfcNetwork extends RfcModelBase {
     const nwMddoL3TypeKey = 'mddo-topology:l3-network' // alias
     return this.networkTypes.hasType(nwMddoL3TypeKey)
   }
+
+  /**
+   * Check network type is MDDO ospf-area
+   * @returns {Boolean}
+   */
+  isTypeMddoOspfArea() {
+    const nwMddoOspfAreatypeKey = 'mddo-topology:ospf-area-network' // alias
+    return this.networkTypes.hasType(nwMddoOspfAreatypeKey)
+  }
 }
 
 export default RfcNetwork

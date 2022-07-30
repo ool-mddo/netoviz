@@ -58,5 +58,9 @@
   {
     "file": "mddo_trial_pushed_conf.json",
     "label": "OOL-MDDO PJ Trial Target Network"
+  },
+  {
+    "file": "mddo_ospf_trial1.json",
+    "label": "OOL-MDDO PJ OSPF Model Trial"
   }
 ]
