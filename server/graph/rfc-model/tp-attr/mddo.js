@@ -192,10 +192,10 @@ export class MddoOspfAreaTermPointAttribute extends RfcModelBase {
   <li><span class="attr">Metric:</span> ${this.metric}</li>
   <li><span class="attr">Passive:</span> ${this.passive}</li>
   <li><span class="attr">Timer:</span>
-  ${this.timer.toHtml()}
+    ${this.timer.toHtml()}
   </li>
   <li><span class="attr">Neighbor:</span>
-    <ul>${this.neighbor.map((n) => n.toHtml())}</ul>
+    <ul>${this.neighbor.map((n) => n.toHtml()).join('')}</ul>
   </li>
 </ul>
 `
