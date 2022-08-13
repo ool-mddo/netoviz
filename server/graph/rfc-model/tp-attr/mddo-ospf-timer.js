@@ -16,7 +16,7 @@ class MddoOspfTimer extends RfcModelBase {
    * @prop {number} retransmissionInterval
    */
   /**
-   * @param {MddoOspfTimerData|MddoOspfTimer} data - ospf timer confi data for ospf-area term-point
+   * @param {MddoOspfTimerData|MddoOspfTimer} data - ospf timer config data for ospf-area term-point
    */
   constructor(data) {
     super(data)

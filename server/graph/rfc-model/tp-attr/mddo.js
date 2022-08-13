@@ -4,6 +4,7 @@
 
 import RfcModelBase from '../base'
 import MddoOspfTimer from '../tp-attr/mddo-ospf-timer'
+import MddoOspfNeighbor from '../tp-attr/mddo-ospf-neighbor'
 
 /**
  * Attribute class for MDDO Layer1 term-point.
@@ -149,6 +150,7 @@ export class MddoOspfAreaTermPointAttribute extends RfcModelBase {
    * @prop {number} metric
    * @prop {boolean} passive
    * @prop {MddoOspfTimerData} timer
+   * @prop {Array<MddoOspfNeighborData>} neighbor
    */
   /**
    * @param {MddoOspfAreaTermPointAttributeData|MddoOspfAreaTermPointAttribute} data - ospf-area term-point attribute data.
@@ -167,7 +169,13 @@ export class MddoOspfAreaTermPointAttribute extends RfcModelBase {
     /** @type {boolean} */
     this.passive = data.passive || false
     /** @type {MddoOspfTimer} */
-    this.timer = data.timer ? new MddoOspfTimer(data.timer) : new MddoOspfTimer({}) // default timer config
+    this.timer = data.timer
+      ? new MddoOspfTimer(data.timer)
+      : new MddoOspfTimer({}) // default timer config
+    /** @type {Array<MddoOspfNeighbor>} */
+    this.neighbor = data.neighbor
+      ? data.neighbor.map((n) => new MddoOspfNeighbor(n))
+      : []
   }
 
   /**
@@ -185,6 +193,9 @@ export class MddoOspfAreaTermPointAttribute extends RfcModelBase {
   <li><span class="attr">Passive:</span> ${this.passive}</li>
   <li><span class="attr">Timer:</span>
   ${this.timer.toHtml()}
+  </li>
+  <li><span class="attr">Neighbor:</span>
+    <ul>${this.neighbor.map((n) => n.toHtml())}</ul>
   </li>
 </ul>
 `

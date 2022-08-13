@@ -29,7 +29,13 @@
                     "hello-interval": 10,
                     "dead-interval": 40,
                     "retransmission-interval": 5
-                  }
+                  },
+                  "neighbor": [
+                    {
+                      "router-id": "172.16.0.2",
+                      "ip-address": "10.0.0.2"
+                    }
+                  ]
                 }
               },
               {
@@ -50,7 +56,13 @@
                     "hello-interval": 10,
                     "dead-interval": 40,
                     "retransmission-interval": 5
-                  }
+                  },
+                  "neighbor": [
+                    {
+                      "router-id": "172.16.0.3",
+                      "ip-address": "10.0.1.2"
+                    }
+                  ]
                 }
               }
             ],
@@ -108,7 +120,10 @@
                     "hello-interval": 10,
                     "dead-interval": 40,
                     "retransmission-interval": 5
-                  }
+                  },
+                  "neighbor": [
+
+                  ]
                 }
               }
             ],
@@ -159,7 +174,10 @@
                     "hello-interval": 10,
                     "dead-interval": 40,
                     "retransmission-interval": 5
-                  }
+                  },
+                  "neighbor": [
+
+                  ]
                 }
               }
             ],
@@ -336,7 +354,10 @@
                     "hello-interval": 10,
                     "dead-interval": 40,
                     "retransmission-interval": 5
-                  }
+                  },
+                  "neighbor": [
+
+                  ]
                 }
               },
               {
@@ -390,7 +411,10 @@
                     "hello-interval": 10,
                     "dead-interval": 40,
                     "retransmission-interval": 5
-                  }
+                  },
+                  "neighbor": [
+
+                  ]
                 }
               }
             ],
