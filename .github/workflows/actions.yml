@@ -1,4 +1,4 @@
-name: Build netomox image
+name: Build netoviz image
 
 on: push
 
