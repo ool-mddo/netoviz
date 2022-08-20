@@ -4,12 +4,19 @@
 
 import RfcModelBase from './base'
 import RfcNetwork from './network'
-import { RfcL2Network } from './elements-l2'
-import { RfcL3Network } from './elements-l3'
-import { OpsNetwork } from './elements-ops'
+import { RfcL2Network } from './model-rfc-l2'
+import { RfcL3Network } from './model-rfc-l3'
+import { OpsNetwork } from './model-ops'
+import { MddoL1Network } from './model-mddo-l1'
+import { MddoL2Network } from './model-mddo-l2'
+import { MddoL3Network } from './model-mddo-l3'
 
 /**
- * @typedef {RfcNetwork|RfcL2Network|RfcL3Network|OpsNetwork} AllRfcNetwork
+ * @typedef {
+ *   RfcNetwork|RfcL2Network|RfcL3Network|
+ *   OpsNetwork|
+ *   MddoL1Network|MddoL2Network|MddoL3Network
+ * } AllRfcNetwork
  */
 /**
  * Networks of topology model.
@@ -47,12 +54,18 @@ class RfcTopology extends RfcModelBase {
   newNetwork(data, nwNum) {
     const nw = new RfcNetwork(data, nwNum)
     // if network has augmented type, re-generate its type
-    if (nw.isTypeLayer3()) {
+    if (nw.isTypeRfcLayer3()) {
       return new RfcL3Network(data, nwNum)
-    } else if (nw.isTypeLayer2()) {
+    } else if (nw.isTypeRfcLayer2()) {
       return new RfcL2Network(data, nwNum)
     } else if (nw.isTypeOps()) {
       return new OpsNetwork(data, nwNum)
+    } else if (nw.isTypeMddoLayer1()) {
+      return new MddoL1Network(data, nwNum)
+    } else if (nw.isTypeMddoLayer2()) {
+      return new MddoL2Network(data, nwNum)
+    } else if (nw.isTypeMddoLayer3()) {
+      return new MddoL3Network(data, nwNum)
     }
     return nw
   }

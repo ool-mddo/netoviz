@@ -7,10 +7,18 @@ import RfcNode from './node'
 import RfcLink from './link'
 
 /**
- * @typedef {RfcNode|RfcL2Node|RfcL3Node|OpsNode} AllRfcNode
+ * @typedef {
+ *   RfcNode|RfcL2Node|RfcL3Node|
+ *   OpsNode|
+ *   MddoL1Node|MddoL2Node|MddoL3Node
+ * } AllRfcNode
  */
 /**
- * @typedef {RfcLink|RfcL2Link|RfcL3Link|OpsLink} AllRfcLink
+ * @typedef {
+ *   RfcLink|RfcL2Link|RfcL3Link|
+ *   OpsLink|
+ *   MddoL1Link|MddoL2Link|MddoL3Link
+ * } AllRfcLink
  */
 
 /**
@@ -218,28 +226,59 @@ class RfcNetwork extends RfcModelBase {
   }
 
   /**
-   * Check network type is L3.
+   * Check network type is L3 (rfc8345).
    * @returns {Boolean} True if L3.
    * @public
    */
-  isTypeLayer3() {
+  isTypeRfcLayer3() {
     const nwL3TypeKey = 'ietf-l3-unicast-topology:l3-unicast-topology' // alias
     return this.networkTypes.hasType(nwL3TypeKey)
   }
 
   /**
-   * Check network type is L2.
+   * Check network type is L2 (rfc).
    * @returns {Boolean} True if L2.
    * @public
    */
-  isTypeLayer2() {
+  isTypeRfcLayer2() {
     const nwL2TypeKey = 'ietf-l2-topology:l2-network' // alias
     return this.networkTypes.hasType(nwL2TypeKey)
   }
 
+  /**
+   * Check network type is Ops (experimental)
+   * @returns {Boolean}
+   */
   isTypeOps() {
     const nwOpsTypeKey = 'ops-topology:ops-network' // alias
     return this.networkTypes.hasType(nwOpsTypeKey)
+  }
+
+  /**
+   * Check network type is MDDO L1
+   * @returns {Boolean}
+   */
+  isTypeMddoLayer1() {
+    const nwMddoL1TypeKey = 'mddo-topology:l1-network' // alias
+    return this.networkTypes.hasType(nwMddoL1TypeKey)
+  }
+
+  /**
+   * Check network type is MDDO L2
+   * @returns {Boolean}
+   */
+  isTypeMddoLayer2() {
+    const nwMddoL2TypeKey = 'mddo-topology:l2-network' // alias
+    return this.networkTypes.hasType(nwMddoL2TypeKey)
+  }
+
+  /**
+   * Check network type is MDDO L3
+   * @returns {Boolean}
+   */
+  isTypeMddoLayer3() {
+    const nwMddoL3TypeKey = 'mddo-topology:l3-network' // alias
+    return this.networkTypes.hasType(nwMddoL3TypeKey)
   }
 }
 

@@ -11,7 +11,7 @@ import {
   OpsNodeAttribute,
   OpsLinkAttribute,
   OpsNetworkAttribute
-} from './elements-opsattr'
+} from './model-ops-attr.js'
 
 /**
  * Ops term-point.

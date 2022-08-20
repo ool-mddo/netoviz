@@ -6,10 +6,10 @@ import RfcTermPoint from './term-point'
 import RfcNode from './node'
 import RfcLink from './link'
 import RfcNetwork from './network'
-import RfcL3TermPointAttribute from './term-point-l3attr'
-import RfcL3NodeAttribute from './node-l3attr'
-import RfcL3LinkAttribute from './link-l3attr'
-import RfcL3NetworkAttribute from './network-l3attr'
+import RfcL3TermPointAttribute from './term-point-attr-rfc-l3.js'
+import RfcL3NodeAttribute from './node-attr-rfc-l3.js'
+import RfcL3LinkAttribute from './link-attr-rfc-l3.js'
+import RfcL3NetworkAttribute from './network-attr-rfc-l3.js'
 
 /**
  * Layer3 term-point of topology model.

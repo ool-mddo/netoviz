@@ -2,7 +2,7 @@
  * @file Definition of aggregated Node.
  */
 
-import AggregatedNodeAttribute from '../rfc-model/node-aggr-attr'
+import AggregatedNodeAttribute from '../rfc-model/node-attr-aggr.js'
 import DeepNestedNode from './deep-node'
 
 /**
