@@ -5,3 +5,4 @@ docker/
 fig/
 static/docs/
 static/*.cache
+node_modules/
