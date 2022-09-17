@@ -20,9 +20,9 @@ class MddoOspfNeighbor extends RfcModelBase {
   constructor(data) {
     super(data)
     /** @type {string} */
-    this.routerId = data.routerId || data['router-id'] || ''
+    this.routerId = data['router-id'] || data.routerId || ''
     /** @type {string} */
-    this.ipAddr = data.ipAddr || data['ip-address'] || ''
+    this.ipAddr = data['ip-address'] || data.ipAddr || ''
   }
 
   /**

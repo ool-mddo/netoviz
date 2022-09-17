@@ -21,11 +21,11 @@ class MddoOspfTimer extends RfcModelBase {
   constructor(data) {
     super(data)
     /** @type {number} */
-    this.helloIntereval = data.helloInterval || data['hello-interval'] || 10
+    this.helloInterval = data['hello-interval'] || data.helloInterval || 10
     /** @type {number} */
-    this.deadInterval = data.deadInterval || data['dead-interval'] || 40
+    this.deadInterval = data['dead-interval'] || data.deadInterval || 40
     /** @type {number} */
-    this.retransmissionInterval = data.retransmissionInterval || data['retransmission-interval'] || 5
+    this.retransmissionInterval = data['retransmission-interval'] || data.retransmissionInterval || 5
   }
 
   /**
@@ -36,7 +36,7 @@ class MddoOspfTimer extends RfcModelBase {
   toHtml() {
     return `
 <ul>
-  <li><span class="attr">Hello interval: </span> ${this.helloIntereval}</li>
+  <li><span class="attr">Hello interval: </span> ${this.helloInterval}</li>
   <li><span class="attr">Dead interval: </span> ${this.deadInterval}</li>
   <li><span class="attr">Retransmission interval: </span> ${this.retransmissionInterval}</li>
 </ul>

@@ -73,7 +73,7 @@ export class MddoL2TermPointAttribute extends RfcModelBase {
     /** @type {string} */
     this.encapsulation = data.encapsulation || ''
     /** @type {string} */
-    this.switchportMode = data.switchportMode || data['switchport-mode'] || ''
+    this.switchportMode = data['switchport-mode'] || data.switchportMode || ''
   }
 
   /**
@@ -161,7 +161,7 @@ export class MddoOspfAreaTermPointAttribute extends RfcModelBase {
     this.class = 'MddoOspfAreaTermPointAttribute'
 
     /** @type {string} */
-    this.networkType = data.networkType || data['network-type'] || ''
+    this.networkType = data['network-type'] || data.networkType || ''
     /** @type {number} */
     this.priority = data.priority || 10
     /** @type {number} */
