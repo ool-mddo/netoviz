@@ -27,24 +27,27 @@ apiRouter.use(express.json())
 
 // API to send all model-file data.
 apiRouter.get('/models', async (req, res) => {
-  console.log('[REST] models')
+  console.log('[REST] GET models')
   res.type('json')
   res.send(await restApi.getModels())
 })
 
 // API to receive graph-layout data. (in nested graph)
-apiRouter.post('/graph/:graphName/:jsonName', (req, res) => {
-  console.log('[REST] post graph layout')
+apiRouter.post('/graph/:network/:snapshot/:jsonName', (req, res) => {
+  console.log('[REST] POST graph layout')
   restApi.postGraphData(req)
   res.send(JSON.stringify({ message: 'layout data received.' }))
 })
 
 // API to send converted graph data. (for web frontend)
-apiRouter.get('/graph/:graphName/:jsonName', async (req, res) => {
-  console.log('[REST] graph')
-  res.type('json')
-  const p = req.params // alias
-  res.send(await restApi.getGraphData(p.graphName, p.jsonName, req))
+apiRouter.get(
+  '/graph/:graphName/:network/:snapshot/:jsonName',
+  async (req, res) => {
+    res.type('json')
+    const p = req.params // alias
+    const jsonFile = `${p.network}/${p.snapshot}/${p.jsonName}`
+    console.log(`[REST] graph=${p.graphName}, file=${jsonFile}`)
+    res.send(await restApi.getGraphData(p.graphName, jsonFile, req))
 })
 
 export default apiRouter

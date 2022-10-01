@@ -1,8 +1,7 @@
 <template>
   <VisualizeDiagram
     v-bind:model-file="modelFile"
-    v-bind:visualizer="visualizer"
-  />
+    v-bind:visualizer="visualizer" />
 </template>
 
 <script>
@@ -19,10 +18,11 @@ export default {
   },
   computed: {
     visualizer() {
-      return this.$nuxt.$route.params.visualizer
+      return this.$nuxt.$route.query.visualizer || 'forceSimulation'
     },
     modelFile() {
-      return this.$nuxt.$route.params.modelFile
+      const prm = this.$nuxt.$route.params // alias
+      return `${prm.network}/${prm.snapshot}/${prm.modelFile}`
     }
   }
 }
