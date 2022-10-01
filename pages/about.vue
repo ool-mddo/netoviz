@@ -6,8 +6,7 @@
         v-for="(link, index) in links"
         v-bind:key="index"
         v-bind:href="link.href"
-        target="_blank"
-      >
+        target="_blank">
         <v-list-item-icon>
           <v-icon v-text="link.icon" />
         </v-list-item-icon>

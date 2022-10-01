@@ -10,8 +10,7 @@
           <v-list-item
             v-for="(vizData, index) in visualizerData"
             v-bind:key="index"
-            v-bind:to="vizData.link"
-          >
+            v-bind:to="vizData.link">
             <v-list-item-content>
               {{ vizData.text }}
             </v-list-item-content>

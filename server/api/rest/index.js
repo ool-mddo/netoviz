@@ -49,6 +49,7 @@ apiRouter.get(
     const jsonFile = `${p.network}/${ssUrlDec}/${p.jsonName}`
     console.log(`[REST] graph=${p.graphName}, file=${jsonFile}`)
     res.send(await restApi.getGraphData(p.graphName, jsonFile, req))
-})
+  }
+)
 
 export default apiRouter
