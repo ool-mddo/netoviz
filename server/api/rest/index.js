@@ -45,7 +45,8 @@ apiRouter.get(
   async (req, res) => {
     res.type('json')
     const p = req.params // alias
-    const jsonFile = `${p.network}/${p.snapshot}/${p.jsonName}`
+    const ssUrlDec = p.snapshot.replace('__', '/') // decode multiple depth snapshot string
+    const jsonFile = `${p.network}/${ssUrlDec}/${p.jsonName}`
     console.log(`[REST] graph=${p.graphName}, file=${jsonFile}`)
     res.send(await restApi.getGraphData(p.graphName, jsonFile, req))
 })

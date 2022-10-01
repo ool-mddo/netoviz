@@ -84,17 +84,16 @@ export default {
     table_body_rows() {
       const rows = []
       for (const modelFile of this.modelFiles) {
-        const filePath = `${modelFile.network}/${modelFile.snapshot}/${modelFile.file}`
         const item = {
           network: {
             text: modelFile.network,
             value: modelFile.network,
-            link: null // `model/${modelFile.network}/snapshots`
+            link: null
           },
           snapshot: {
             text: modelFile.snapshot,
             value: modelFile.snapshot,
-            link: null // `model/${modelFile.network}/${modelFile.snapshot}/files`
+            link: null
           },
           model: {
             text: modelFile.label,
@@ -102,6 +101,10 @@ export default {
             link: null
           }
         }
+
+        // encode multiple-depth snapshot as single path
+        const ssUrlEnc = modelFile.snapshot.replace('/', '__')
+        const filePath = `${modelFile.network}/${ssUrlEnc}/${modelFile.file}`
         for (const visualizer of this.visualizers) {
           item[visualizer.value] = {
             text: visualizer.text,

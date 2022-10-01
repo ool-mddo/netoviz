@@ -82,7 +82,9 @@ export default {
     },
     validModelFile() {
       return this.modelFiles.find(
-        (m) => [m.network, m.snapshot, m.file].join('/') === this.modelFile
+        (m) =>
+          [m.network, m.snapshot.replace('/', '__'), m.file].join('/') ===
+          this.modelFile
       )
     }
   }
