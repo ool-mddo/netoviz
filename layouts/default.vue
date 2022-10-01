@@ -24,7 +24,6 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import grpcClient from '../lib/grpc-client'
 import AppAPICommon from '~/components/AppAPICommon'
 import AppBarLinkSource from '~/components/AppBarLinkSource'
 import AppBreadcrumbs from '~/components/AppBreadcrumbs'
@@ -49,19 +48,9 @@ export default {
     ...mapMutations(['setModelFiles']),
     async updateModelFiles() {
       try {
-        if (this.apiParam.use === 'grpc') {
-          const response = await grpcClient(
-            this.apiParam.grpcURIBase
-          ).getModels()
-          const modelFiles = JSON.parse(response.getJson())
-          this.setModelFiles(Object.freeze(modelFiles))
-        } else {
-          const response = await fetch(
-            this.apiParam.restURIBase + '/api/models'
-          )
-          const modelFiles = await response.json()
-          this.setModelFiles(Object.freeze(modelFiles))
-        }
+        const response = await fetch(this.apiParam.restURIBase + '/api/models')
+        const modelFiles = await response.json()
+        this.setModelFiles(Object.freeze(modelFiles))
       } catch (error) {
         console.log('[SelectModel] Cannot get models data: ', error)
       }

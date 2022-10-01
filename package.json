@@ -17,7 +17,6 @@
     "lint:fix": "eslint --ext .js,.mjs,.vue --ignore-path .gitignore --fix .",
     "doc": "jsdoc --configure .jsdocrc.json --readme README.md --package package.json",
     "fig": "./bin/gen_fig.rb > fig/classes_js.plantuml && PLANTUML_LIMIT_SIZE=8192 plantuml fig/classes_js.plantuml",
-    "protoc": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. ./server/api/grpc/topology-data.proto",
     "docker-build": "docker build -t netoviz/allinone ."
   },
   "dependencies": {
@@ -37,8 +36,6 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "google-protobuf": "^3.21.0",
-    "grpc": "^1.24.7",
-    "grpc-web": "^1.3.1",
     "localStorage": "^1.0.4",
     "nuxt": "^2.15.8",
     "nuxt-env": "^0.1.0"
