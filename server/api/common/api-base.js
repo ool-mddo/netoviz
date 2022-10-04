@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import { promisify } from 'util'
 import { splitAlertHost } from './alert-util'
 import CacheRfcTopologyDataConverter from './cache-topo-graph-converter'
@@ -55,8 +56,9 @@ class APIBase {
    */
   async readLayoutJSON(jsonName) {
     try {
-      const baseName = jsonName.split('.').shift()
-      const layoutJsonName = `${this.modelDir}/${baseName}-layout.json`
+      // jsonName = <network>/<snapshot>/<file>.json style path
+      const dirName = path.dirname(jsonName)
+      const layoutJsonName = path.join(this.modelDir, dirName, 'layout.json')
       const buffer = await asyncReadFile(layoutJsonName)
       return JSON.parse(buffer.toString())
     } catch (error) {
