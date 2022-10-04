@@ -11,6 +11,7 @@
  */
 
 import fs from 'fs'
+import path from 'path'
 import { promisify } from 'util'
 import _toDependencyTopologyData from '../../graph/dependency'
 import _toNestedTopologyData from '../../graph/nested'
@@ -168,16 +169,19 @@ class RESTIntegrator extends APIBase {
   async postGraphData(req) {
     const layoutData = req.body
     const graphName = req.params.graphName // TODO: 404 if graphName != nested
+    const network = req.params.network
+    // snapshot will be multiple depth
+    const snapshot = path.join(...req.params.snapshot.split('__'))
     const jsonName = req.params.jsonName
     const reverse = this._boolString2Bool(req.query.reverse)
 
     console.log(
-      `receive ${graphName}/${jsonName}?reverse=${reverse}): `,
+      `receive ${graphName}/${network}/${snapshot}/${jsonName}?reverse=${reverse}): `,
       layoutData
     )
 
-    const layoutJsonName = `${jsonName.split('.').shift()}-layout.json`
-    const layoutJsonPath = `${this.modelDir}/${layoutJsonName}`
+    const layoutJsonName = path.join(network, snapshot, 'layout.json')
+    const layoutJsonPath = path.join(this.modelDir, layoutJsonName)
     const cacheLayoutJsonPath = layoutJsonPath // overwrite
 
     const buffer = await asyncReadFile(layoutJsonPath)

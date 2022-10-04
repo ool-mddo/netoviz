@@ -33,7 +33,7 @@ apiRouter.get('/models', async (req, res) => {
 })
 
 // API to receive graph-layout data. (in nested graph)
-apiRouter.post('/graph/:network/:snapshot/:jsonName', (req, res) => {
+apiRouter.post('/graph/:graphName/:network/:snapshot/:jsonName', (req, res) => {
   console.log('[REST] POST graph layout')
   restApi.postGraphData(req)
   res.send(JSON.stringify({ message: 'layout data received.' }))
