@@ -2,14 +2,14 @@
  * @file Definition of aggregated node attribute.
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * Node attribute for aggregated node.
  * @see {AggregatedNestedNode}
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class AggregatedNodeAttribute extends RfcModelBase {
+class AggregatedNodeAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} AggregatedNodePath
    * @prop {string} name

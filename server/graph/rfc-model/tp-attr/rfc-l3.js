@@ -1,13 +1,13 @@
 /**
  * @file Attribute class for layer3 term-point of topology model.
  */
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * Attribute class for layer3 node.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class RfcL3TermPointAttribute extends RfcModelBase {
+class RfcL3TermPointAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} RfcL3TermPointAttributeData
    * @prop {Array<string>} ip-address

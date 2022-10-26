@@ -2,13 +2,13 @@
  * @file Attribute class for layer3 prefix
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * L3 prefix class.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class RfcL3Prefix extends RfcModelBase {
+class RfcL3Prefix extends RfcAttributeModelBase {
   /**
    * @typedef {Object} RfcL3NodePrefixData
    * @prop {string} prefix
@@ -30,14 +30,16 @@ class RfcL3Prefix extends RfcModelBase {
 
   /**
    * Convert attribute to html string.
+   * @param {Array<DiffElement>} diffElements
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(diffElements) {
+    super.toHtml(diffElements)
     return `
-<span class="attr">Prefix:</span> ${this.prefix},
-<span class="attr">Metric:</span> ${this.metric},
-<span class="attr">Flag:</span> ${this.flag}
+${this._toHtmlKeyValue('prefix', 'Prefix')},
+${this._toHtmlKeyValue('metric', 'Metric')},
+${this._toHtmlKeyValue('flag', 'Flag')}
 `
   }
 }

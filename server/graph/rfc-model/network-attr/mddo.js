@@ -2,13 +2,13 @@
  * @file Attribute class for layer1-3 network of MDDO topology model.
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * Attribute class for MDDO layer1 network.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL1NetworkAttribute extends RfcModelBase {
+export class MddoL1NetworkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL1NetworkAttributeData
    * @prop {string} name
@@ -30,9 +30,9 @@ export class MddoL1NetworkAttribute extends RfcModelBase {
 
 /**
  * Attribute class for MDDO layer2 network.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL2NetworkAttribute extends RfcModelBase {
+export class MddoL2NetworkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL2NetworkAttributeData
    * @prop {string} name
@@ -54,9 +54,9 @@ export class MddoL2NetworkAttribute extends RfcModelBase {
 
 /**
  * Attribute class for MDDO layer3 network.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL3NetworkAttribute extends RfcModelBase {
+export class MddoL3NetworkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL3NetworkAttributeData
    * @prop {string} name
@@ -78,9 +78,9 @@ export class MddoL3NetworkAttribute extends RfcModelBase {
 
 /**
  * Attribute class for MDDO ospf-area network.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoOspfAreaNetworkAttribute extends RfcModelBase {
+export class MddoOspfAreaNetworkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoOspfAreaNetworkAttributeData
    * @prop {string} name

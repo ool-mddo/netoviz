@@ -7,7 +7,8 @@
         v-bind:items-per-page="20"
         caption="Select model/visualizer"
         dense
-        hide-default-header>
+        hide-default-header
+      >
         <template v-slot:header="{ props }">
           <thead class="v-data-table-header">
             <tr>
@@ -28,7 +29,8 @@
           <tr>
             <td
               v-for="(col, index) in Object.keys(props.item)"
-              v-bind:key="index">
+              v-bind:key="index"
+            >
               <div v-if="props.item[col].link">
                 <router-link v-bind:to="props.item[col].link">
                   {{ props.item[col].text }}

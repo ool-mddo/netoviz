@@ -2,13 +2,13 @@
  * @file Attribute class for ospf-area timer config
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * ospf timer config class
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class MddoOspfTimer extends RfcModelBase {
+class MddoOspfTimer extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoOspfTimerData
    * @prop {number} helloInterval
@@ -16,9 +16,10 @@ class MddoOspfTimer extends RfcModelBase {
    * @prop {number} retransmissionInterval
    */
   /**
-   * @param {MddoOspfTimerData|MddoOspfTimer} data - ospf timer config data for ospf-area term-point
+   * @param {MddoOspfTimerData|MddoOspfTimer} [optData] - ospf timer config data for ospf-area term-point (optional)
    */
-  constructor(data) {
+  constructor(optData) {
+    const data = !optData ? {} : optData
     super(data)
     /** @type {number} */
     this.helloInterval = data['hello-interval'] || data.helloInterval || 10
@@ -31,15 +32,20 @@ class MddoOspfTimer extends RfcModelBase {
 
   /**
    * Convert attribute to html string
+   * @param {Array<DiffElement>} diffElements
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(diffElements) {
+    super.toHtml(diffElements)
     return `
 <ul>
-  <li><span class="attr">Hello interval: </span> ${this.helloInterval}</li>
-  <li><span class="attr">Dead interval: </span> ${this.deadInterval}</li>
-  <li><span class="attr">Retransmission interval: </span> ${this.retransmissionInterval}</li>
+  <li>${this._toHtmlKeyValue('helloInterval', 'Hello interval')}</li>
+  <li>${this._toHtmlKeyValue('deadInterval', 'Dead Interval')}</li>
+  <li>${this._toHtmlKeyValue(
+    'retransmissionInterval',
+    'Retransmission Interval'
+  )}</li>
 </ul>
 `
   }

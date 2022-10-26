@@ -29,7 +29,8 @@
           label="Base depth"
           type="number"
           min="1"
-          v-on:input="drawRfcTopologyData()" />
+          v-on:input="drawRfcTopologyData()"
+        />
       </v-col>
       <v-col>
         <v-btn rounded color="info" v-on:click="saveLayout()">

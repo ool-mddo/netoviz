@@ -2,13 +2,13 @@
  * @file Attribute class for ospf-area redistribute config
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * ospf redistribute config class
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class MddoOspfRedistribute extends RfcModelBase {
+class MddoOspfRedistribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoOspfRedistributeData
    * @prop {string} protocol static or connected
@@ -27,13 +27,15 @@ class MddoOspfRedistribute extends RfcModelBase {
 
   /**
    * Convert attribute to html string
+   * @param {Array<DiffElement>} diffElements
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(diffElements) {
+    super.toHtml(diffElements)
     return `
-<span class="attr">Protocol: </span> ${this.protocol},
-<span class="attr">Metric Type: </span> ${this.metricType}
+${this._toHtmlKeyValue('protocol', 'Protocol')},
+${this._toHtmlKeyValue('metricType', 'Metric Type')}
 `
   }
 }

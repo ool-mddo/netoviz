@@ -2,13 +2,13 @@
  * @file Attribute class for layer3 network of topology model.
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * Attribute class for layer3 network.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class RfcL3NetworkAttribute extends RfcModelBase {
+class RfcL3NetworkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} RfcL3NetworkAttributeData
    * @prop {string} name

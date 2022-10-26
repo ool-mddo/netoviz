@@ -1,13 +1,13 @@
 /**
  * @file Attribute class for layer2 node of topology model.
  */
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * Attribute class for layer2 node.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class RfcL2NodeAttribute extends RfcModelBase {
+class RfcL2NodeAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} RfcL2NodeAttributeData
    * @prop {string} name

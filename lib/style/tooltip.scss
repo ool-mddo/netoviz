@@ -52,7 +52,7 @@ div.tooltip {
 }
 
 div.tooltip a {
-  color: lightskyblue;
+  color: orchid;
   &:hover {
     font-weight: bold;
     text-decoration: underline;
@@ -60,6 +60,28 @@ div.tooltip a {
 }
 
 // styles for common text
-.attr {
-  color: lightgreen;
+.attr-key {
+  color: azure;
+  font-weight: bold;
+  &.added {
+    color: lightgreen;
+  }
+  &.deleted {
+    color: lightcoral;
+  }
+  &.changed {
+    color: gold;
+  }
+}
+.attr-val {
+  color: ghostwhite;
+  &.added {
+    color: lightgreen;
+  }
+  &.deleted {
+    color: lightcoral;
+  }
+  &.changed {
+    color: gold;
+  }
 }

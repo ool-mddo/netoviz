@@ -24,10 +24,11 @@ class RfcModelBase extends BaseContainer {
    * @private
    */
   _constructDiffState(data) {
-    const dsKey = '_diff_state_' // alias
-    if (data && dsKey in data) {
+    const dsKey1 = '_diff_state_'
+    const dsKey2 = 'diffState'
+    if (data && (dsKey1 in data || dsKey2 in data)) {
       /** @type {DiffState} */
-      this.diffState = new DiffState(data[dsKey])
+      this.diffState = new DiffState(data[dsKey1] || data[dsKey2])
     } else {
       /** @type {DiffState} */
       this.diffState = new DiffState({}) // empty diff state

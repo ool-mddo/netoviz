@@ -2,13 +2,13 @@
  * @file Attribute class for layer2 term-point of topology model.
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * VLAN ID/Name class.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class RfcL2VlanIdName extends RfcModelBase {
+class RfcL2VlanIdName extends RfcAttributeModelBase {
   /**
    * @typedef {Object} RfcL2TermPointVlanIdNameData
    * @prop {number} vlan-id
@@ -41,9 +41,9 @@ class RfcL2VlanIdName extends RfcModelBase {
 /**
  * Attribute class for Layer2 term-point.
  * (NOTICE: This is an attribute for attribute-type:VLAN)
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class RfcL2TermPointAttribute extends RfcModelBase {
+class RfcL2TermPointAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} RfcL2TermPointAttributeData
    * @prop {string} description

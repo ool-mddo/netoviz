@@ -1,16 +1,16 @@
 /**
  * @file Attribute class for MDDO layer1-3 node of topology model.
  */
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 import RfcL3Prefix from '../node-attr/rfc-l3prefix.js'
 import MddoStaticRoute from '../node-attr/mddo-static-route'
 import MddoOspfRedistribute from '../node-attr/mddo-ospf-redistribute'
 
 /**
  * Attribute class for MDDO layer1 node.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL1NodeAttribute extends RfcModelBase {
+export class MddoL1NodeAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL1NodeAttributeData
    * @prop {string} osType
@@ -35,21 +35,21 @@ export class MddoL1NodeAttribute extends RfcModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(_diffElements) {
     return `
 <ul>
-  <li><span class="attr">OS Type:</span> ${this.osType}</li>
-  <li><span class="attr">Flag:</span> ${this.flag}</li>
- </ul>
+  <li>${this._toHtmlKeyValue('osType', 'OS Type')}
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}
+</ul>
 `
   }
 }
 
 /**
  * Attribute class for MDDO layer2 node.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL2NodeAttribute extends RfcModelBase {
+export class MddoL2NodeAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL2NodeAttributeData
    * @prop {string} name
@@ -76,27 +76,27 @@ export class MddoL2NodeAttribute extends RfcModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(_diffElements) {
     return `
 <ul>
-  <li><span class="attr">Name:</span> ${this.name}</li>
-  <li><span class="attr">VLAN ID:</span> ${this.vlanId}</li>
-  <li><span class="attr">Flag:</span> ${this.flag}</li>
+  <li>${this._toHtmlKeyValue('name', 'Name')}
+  <li>${this._toHtmlKeyValue('vlanId', 'VLAN ID')}
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}
 </ul>`
   }
 }
 
 /**
  * Attribute class MDDO for layer3 node.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL3NodeAttribute extends RfcModelBase {
+export class MddoL3NodeAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL3NodeAttributeData
    * @prop {string} nodeType
    * @prop {Array<string>} flag
    * @prop {Array<RfcL3Prefix>} prefix
-   * @prop {Array<MddoStaticRoute>} static_routes
+   * @prop {Array<MddoStaticRoute>} staticRoute
    */
   /**
    * @param {MddoL3NodeAttributeData|MddoL3NodeAttribute} data - L3 node attribute data.
@@ -115,9 +115,9 @@ export class MddoL3NodeAttribute extends RfcModelBase {
     if (data.prefix) {
       this.prefix = data.prefix.map((d) => new RfcL3Prefix(d))
     }
-    /** @type {Array<MddoStaticroute>} */
-    const sr = data.static_routes || data['static-route'] || []
-    this.static_routes = sr.map((d) => new MddoStaticRoute(d))
+    /** @type {Array<MddoStaticRoute>} */
+    const sr = data.staticRoute || data['static-route'] || []
+    this.staticRoute = sr.map((d) => new MddoStaticRoute(d))
   }
 
   /**
@@ -125,23 +125,29 @@ export class MddoL3NodeAttribute extends RfcModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
-    const prefixList = this.prefix.map((d) => {
-      return `<li>${d.toHtml()}</li>`
+  toHtml(_diffElement) {
+    const prefixList = this.prefix.map((d, index) => {
+      return `
+<li>${d.toHtml(this?.diffState.diffDataForObjectArray('prefix', index))}</li>
+`
     })
-    const staticRoutes = this.static_routes.map((d) => {
-      return `<li>${d.toHtml()}</li>`
+    const staticRouteList = this.staticRoute.map((d, index) => {
+      return `
+<li>${d.toHtml(
+        this?.diffState.diffDataForObjectArray('staticRoute', index)
+      )}</li>
+`
     })
 
     return `
 <ul>
-  <li><span class="attr">Node type: </span> ${this.nodeType}</li>
-  <li><span class="attr">Flag:</span> ${this.flag}</li>
-  <li><span class="attr">Prefix:</span>
+  <li>${this._toHtmlKeyValue('nodeType', 'Node Type')}
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}
+  <li>${this._toHtmlDefaultAttrKey('Prefix')}
     <ul>${prefixList.join('')}</ul>
   </li>
-  <li><span class="attr">Static Route:</span>
-    <ul>${staticRoutes.join('')}</ul>
+  <li>${this._toHtmlDefaultAttrKey('Static Route')}
+    <ul>${staticRouteList.join('')}</ul>
   </li>
 </ul>
 `
@@ -150,9 +156,9 @@ export class MddoL3NodeAttribute extends RfcModelBase {
 
 /**
  * Attribute class MDDO for ospf-area node (ospf-proc).
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoOspfAreaNodeAttribute extends RfcModelBase {
+export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoOspfAreaNodeAttributeData
    * @prop {string} nodeType
@@ -189,21 +195,19 @@ export class MddoOspfAreaNodeAttribute extends RfcModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
-    const redistributeList = this.redistribute.map((d) => {
-      return ['<li>', d.toHtml(), '</li>'].join('')
+  toHtml(_diffElements) {
+    const redistributeList = this.redistribute.map((d, index) => {
+      return `<li>${d.toHtml(
+        this?.diffState.diffDataForObjectArray('redistribute', index)
+      )}</li>`
     })
 
     return `
 <ul>
-  <li><span class="attr">Node type: </span> ${this.nodeType}</li>
-  <li><span class="attr">Router ID: </span> ${this.routerId} (${
-      this.routerIdSource
-    })</li>
-  <li><span class="attr">Log adjacency change: </span> ${
-    this.logAdjacencyChange
-  }</li>
-  <li><span class="attr">Redistribute: </span>
+  <li>${this._toHtmlKeyValue('nodeType', 'Node Type')}
+  <li>${this._toHtmlKeyValue('routerId', 'Router ID')}</li>
+  <li>${this._toHtmlKeyValue('logAdjacencyChange', 'Log adjacency change')}</li>
+  <li>${this._toHtmlDefaultAttrKey('Redictribute')}
     <ul>${redistributeList.join('')}</ul>
   </li>
 </ul>

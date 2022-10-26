@@ -2,13 +2,13 @@
  * @file Attribute class for layer3 link of topology model.
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * Attribute class for layer3 link.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class RfcL3LinkAttribute extends RfcModelBase {
+class RfcL3LinkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} RfcL3LinkAttributeData
    * @prop {string} name

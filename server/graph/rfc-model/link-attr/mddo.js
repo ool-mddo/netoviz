@@ -3,13 +3,13 @@
  * TODO: Link attribute details is not defined (TBA)
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * Attribute class for layer1 link.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL1LinkAttribute extends RfcModelBase {
+export class MddoL1LinkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL1LinkAttributeData
    * @prop {string} name
@@ -32,9 +32,9 @@ export class MddoL1LinkAttribute extends RfcModelBase {
 
 /**
  * Attribute class for layer2 link.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL2LinkAttribute extends RfcModelBase {
+export class MddoL2LinkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL2LinkAttributeData
    * @prop {string} name
@@ -57,9 +57,9 @@ export class MddoL2LinkAttribute extends RfcModelBase {
 
 /**
  * Attribute class for layer3 link.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL3LinkAttribute extends RfcModelBase {
+export class MddoL3LinkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL3LinkAttributeData
    * @prop {string} name
@@ -82,9 +82,9 @@ export class MddoL3LinkAttribute extends RfcModelBase {
 
 /**
  * Attribute class for ospf-area link.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoOspfAreaLinkAttribute extends RfcModelBase {
+export class MddoOspfAreaLinkAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoOspfAreaLinkAttributeData
    * @prop {string} name

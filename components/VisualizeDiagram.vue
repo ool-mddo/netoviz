@@ -14,19 +14,24 @@
     <template v-if="validVisualizer && validModelFile">
       <VisualizeDiagramForceSimulation
         v-if="visualizer === 'forceSimulation'"
-        v-bind:model-file="modelFile" />
+        v-bind:model-file="modelFile"
+      />
       <VisualizeDiagramDependency
         v-else-if="visualizer === 'dependency'"
-        v-bind:model-file="modelFile" />
+        v-bind:model-file="modelFile"
+      />
       <VisualizeDiagramDependency2
         v-else-if="visualizer === 'dependency2'"
-        v-bind:model-file="modelFile" />
+        v-bind:model-file="modelFile"
+      />
       <VisualizeDiagramNested
         v-else-if="visualizer === 'nested'"
-        v-bind:model-file="modelFile" />
+        v-bind:model-file="modelFile"
+      />
       <VisualizeDiagramDistance
         v-else-if="visualizer === 'distance'"
-        v-bind:model-file="modelFile" />
+        v-bind:model-file="modelFile"
+      />
     </template>
     <v-row v-else>
       <v-col>

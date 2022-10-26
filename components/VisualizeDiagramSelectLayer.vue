@@ -5,7 +5,8 @@
     chips
     deletable-chips
     multiple
-    v-on:change="displaySelectedLayers" />
+    v-on:change="displaySelectedLayers"
+  />
 </template>
 
 <script>

@@ -2,13 +2,13 @@
  * @file Attribute class for ospf-area static route config
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * layer3 static route config class
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class MddoStaticRoute extends RfcModelBase {
+class MddoStaticRoute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoStaticRouteData
    * @prop {string} prefix
@@ -19,7 +19,7 @@ class MddoStaticRoute extends RfcModelBase {
    * @prop {string} description
    */
   /**
-   * @param [MddoStaticRouteData|MddoStaticRoute} data - layer3 static route config data for ospf-area node.
+   * @param {MddoStaticRouteData|MddoStaticRoute} data - layer3 static route config data for ospf-area node.
    */
   constructor(data) {
     super(data)
@@ -39,17 +39,18 @@ class MddoStaticRoute extends RfcModelBase {
 
   /**
    * Convert attribute to html string
+   * @param {Array<DiffElement>} diffElements
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(diffElements) {
+    super.toHtml(diffElements)
     return `
-  <span class="attr">Prefix:</span> ${this.prefix},
-  <span class="attr">Next hop:</span> ${this.nextHop},
-  <span class="attr">Interface:</span> ${this.interface},
-  <span class="attr">Metric:</span> ${this.metric},
-  <span class="attr">Preference:</span> ${this.preference},
-  <span class="attr">Description:</span> ${this.description}
+${this._toHtmlKeyValue('prefix', 'Prefix')},
+${this._toHtmlKeyValue('nextHop', 'Next hop')},
+${this._toHtmlKeyValue('interface', 'Interface')},
+${this._toHtmlKeyValue('preference', 'Preference')},
+${this._toHtmlKeyValue('description', 'Description')}
 `
   }
 }

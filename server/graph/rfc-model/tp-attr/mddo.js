@@ -2,15 +2,15 @@
  * @file Attribute class for MDDO layer1-3 term-point of topology model.
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 import MddoOspfTimer from '../tp-attr/mddo-ospf-timer'
 import MddoOspfNeighbor from '../tp-attr/mddo-ospf-neighbor'
 
 /**
  * Attribute class for MDDO Layer1 term-point.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL1TermPointAttribute extends RfcModelBase {
+export class MddoL1TermPointAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL1TermPointAttributeData
    * @prop {string} description
@@ -36,11 +36,11 @@ export class MddoL1TermPointAttribute extends RfcModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(_diffElements) {
     return `
 <ul>
-  <li><span class="attr">Description:</span> ${this.description}</li>
-  <li><span class="attr">Flag:</span> ${this.flag}</li>
+  <li>${this._toHtmlKeyValue('description', 'Description')}
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}
 </ul>
 `
   }
@@ -48,9 +48,9 @@ export class MddoL1TermPointAttribute extends RfcModelBase {
 
 /**
  * Attribute class for MDDO Layer2 term-point.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL2TermPointAttribute extends RfcModelBase {
+export class MddoL2TermPointAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL2TermPointAttributeData
    * @prop {string} description
@@ -82,13 +82,13 @@ export class MddoL2TermPointAttribute extends RfcModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(_diffElements) {
     return `
 <ul>
-  <li><span class="attr">Description:</span> ${this.description}</li>
-  <li><span class="attr">Encapsulation:</span> ${this.encapsulation}</li>
-  <li><span class="attr">Switchport mode:</span> ${this.switchportMode}</li>
-  <li><span class="attr">Flag:</span> ${this.flag}</li>
+  <li>${this._toHtmlKeyValue('description', 'Description')}
+  <li>${this._toHtmlKeyValue('encapsulation', 'Encapsulation')}
+  <li>${this._toHtmlKeyValue('switchportMode', 'Switchport mode')}
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}
 </ul>
 `
   }
@@ -96,9 +96,9 @@ export class MddoL2TermPointAttribute extends RfcModelBase {
 
 /**
  * Attribute class for MDDO Layer3 term-point.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoL3TermPointAttribute extends RfcModelBase {
+export class MddoL3TermPointAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoL3TermPointAttributeData
    * @prop {string} description
@@ -127,12 +127,12 @@ export class MddoL3TermPointAttribute extends RfcModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(_diffElements) {
     return `
 <ul>
-  <li><span class="attr">Description:</span> ${this.description}</li>
-  <li><span class="attr">IP Address:</span> ${this.ipAddress}</li>
-  <li><span class="attr">Flag:</span> ${this.flag}</li>
+  <li>${this._toHtmlKeyValue('description', 'Description')}
+  <li>${this._toHtmlKeyValue('ipAddress', 'IP Address')}
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}
 </ul>
 `
   }
@@ -140,9 +140,9 @@ export class MddoL3TermPointAttribute extends RfcModelBase {
 
 /**
  * Attribute class for MDDO ospf-area term-point.
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-export class MddoOspfAreaTermPointAttribute extends RfcModelBase {
+export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoOspfAreaTermPointAttributeData
    * @prop {string} networkType
@@ -184,18 +184,24 @@ export class MddoOspfAreaTermPointAttribute extends RfcModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(_diffElements) {
     return `
 <ul>
-  <li><span class="attr">Network type:</span> ${this.networkType}</li>
-  <li><span class="attr">Priority:</span> ${this.priority}</li>
-  <li><span class="attr">Metric:</span> ${this.metric}</li>
-  <li><span class="attr">Passive:</span> ${this.passive}</li>
-  <li><span class="attr">Timer:</span>
-    ${this.timer.toHtml()}
+  <li>${this._toHtmlKeyValue('networkType', 'Network type')}</li>
+  <li>${this._toHtmlKeyValue('priority', 'Priority')}</li>
+  <li>${this._toHtmlKeyValue('metric', 'Metric')}</li>
+  <li>${this._toHtmlKeyValue('passive', 'Passive')}</li>
+  <li>${this._toHtmlDefaultAttrKey('Timer')}
+    ${this.timer.toHtml(
+      this?.diffState.findAllDiffDataMatchesPath(/timer\.(.+)/)
+    )}
   </li>
-  <li><span class="attr">Neighbor:</span>
-    <ul>${this.neighbor.map((n) => n.toHtml()).join('')}</ul>
+  <li>${this._toHtmlDefaultAttrKey('Neighbor')}
+    <ul>${this.neighbor
+      .map((n, index) =>
+        n.toHtml(this?.diffState.diffDataForObjectArray('neighbor', index))
+      )
+      .join('')}</ul>
   </li>
 </ul>
 `

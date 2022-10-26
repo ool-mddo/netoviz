@@ -5,7 +5,8 @@
       clearable
       label="Highlight Host"
       placeholder="node OR layer__node"
-      v-on:input="inputAlertHost" />
+      v-on:input="inputAlertHost"
+    />
     <div v-if="debug">
       <ul>
         <li>alert host input: {{ alertHostInput }}</li>

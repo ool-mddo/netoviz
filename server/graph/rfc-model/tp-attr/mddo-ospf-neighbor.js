@@ -2,17 +2,17 @@
  * @file Attribute class for ospf-area neighbor config
  */
 
-import RfcModelBase from '../base'
+import RfcAttributeModelBase from '../attr-base'
 
 /**
  * ospf neighbor config class
- * @extends {RfcModelBase}
+ * @extends {RfcAttributeModelBase}
  */
-class MddoOspfNeighbor extends RfcModelBase {
+class MddoOspfNeighbor extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoOspfNeighborData
    * @prop {string} routerId
-   * @prop {string} ipAddr
+   * @prop {string} ipAddress
    */
   /**
    * @param {MddoOspfNeighborData|MddoOspfNeighbor} data - ospf neighbor config data for ospf-area term-point
@@ -22,19 +22,21 @@ class MddoOspfNeighbor extends RfcModelBase {
     /** @type {string} */
     this.routerId = data['router-id'] || data.routerId || ''
     /** @type {string} */
-    this.ipAddr = data['ip-address'] || data.ipAddr || ''
+    this.ipAddress = data['ip-address'] || data.ipAddress || ''
   }
 
   /**
    * Convert attribute to html string
+   * @param {Array<DiffElement>} diffElements
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(diffElements) {
+    super.toHtml(diffElements)
     return `
 <li>
-  <span class="attr">Router ID: </span> ${this.routerId},
-  <span class="attr">IP Address: </span> ${this.ipAddr}
+  ${this._toHtmlKeyValue('routerId', 'Router ID')},
+  ${this._toHtmlKeyValue('ipAddress', 'IP Address')}
 </li>
 `
   }
