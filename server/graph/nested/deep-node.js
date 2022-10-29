@@ -31,9 +31,7 @@ class DeepNestedNode extends ShallowNestedNode {
   renameChildPath(oldChildPath, newChildPath) {
     // operation for parent node of multiple-parents node
     // (change child info)
-    this.children = this.children
-      .filter((d) => d !== oldChildPath)
-      .concat(newChildPath)
+    this.children = this.children.filter((d) => d !== oldChildPath).concat(newChildPath)
   }
 
   /**

@@ -34,8 +34,7 @@ class RfcL2NodeAttribute extends RfcAttributeModelBase {
      */
     this.mgmtAddr = data['management-address'] || data.mgmtAddr || []
     /** @type {string} */
-    this.sysMacAddr =
-      data['sys-mac-address'] || data.sysMacAddr || 'zz:zz:zz:zz:zz:zz'
+    this.sysMacAddr = data['sys-mac-address'] || data.sysMacAddr || 'zz:zz:zz:zz:zz:zz'
     /** @type {number} */
     this.mgmtVid = data['management-vid'] || data.mgmtVid || 1
     /** @type {Array<string>} */

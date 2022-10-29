@@ -26,8 +26,7 @@ class MddoOspfTimer extends RfcAttributeModelBase {
     /** @type {number} */
     this.deadInterval = data['dead-interval'] || data.deadInterval || 40
     /** @type {number} */
-    this.retransmissionInterval =
-      data['retransmission-interval'] || data.retransmissionInterval || 5
+    this.retransmissionInterval = data['retransmission-interval'] || data.retransmissionInterval || 5
   }
 
   /**
@@ -42,10 +41,7 @@ class MddoOspfTimer extends RfcAttributeModelBase {
 <ul>
   <li>${this._toHtmlKeyValue('helloInterval', 'Hello interval')}</li>
   <li>${this._toHtmlKeyValue('deadInterval', 'Dead Interval')}</li>
-  <li>${this._toHtmlKeyValue(
-    'retransmissionInterval',
-    'Retransmission Interval'
-  )}</li>
+  <li>${this._toHtmlKeyValue('retransmissionInterval', 'Retransmission Interval')}</li>
 </ul>
 `
   }

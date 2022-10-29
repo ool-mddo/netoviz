@@ -107,29 +107,17 @@ class DiffState {
     // if found single object: added or deleted
     if (diffElements.length === 1) {
       return Object.keys(diffElements[0].ddAll[0]).map((path) => {
-        return new DiffElement([
-          diffElements[0].typeSign,
-          path,
-          diffElements[0].ddAll[0][path]
-        ])
+        return new DiffElement([diffElements[0].typeSign, path, diffElements[0].ddAll[0][path]])
       })
     }
     // found two object: added and deleted pair
-    if (
-      diffElements.length === 2 &&
-      this._isPairOfAddedAndDeleted(diffElements)
-    ) {
+    if (diffElements.length === 2 && this._isPairOfAddedAndDeleted(diffElements)) {
       const before = diffElements.find((d) => d.typeSymbol === 'deleted')
       const after = diffElements.find((d) => d.typeSymbol === 'added')
       return Object.keys(before.ddBefore)
         .filter((path) => before.ddBefore[path] !== after.ddAfter[path])
         .map((path) => {
-          return new DiffElement([
-            '~',
-            path,
-            before.ddBefore[path],
-            after.ddAfter[path]
-          ])
+          return new DiffElement(['~', path, before.ddBefore[path], after.ddAfter[path]])
         })
     }
     // not found or unknown pattern: ignore it

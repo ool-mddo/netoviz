@@ -74,11 +74,7 @@ class FamilyMaker extends RelationMakerBase {
       console.log(`    `)
       return
     }
-    this.consoleDebug(
-      depth,
-      'findAndMark',
-      `mark ${node.path} as ${relationship}`
-    )
+    this.consoleDebug(depth, 'findAndMark', `mark ${node.path} as ${relationship}`)
 
     // No need to update family if the node has family
     // and its degree is lower than current depth.
@@ -89,11 +85,7 @@ class FamilyMaker extends RelationMakerBase {
 
     // Find recursively: node.parents or node.children
     for (const familyPath of node[relationship]) {
-      this.consoleDebug(
-        depth,
-        'findAndMark',
-        `next: ${familyPath} as ${relationship} of ${node.path}`
-      )
+      this.consoleDebug(depth, 'findAndMark', `next: ${familyPath} as ${relationship} of ${node.path}`)
       this._findAndMarkAsFamily(familyPath, relationship, depth + 1)
     }
   }
@@ -109,19 +101,11 @@ class FamilyMaker extends RelationMakerBase {
 
     const targetNode = this.findTargetNode(targetNodeName, targetNodeLayer)
     if (!targetNode) {
-      this.consoleDebug(
-        0,
-        'markTarget',
-        `target: ${targetNodeName} (in layer: ${targetNodeLayer}) not found`
-      )
+      this.consoleDebug(0, 'markTarget', `target: ${targetNodeName} (in layer: ${targetNodeLayer}) not found`)
       return false
     }
 
-    this.consoleDebug(
-      0,
-      'markTarget',
-      `target: ${targetNode.path} found name as ${targetNodeName}`
-    )
+    this.consoleDebug(0, 'markTarget', `target: ${targetNode.path} found name as ${targetNodeName}`)
 
     this.consoleDebug(0, 'markTarget', `find and mark as parents`)
     this._findAndMarkAsFamily(targetNode.path, 'parents', 0)
@@ -131,11 +115,7 @@ class FamilyMaker extends RelationMakerBase {
     /** @type {FamilyRelation} */
     targetNode.family = new FamilyRelation('target', 0)
 
-    this.consoleDebug(
-      0,
-      'markTarget',
-      `target: ${targetNode.path} mark as ${targetNode.family.relation}`
-    )
+    this.consoleDebug(0, 'markTarget', `target: ${targetNode.path} mark as ${targetNode.family.relation}`)
     return true
   }
 }

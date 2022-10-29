@@ -12,34 +12,17 @@
       </v-col>
     </v-row>
     <template v-if="validVisualizer && validModelFile">
-      <VisualizeDiagramForceSimulation
-        v-if="visualizer === 'forceSimulation'"
-        v-bind:model-file="modelFile"
-      />
-      <VisualizeDiagramDependency
-        v-else-if="visualizer === 'dependency'"
-        v-bind:model-file="modelFile"
-      />
-      <VisualizeDiagramDependency2
-        v-else-if="visualizer === 'dependency2'"
-        v-bind:model-file="modelFile"
-      />
-      <VisualizeDiagramNested
-        v-else-if="visualizer === 'nested'"
-        v-bind:model-file="modelFile"
-      />
-      <VisualizeDiagramDistance
-        v-else-if="visualizer === 'distance'"
-        v-bind:model-file="modelFile"
-      />
+      <VisualizeDiagramForceSimulation v-if="visualizer === 'forceSimulation'" v-bind:model-file="modelFile" />
+      <VisualizeDiagramDependency v-else-if="visualizer === 'dependency'" v-bind:model-file="modelFile" />
+      <VisualizeDiagramDependency2 v-else-if="visualizer === 'dependency2'" v-bind:model-file="modelFile" />
+      <VisualizeDiagramNested v-else-if="visualizer === 'nested'" v-bind:model-file="modelFile" />
+      <VisualizeDiagramDistance v-else-if="visualizer === 'distance'" v-bind:model-file="modelFile" />
     </template>
     <v-row v-else>
       <v-col>
         <NotFound>
           <ul>
-            <li v-if="!validVisualizer">
-              Unknown visualizer: {{ visualizer }}
-            </li>
+            <li v-if="!validVisualizer">Unknown visualizer: {{ visualizer }}</li>
             <li v-if="!validModelFile">Unknown model file: {{ modelFile }}</li>
           </ul>
         </NotFound>
@@ -87,9 +70,7 @@ export default {
     },
     validModelFile() {
       return this.modelFiles.find(
-        (m) =>
-          [m.network, m.snapshot.replace('/', '__'), m.file].join('/') ===
-          this.modelFile
+        (m) => [m.network, m.snapshot.replace('/', '__'), m.file].join('/') === this.modelFile
       )
     }
   }

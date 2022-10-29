@@ -262,12 +262,7 @@ class ShallowNestedTopology {
    */
   _calcNodeWHAsLeaf(node, basePosition, layerOrder) {
     const wh = this._calcLeafNodeWH(node, basePosition, layerOrder)
-    this.consoleDebug(
-      layerOrder,
-      'nodePos',
-      `node=${node.path}, lo=${layerOrder} is assumed leaf, return: `,
-      wh
-    )
+    this.consoleDebug(layerOrder, 'nodePos', `node=${node.path}, lo=${layerOrder} is assumed leaf, return: `, wh)
     return wh
   }
 
@@ -282,12 +277,7 @@ class ShallowNestedTopology {
   _calcChildrenWHList(node, basePosition, layerOrder) {
     const arg = [node, basePosition, layerOrder + 2]
     const childrenWHList = this._calcChildNodePosition(...arg)
-    this.consoleDebug(
-      layerOrder,
-      'nodePos',
-      `node=${node.path}, children WH list:`,
-      childrenWHList
-    )
+    this.consoleDebug(layerOrder, 'nodePos', `node=${node.path}, children WH list:`, childrenWHList)
     return childrenWHList
   }
 
@@ -301,18 +291,8 @@ class ShallowNestedTopology {
    * @private
    */
   _calcNodeWHAsSubRoot(node, basePosition, layerOrder, childrenWHList) {
-    const nodeWH = this._calcSubRootNodeWH(
-      node,
-      basePosition,
-      childrenWHList,
-      layerOrder
-    )
-    this.consoleDebug(
-      layerOrder,
-      'nodePos',
-      `node=${node.path}, return node wh:`,
-      nodeWH
-    )
+    const nodeWH = this._calcSubRootNodeWH(node, basePosition, childrenWHList, layerOrder)
+    this.consoleDebug(layerOrder, 'nodePos', `node=${node.path}, return node wh:`, nodeWH)
     return nodeWH
   }
 
@@ -325,11 +305,7 @@ class ShallowNestedTopology {
    * @private
    */
   _calcNodePosition(node, basePosition, layerOrder) {
-    this.consoleDebug(
-      layerOrder,
-      'nodePos',
-      `node=${node.path}, family?=${node.family}`
-    )
+    this.consoleDebug(layerOrder, 'nodePos', `node=${node.path}, family?=${node.family}`)
 
     // node rectangle : layerOrder     (0, 2, 4, ...)
     // node tp circle : layerOrder + 1 (1, 3, 5, ...)
@@ -339,21 +315,12 @@ class ShallowNestedTopology {
       return this._calcNodeWHAsLeaf(node, basePosition, layerOrder)
     }
     // recursive position calculation
-    const childrenWHList = this._calcChildrenWHList(
-      node,
-      basePosition,
-      layerOrder
-    )
+    const childrenWHList = this._calcChildrenWHList(node, basePosition, layerOrder)
     if (childrenWHList.length < 1) {
       // if children is empty as a result, the node is same as leaf.
       return this._calcNodeWHAsLeaf(node, basePosition, layerOrder)
     }
-    return this._calcNodeWHAsSubRoot(
-      node,
-      basePosition,
-      layerOrder,
-      childrenWHList
-    )
+    return this._calcNodeWHAsSubRoot(node, basePosition, layerOrder, childrenWHList)
   }
 
   /**
@@ -391,19 +358,11 @@ class ShallowNestedTopology {
     let nx11 = basePosition.x + this.nodeXPad
     const ny1x = basePosition.y + (this.nodeYPad + this.r) * 2
 
-    this.consoleDebug(
-      layerOrder,
-      'childNodePos',
-      `node=${node.path}, lo=${layerOrder}`
-    )
+    this.consoleDebug(layerOrder, 'childNodePos', `node=${node.path}, lo=${layerOrder}`)
     const childNodePaths = this.childNodePathsToCalcPosition(node, layerOrder)
     for (const childNodePath of childNodePaths) {
       const childNode = this.childNodeFrom(node, childNodePath)
-      this.consoleDebug(
-        layerOrder,
-        'childNodePos',
-        `childrenNodePath=${childNodePath}, family?=${childNode.family}`
-      )
+      this.consoleDebug(layerOrder, 'childNodePos', `childrenNodePath=${childNodePath}, family?=${childNode.family}`)
       const basePosition = { x: nx11, y: ny1x }
       // recursive search
       const wh = this._calcNodePosition(childNode, basePosition, layerOrder)
@@ -421,9 +380,7 @@ class ShallowNestedTopology {
    */
   _widthByTp(node) {
     const tpNum = node.numberOfTps()
-    return (
-      this.nodeXPad * 2 + 2 * this.r * tpNum + this.tpInterval * (tpNum - 1)
-    )
+    return this.nodeXPad * 2 + 2 * this.r * tpNum + this.tpInterval * (tpNum - 1)
   }
 
   /**

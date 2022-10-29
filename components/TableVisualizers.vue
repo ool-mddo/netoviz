@@ -7,11 +7,7 @@
           <template v-if="modelFile"> for {{ modelFile }} </template>
         </v-subheader>
         <v-list-item-group>
-          <v-list-item
-            v-for="(vizData, index) in visualizerData"
-            v-bind:key="index"
-            v-bind:to="vizData.link"
-          >
+          <v-list-item v-for="(vizData, index) in visualizerData" v-bind:key="index" v-bind:to="vizData.link">
             <v-list-item-content>
               {{ vizData.text }}
             </v-list-item-content>
@@ -52,9 +48,7 @@ export default {
     visualizerData() {
       return this.visualizers.map((v) => ({
         text: v.text,
-        link: this.modelFile
-          ? `/model/${this.modelFile}/${v.value}`
-          : `/visualizer/${v.value}`
+        link: this.modelFile ? `/model/${this.modelFile}/${v.value}` : `/visualizer/${v.value}`
       }))
     }
   }

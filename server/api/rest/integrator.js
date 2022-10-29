@@ -60,9 +60,7 @@ class RESTIntegrator extends APIBase {
    */
   _printGraphQuery(graphType, graphQuery) {
     const paramStrings = []
-    Object.entries(/** @type {Object} */ graphQuery).forEach(
-      ([k, v]) => v && paramStrings.push(`${k}=${v}`)
-    )
+    Object.entries(/** @type {Object} */ graphQuery).forEach(([k, v]) => v && paramStrings.push(`${k}=${v}`))
     console.log(`call ${graphType}: ${paramStrings.join(', ')}`)
   }
 
@@ -132,11 +130,7 @@ class RESTIntegrator extends APIBase {
       ['alertHost', 'string'],
       ['aggregate', 'bool']
     ]
-    const graphQuery = /** @type {NestedGraphQuery} */ this._makeGraphQuery(
-      'nested',
-      req.query,
-      queryKeyTypeList
-    )
+    const graphQuery = /** @type {NestedGraphQuery} */ this._makeGraphQuery('nested', req.query, queryKeyTypeList)
     graphQuery.topologyData = await this.toForceSimulationTopologyData(jsonName)
     graphQuery.layoutData = await this.readLayoutJSON(jsonName)
     return _toNestedTopologyData(graphQuery)
@@ -151,11 +145,7 @@ class RESTIntegrator extends APIBase {
       ['layer', 'string'],
       ['alertHost', 'string']
     ]
-    const graphQuery = /** @type {DistanceGraphQuery} */ this._makeGraphQuery(
-      'distance',
-      req.query,
-      queryKeyTypeList
-    )
+    const graphQuery = /** @type {DistanceGraphQuery} */ this._makeGraphQuery('distance', req.query, queryKeyTypeList)
     graphQuery.topologyData = await this.toForceSimulationTopologyData(jsonName)
     return _toDistanceTopologyData(graphQuery)
   }
@@ -175,10 +165,7 @@ class RESTIntegrator extends APIBase {
     const jsonName = req.params.jsonName
     const reverse = this._boolString2Bool(req.query.reverse)
 
-    console.log(
-      `receive ${graphName}/${network}/${snapshot}/${jsonName}?reverse=${reverse}): `,
-      layoutData
-    )
+    console.log(`receive ${graphName}/${network}/${snapshot}/${jsonName}?reverse=${reverse}): `, layoutData)
 
     const layoutJsonName = path.join(network, snapshot, 'layout.json')
     const layoutJsonPath = path.join(this.modelDir, layoutJsonName)

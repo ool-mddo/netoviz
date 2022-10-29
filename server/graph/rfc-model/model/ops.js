@@ -6,12 +6,7 @@ import RfcTermPoint from '../term-point'
 import RfcNode from '../node'
 import RfcLink from '../link'
 import RfcNetwork from '../network'
-import {
-  OpsTermPointAttribute,
-  OpsNodeAttribute,
-  OpsLinkAttribute,
-  OpsNetworkAttribute
-} from './ops-attr.js'
+import { OpsTermPointAttribute, OpsNodeAttribute, OpsLinkAttribute, OpsNetworkAttribute } from './ops-attr.js'
 
 /**
  * Ops term-point.

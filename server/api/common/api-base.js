@@ -25,10 +25,7 @@ class APIBase {
      * @type {CacheRfcTopologyDataConverter}
      * @protected
      */
-    this.converter = new CacheRfcTopologyDataConverter(
-      this.modelDir,
-      this.modelDir
-    )
+    this.converter = new CacheRfcTopologyDataConverter(this.modelDir, this.modelDir)
   }
 
   /**

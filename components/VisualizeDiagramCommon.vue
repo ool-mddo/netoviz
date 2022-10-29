@@ -61,10 +61,7 @@ export default {
     this.drawRfcTopologyData() // generate initial diagram
 
     // set watcher for store change
-    this.unwatchalertHost = this.$store.watch(
-      (state) => state.alert.alertHost,
-      this.watchAlertHost
-    )
+    this.unwatchalertHost = this.$store.watch((state) => state.alert.alertHost, this.watchAlertHost)
   },
   beforeDestroy() {
     // clear store watcher
@@ -91,9 +88,7 @@ export default {
     },
     watchModelFile(newModelFile, oldModelFile) {
       // callback function when modelFile changed.
-      console.log(
-        `[viz/${this.visualizerName}] modelFile changed from ${oldModelFile} to ${newModelFile}`
-      )
+      console.log(`[viz/${this.visualizerName}] modelFile changed from ${oldModelFile} to ${newModelFile}`)
       this.clearAllHighlight()
       this.drawRfcTopologyData()
     },
@@ -125,8 +120,7 @@ export default {
       }
     },
     resizeSVG() {
-      this.visualizer &&
-        this.visualizer.resizeRootSVG(this.svgWidth, this.svgHeight)
+      this.visualizer && this.visualizer.resizeRootSVG(this.svgWidth, this.svgHeight)
     },
     nodeClickCallback(nodeData) {
       // For nested and distance diagram:

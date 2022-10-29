@@ -13,10 +13,7 @@ class DependencyTopology {
    * @param {DependencyGraphQuery} graphQuery - Graph query parameters.
    */
   constructor(graphQuery) {
-    const foundTarget = this._markFamilyWithTarget(
-      graphQuery.topologyData,
-      graphQuery.target
-    )
+    const foundTarget = this._markFamilyWithTarget(graphQuery.topologyData, graphQuery.target)
     this._setNetworks(graphQuery.topologyData, foundTarget)
   }
 
@@ -28,9 +25,7 @@ class DependencyTopology {
    * @private
    */
   _markFamilyWithTarget(topologyData, target) {
-    const nodes = topologyData
-      .map((network) => network.nodes)
-      .reduce((sum, nodes) => sum.concat(nodes), [])
+    const nodes = topologyData.map((network) => network.nodes).reduce((sum, nodes) => sum.concat(nodes), [])
     return markFamilyWithTarget(nodes, target)
   }
 
@@ -41,9 +36,7 @@ class DependencyTopology {
    * @private
    */
   _setNetworks(topologyData, foundTarget) {
-    this.networks = topologyData.map(
-      (nw, nwIndex) => new DependencyNetwork(nwIndex + 1, nw, foundTarget)
-    )
+    this.networks = topologyData.map((nw, nwIndex) => new DependencyNetwork(nwIndex + 1, nw, foundTarget))
   }
 
   /**

@@ -28,6 +28,17 @@ class RfcAttributeModelBase extends RfcModelBase {
   }
 
   /**
+   * <span> tagged string
+   * @param {Array<string>} classList
+   * @param {string} value
+   * @return {string}
+   * @private
+   */
+  _htmlSpan(classList, value) {
+    return `<span class="${classList.join(' ')}">${value}</span>`
+  }
+
+  /**
    * @param {string} valueStr - attribute value
    * @param {DiffElement|null} ddElement
    * @returns {string}
@@ -39,13 +50,16 @@ class RfcAttributeModelBase extends RfcModelBase {
     }
     switch (ddElement.typeSymbol) {
       case 'added':
-        return `<span class="attr-val added">${valueStr}</span>`
+        return this._htmlSpan(['attr-val', 'added'], valueStr)
       case 'deleted':
-        return `<span class="attr-val deleted">${valueStr}</span>`
+        return this._htmlSpan(['attr-val', 'deleted'], valueStr)
       case 'changed':
-        return `<span class="attr-val added">${valueStr}</span> <span class="attr-val deleted">~${ddElement.ddBefore}</span>`
+        return [
+          this._htmlSpan(['attr-val', 'added'], valueStr),
+          this._htmlSpan(['attr-val', 'deleted'], ddElement.ddBefore)
+        ].join(' ')
       default:
-        return `<span class="attr-val">${valueStr}</span>`
+        return this._htmlSpan(['attr-val'], valueStr)
     }
   }
 
@@ -98,10 +112,7 @@ class RfcAttributeModelBase extends RfcModelBase {
   toHtml(diffElements) {
     // set dummy diff-state if diff-elements exists
     if (diffElements && diffElements?.length > 0) {
-      this.diffState = this._dummyDiffState(
-        diffElements[0].typeSymbol,
-        diffElements
-      )
+      this.diffState = this._dummyDiffState(diffElements[0].typeSymbol, diffElements)
     }
   }
 }

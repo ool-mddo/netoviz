@@ -1,7 +1,5 @@
 <template>
-  <VisualizeDiagram
-    v-bind:model-file="modelFile"
-    v-bind:visualizer="visualizer" />
+  <VisualizeDiagram v-bind:model-file="modelFile" v-bind:visualizer="visualizer" />
 </template>
 
 <script>

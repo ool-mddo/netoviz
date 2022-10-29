@@ -48,6 +48,7 @@ class DeepNestedTopology extends ShallowNestedTopology {
    * @protected
    */
   splitNode(parentNode, childNode) {
+    // eslint-disable-next-line max-len
     // console.log(`  ** child: ${childNode.path} has ${childNode.numberOfParentNodes()} parent nodes : `, childNode.parents)
     if (parentNode.split <= 0 && childNode.numberOfParentNodes() <= 1) {
       return childNode
@@ -87,9 +88,7 @@ class DeepNestedTopology extends ShallowNestedTopology {
    * @private
    */
   _inTargetDepth(layerOrder) {
-    return (
-      (this.baseDepth - 1) * 2 <= layerOrder && layerOrder < this.baseDepth * 2
-    )
+    return (this.baseDepth - 1) * 2 <= layerOrder && layerOrder < this.baseDepth * 2
   }
 
   /**
@@ -120,9 +119,7 @@ class DeepNestedTopology extends ShallowNestedTopology {
       const childNode = this.findNodeByPath(childNodePath)
       // select family of target, from root (parent) until child of target:
       // root(parent)-...-parent-target-child <-select ignore-> -child-...-child
-      const result =
-        childNode?.family?.relation !== 'children' ||
-        childNode?.family?.degree < 3
+      const result = childNode?.family?.relation !== 'children' || childNode?.family?.degree < 3
       this.consoleDebug(
         layerOrder,
         'childNodePathsToCalcPosition',
@@ -138,8 +135,7 @@ class DeepNestedTopology extends ShallowNestedTopology {
    * @param {string} childNodePath
    */
   childNodeFrom(parentNode, childNodePath) {
-    const childNode =
-      /** @type {DeepNestedNode} */ this.findNodeByPath(childNodePath)
+    const childNode = /** @type {DeepNestedNode} */ this.findNodeByPath(childNodePath)
     if (!childNode) {
       console.error(`child ${childNodePath} not found in ${parentNode.path}`)
     }

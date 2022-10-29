@@ -123,9 +123,7 @@ class RfcNetwork extends RfcModelBase {
     /** @type {Array<RfcSupportingNetwork>} */
     this.supportingNetworks = []
     if (data['supporting-network']) {
-      this.supportingNetworks = data['supporting-network'].map(
-        (d) => new RfcSupportingNetwork(d)
-      )
+      this.supportingNetworks = data['supporting-network'].map((d) => new RfcSupportingNetwork(d))
     }
   }
 

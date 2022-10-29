@@ -27,10 +27,7 @@
         </template>
         <template v-slot:item="props">
           <tr>
-            <td
-              v-for="(col, index) in Object.keys(props.item)"
-              v-bind:key="index"
-            >
+            <td v-for="(col, index) in Object.keys(props.item)" v-bind:key="index">
               <div v-if="props.item[col].link">
                 <router-link v-bind:to="props.item[col].link">
                   {{ props.item[col].text }}

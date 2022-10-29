@@ -40,16 +40,13 @@ apiRouter.post('/graph/:graphName/:network/:snapshot/:jsonName', (req, res) => {
 })
 
 // API to send converted graph data. (for web frontend)
-apiRouter.get(
-  '/graph/:graphName/:network/:snapshot/:jsonName',
-  async (req, res) => {
-    res.type('json')
-    const p = req.params // alias
-    const ssUrlDec = p.snapshot.replace('__', '/') // decode multiple depth snapshot string
-    const jsonFile = `${p.network}/${ssUrlDec}/${p.jsonName}`
-    console.log(`[REST] graph=${p.graphName}, file=${jsonFile}`)
-    res.send(await restApi.getGraphData(p.graphName, jsonFile, req))
-  }
-)
+apiRouter.get('/graph/:graphName/:network/:snapshot/:jsonName', async (req, res) => {
+  res.type('json')
+  const p = req.params // alias
+  const ssUrlDec = p.snapshot.replace('__', '/') // decode multiple depth snapshot string
+  const jsonFile = `${p.network}/${ssUrlDec}/${p.jsonName}`
+  console.log(`[REST] graph=${p.graphName}, file=${jsonFile}`)
+  res.send(await restApi.getGraphData(p.graphName, jsonFile, req))
+})
 
 export default apiRouter

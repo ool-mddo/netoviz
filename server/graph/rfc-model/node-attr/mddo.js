@@ -133,9 +133,7 @@ export class MddoL3NodeAttribute extends RfcAttributeModelBase {
     })
     const staticRouteList = this.staticRoute.map((d, index) => {
       return `
-<li>${d.toHtml(
-        this?.diffState.diffDataForObjectArray('staticRoute', index)
-      )}</li>
+<li>${d.toHtml(this?.diffState.diffDataForObjectArray('staticRoute', index))}</li>
 `
     })
 
@@ -182,12 +180,9 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
     /** @type {string} */
     this.routerIdSource = data.routerIdSource || data['router-id-source'] || ''
     /** @type {boolean} */
-    this.logAdjacencyChange =
-      data.logAdjacencyChange || data['log-adjacency-change'] || false
+    this.logAdjacencyChange = data.logAdjacencyChange || data['log-adjacency-change'] || false
     /** @type {Array<MddoOspfRedistribute>} */
-    this.redistribute = data.redistribute.map(
-      (d) => new MddoOspfRedistribute(d)
-    )
+    this.redistribute = data.redistribute.map((d) => new MddoOspfRedistribute(d))
   }
 
   /**
@@ -197,9 +192,7 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
    */
   toHtml(_diffElements) {
     const redistributeList = this.redistribute.map((d, index) => {
-      return `<li>${d.toHtml(
-        this?.diffState.diffDataForObjectArray('redistribute', index)
-      )}</li>`
+      return `<li>${d.toHtml(this?.diffState.diffDataForObjectArray('redistribute', index))}</li>`
     })
 
     return `

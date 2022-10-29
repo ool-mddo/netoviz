@@ -153,7 +153,8 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
    * @prop {Array<MddoOspfNeighborData>} neighbor
    */
   /**
-   * @param {MddoOspfAreaTermPointAttributeData|MddoOspfAreaTermPointAttribute} data - ospf-area term-point attribute data.
+   * @param {MddoOspfAreaTermPointAttributeData|MddoOspfAreaTermPointAttribute} data
+   *   - ospf-area term-point attribute data.
    */
   constructor(data) {
     super(data)
@@ -169,13 +170,9 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
     /** @type {boolean} */
     this.passive = data.passive || false
     /** @type {MddoOspfTimer} */
-    this.timer = data.timer
-      ? new MddoOspfTimer(data.timer)
-      : new MddoOspfTimer({}) // default timer config
+    this.timer = data.timer ? new MddoOspfTimer(data.timer) : new MddoOspfTimer() // default timer config
     /** @type {Array<MddoOspfNeighbor>} */
-    this.neighbor = data.neighbor
-      ? data.neighbor.map((n) => new MddoOspfNeighbor(n))
-      : []
+    this.neighbor = data.neighbor ? data.neighbor.map((n) => new MddoOspfNeighbor(n)) : []
   }
 
   /**
@@ -192,15 +189,11 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlKeyValue('metric', 'Metric')}</li>
   <li>${this._toHtmlKeyValue('passive', 'Passive')}</li>
   <li>${this._toHtmlDefaultAttrKey('Timer')}
-    ${this.timer.toHtml(
-      this?.diffState.findAllDiffDataMatchesPath(/timer\.(.+)/)
-    )}
+    ${this.timer.toHtml(this?.diffState.findAllDiffDataMatchesPath(/timer\.(.+)/))}
   </li>
   <li>${this._toHtmlDefaultAttrKey('Neighbor')}
     <ul>${this.neighbor
-      .map((n, index) =>
-        n.toHtml(this?.diffState.diffDataForObjectArray('neighbor', index))
-      )
+      .map((n, index) => n.toHtml(this?.diffState.diffDataForObjectArray('neighbor', index)))
       .join('')}</ul>
   </li>
 </ul>

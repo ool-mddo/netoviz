@@ -25,9 +25,7 @@ class AggregatedTopology extends DeepNestedTopology {
   _replaceChildrenByAggregatedNode(targetNode, childNodes, aggregatedNode) {
     // remove targetNodes from targetNode.children
     const targetNodePaths = childNodes.map((d) => d.path)
-    targetNode.children = targetNode.children.filter(
-      (path) => !targetNodePaths.includes(path)
-    )
+    targetNode.children = targetNode.children.filter((path) => !targetNodePaths.includes(path))
     // add aggregatedNode instead of targetNodes
     targetNode.children.push(aggregatedNode.path)
   }
@@ -42,9 +40,7 @@ class AggregatedTopology extends DeepNestedTopology {
    */
   _aggregatedNodeName(targetNode, combinedClassifier) {
     // head of [parents, children, target] or F(false/fail)
-    const familyHead = combinedClassifier.family
-      ? combinedClassifier.family[0].toUpperCase()
-      : 'F'
+    const familyHead = combinedClassifier.family ? combinedClassifier.family[0].toUpperCase() : 'F'
     return `Agr:${targetNode.name}:${familyHead}`
   }
 
@@ -77,16 +73,8 @@ class AggregatedTopology extends DeepNestedTopology {
         pair: {}
       }
     }
-    const aggregatedNode = new AggregatedNestedNode(
-      nodeData,
-      this.reverse,
-      childNodes
-    )
-    this._replaceChildrenByAggregatedNode(
-      targetNode,
-      childNodes,
-      aggregatedNode
-    )
+    const aggregatedNode = new AggregatedNestedNode(nodeData, this.reverse, childNodes)
+    this._replaceChildrenByAggregatedNode(targetNode, childNodes, aggregatedNode)
     return aggregatedNode
   }
 
@@ -134,8 +122,7 @@ class AggregatedTopology extends DeepNestedTopology {
    * @private
    */
   _makeFamilyClassifiers() {
-    const familyClassifierCB1 = (family) => (d) =>
-      d?.family?.relation === family
+    const familyClassifierCB1 = (family) => (d) => d?.family?.relation === family
     const familyClassifierCB2 = (d) => !d?.family?.relation
 
     return ['parents', 'children', 'target', null].map((family) => {
@@ -172,9 +159,7 @@ class AggregatedTopology extends DeepNestedTopology {
   _makeLayerClassifiers(layerPaths) {
     const layerClassifierCB = (layerPath) => (d) => d.layerPath() === layerPath
     // partial application for each layerPath to get layer-classifier-callback
-    return layerPaths.map((layerPath) =>
-      this._layerClassifier(layerPath, layerClassifierCB(layerPath))
-    )
+    return layerPaths.map((layerPath) => this._layerClassifier(layerPath, layerClassifierCB(layerPath)))
   }
 
   /**
@@ -241,9 +226,7 @@ class AggregatedTopology extends DeepNestedTopology {
       this._makeFamilyClassifiers(),
       this._makeLayerClassifiers(childrenLayerPaths)
     )
-    return classifierCombinations.map((classifiers) =>
-      this._combinedClassifier(classifiers)
-    )
+    return classifierCombinations.map((classifiers) => this._combinedClassifier(classifiers))
   }
 
   /**
@@ -264,21 +247,14 @@ class AggregatedTopology extends DeepNestedTopology {
     let passNodes = []
 
     for (const combinedClassifier of combinedClassifiers) {
-      const classifiedChildNodes = this._classifyAggregateTarget(
-        childNodes,
-        combinedClassifier
-      )
+      const classifiedChildNodes = this._classifyAggregateTarget(childNodes, combinedClassifier)
       // don't aggregate if length=0(empty), length=1(single node)
       if (classifiedChildNodes.length < 2) {
         passNodes = passNodes.concat(classifiedChildNodes)
         continue
       }
       // Aggregate: N (targetNodes) -> 1 (aggregatedNode)
-      const aggregatedNode = this._makeAggregateNode(
-        targetNode,
-        classifiedChildNodes,
-        combinedClassifier
-      )
+      const aggregatedNode = this._makeAggregateNode(targetNode, classifiedChildNodes, combinedClassifier)
       aggregatedNodes.push(aggregatedNode)
     }
     // Append aggregated nodes to nodes (node list)

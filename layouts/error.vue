@@ -1,9 +1,7 @@
 <template>
   <NotFound>
     <ul>
-      <li v-for="(key, index) in Object.keys(error)" v-bind:key="index">
-        {{ key }} : {{ error[key] }}
-      </li>
+      <li v-for="(key, index) in Object.keys(error)" v-bind:key="index">{{ key }} : {{ error[key] }}</li>
     </ul>
   </NotFound>
 </template>

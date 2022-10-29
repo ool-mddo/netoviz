@@ -61,9 +61,7 @@ class CacheRfcTopologyDataConverter {
         if (error) {
           throw error
         }
-        console.warn(
-          `Warning: server removes cache ${this._cacheJsonPath}. Retry request again.`
-        )
+        console.warn(`Warning: server removes cache ${this._cacheJsonPath}. Retry request again.`)
       })
       throw error
     }
@@ -154,11 +152,7 @@ class CacheRfcTopologyDataConverter {
   async _foundOperativeCache(jsonName) {
     await this._updateStatsOfTopologyJSON(jsonName)
     console.log('Requested: ', this._jsonPath)
-    return (
-      this._targetStats &&
-      this._cacheStats &&
-      this._targetStats.mtimeMs < this._cacheStats.mtimeMs
-    )
+    return this._targetStats && this._cacheStats && this._targetStats.mtimeMs < this._cacheStats.mtimeMs
   }
 
   /**

@@ -15,7 +15,8 @@ class MddoOspfRedistribute extends RfcAttributeModelBase {
    * @prop {number} metricType 1 or 2 (OE1 or OE2)
    */
   /**
-   * @param {MddoOspfRedistributeData|MddoOspfAreaLinkAttribute} data - ospf redistribute config data for ospf-area node.
+   * @param {MddoOspfRedistributeData|MddoOspfAreaLinkAttribute} data
+   *   - ospf redistribute config data for ospf-area node.
    */
   constructor(data) {
     super(data)
