@@ -87,7 +87,7 @@ export class MddoL2TermPointAttribute extends RfcAttributeModelBase {
 <ul>
   <li>${this._toHtmlKeyValue('description', 'Description')}
   <li>${this._toHtmlKeyValue('encapsulation', 'Encapsulation')}
-  <li>${this._toHtmlKeyValue('switchportMode', 'Switchport mode')}
+  <li>${this._toHtmlKeyValue('switchportMode', 'Switchport Mode')}
   <li>${this._toHtmlKeyValue('flag', 'Flag')}
 </ul>
 `
@@ -182,6 +182,10 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
    * @public
    */
   toHtml(_diffElements) {
+    const neighborStr = this.neighbor.map((n, index) => {
+      return n.toHtml(this?.diffState.diffDataForObjectArray('neighbor', index))
+    })
+
     return `
 <ul>
   <li>${this._toHtmlKeyValue('networkType', 'Network type')}</li>
@@ -192,9 +196,7 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
     ${this.timer.toHtml(this?.diffState.findAllDiffDataMatchesPath(/timer\.(.+)/))}
   </li>
   <li>${this._toHtmlDefaultAttrKey('Neighbor')}
-    <ul>${this.neighbor
-      .map((n, index) => n.toHtml(this?.diffState.diffDataForObjectArray('neighbor', index)))
-      .join('')}</ul>
+    <ul>${neighborStr.join('')}</ul>
   </li>
 </ul>
 `

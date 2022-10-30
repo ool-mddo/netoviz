@@ -29,7 +29,7 @@ class RfcL3NodeAttribute extends RfcAttributeModelBase {
     /** @type {Array<string>} */
     this.flag = data.flag || []
     /** @type {Array<string>} */
-    this.routerId = this._selectRouterId(data)
+    this.routerId = data.routerId || data['router-id'] || []
     /** @type {Array<RfcL3Prefix>} */
     this.prefix = [] // array
     if (data.prefix) {
@@ -38,36 +38,23 @@ class RfcL3NodeAttribute extends RfcAttributeModelBase {
   }
 
   /**
-   * Get router-id of layer3 node attribute.
-   * @param {RfcL3NodeAttributeData|RfcL3NodeAttribute} data - L3 node attribute data.
-   * @returns {Array<string>} List of router-id.
-   * @private
-   */
-  _selectRouterId(data) {
-    if ('router-id' in data) {
-      return data['router-id'] // RFC8345-json
-    } else if ('routerId' in data) {
-      return data.routerId // converted data for topology graph
-    }
-    return [] // array
-  }
-
-  /**
    * Convert attribute to html string.
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
-    const prefixList = this.prefix.map((d) => {
-      return ['<li>', d.toHtml(), '</li>'].join('')
+  toHtml(_diffElements) {
+    const prefixList = this.prefix.map((d, index) => {
+      return `<li>${d.toHtml(this?.diffState.diffDataForObjectArray('prefix', index))}</li>`
     })
+
     return `
 <ul>
-  <li><span class="attr">Name:</span> ${this.name}</li>
-  <li><span class="attr">Router ID:</span> ${this.routerId}</li>
-  <li><span class="attr">Flag:</span> ${this.flag}</li>
-  <li><span class="attr">prefix:</span></li>
-  <ul>${prefixList.join('')}</ul>
+  <li>${this._toHtmlKeyValue('name', 'Name')}</li>
+  <li>${this._toHtmlKeyValue('routerId', 'Router ID')}</li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
+  <li>${this._toHtmlDefaultAttrKey('Prefix')}
+    <ul>${prefixList.join('')}</ul>
+  </li>
 </ul>
 `
   }

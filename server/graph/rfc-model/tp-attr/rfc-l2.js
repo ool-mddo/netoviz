@@ -27,13 +27,16 @@ class RfcL2VlanIdName extends RfcAttributeModelBase {
 
   /**
    * Convert attribute to html string.
+   * @param {Array<DiffElement>} diffElements
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(diffElements) {
+    super.toHtml(diffElements)
+
     return `
-<span class="attr">VID:</span> ${this.vlanId},
-<span class="attr">Name:</span> ${this.vlanName}
+${this._toHtmlKeyValue('vlanId', 'VID')},
+${this._toHtmlKeyValue('vlanName', 'Name')}
 `
   }
 }
@@ -64,11 +67,11 @@ class RfcL2TermPointAttribute extends RfcAttributeModelBase {
     /** @type {string} */
     this.description = data.description || ''
     /** @type {number} */
-    this.maxFrameSize = data['maximum-frame-size'] || data.maxFrameSize || 1500
+    this.maximumFrameSize = data['maximum-frame-size'] || data.maximumFrameSize || 1500
     /** @type {string} */
-    this.macAddr = data['mac-address'] || data.macAddr || 'xx:xx:xx:xx:xx:xx'
+    this.macAddress = data['mac-address'] || data.macAddress || 'xx:xx:xx:xx:xx:xx'
     /** @type {string} */
-    this.ethEncap = data['eth-encapsulation'] || data.ethEncap || ''
+    this.ethEncapsulation = data['eth-encapsulation'] || data.ethEncapsulation || ''
     /** @type {number} */
     this.portVlanId = data['port-vlan-id'] || data.portVlanId || 0
     /** @type {Array<RfcL2VlanIdName>} */
@@ -87,18 +90,21 @@ class RfcL2TermPointAttribute extends RfcAttributeModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
-    const portIdNameStr = this.vlanIdName.map((d) => `<li>${d.toHtml()}</li>`)
+  toHtml(_diffElements) {
+    const portIdNameStr = this.vlanIdName.map((d, index) => {
+      return `<li>${d.toHtml(this?.diffState.diffDataForObjectArray('vlan-id-name', index))}</li>`
+    })
+
     return `
 <ul>
-  <li><span class="attr">Description:</span> ${this.description}</li>
-  <li><span class="attr">Maximum Frame Size:</span> ${this.maxFrameSize}</li>
-  <li><span class="attr">Mac Address:</span> ${this.macAddr}</li>
-  <li><span class="attr">Ether Encapsulation:</span> ${this.ethEncap}</li>
-  <li><span class="attr">Port VLAN ID:</span> ${this.portVlanId}</li>
-  <li><span class="attr">Vlan ID/Name:</span></li>
+  <li>${this._toHtmlKeyValue('description', 'Description')}</li>
+  <li>${this._toHtmlKeyValue('maximumFrameSize', 'Maximum Frame Size')}</li>
+  <li>${this._toHtmlKeyValue('macAddress', 'MAC Address')}</li>
+  <li>${this._toHtmlKeyValue('ethEncapsulation', 'Ether Encapsulation')}</li>
+  <li>${this._toHtmlKeyValue('portVlanId', 'Port VLAN ID')}</li>
+  <li>${this._toHtmlDefaultAttrKey('VLAN ID/Name')}</li>
     <ul>${portIdNameStr.join('')}</ul>
-  <li><span class="attr">TP State:</span> ${this.tpState}</li>
+  <li>${this._toHtmlKeyValue('tpState', 'TP State')}</li>
 </ul>
 `
   }

@@ -125,16 +125,12 @@ export class MddoL3NodeAttribute extends RfcAttributeModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml(_diffElement) {
+  toHtml(_diffElements) {
     const prefixList = this.prefix.map((d, index) => {
-      return `
-<li>${d.toHtml(this?.diffState.diffDataForObjectArray('prefix', index))}</li>
-`
+      return `<li>${d.toHtml(this?.diffState.diffDataForObjectArray('prefix', index))}</li>`
     })
     const staticRouteList = this.staticRoute.map((d, index) => {
-      return `
-<li>${d.toHtml(this?.diffState.diffDataForObjectArray('staticRoute', index))}</li>
-`
+      return `<li>${d.toHtml(this?.diffState.diffDataForObjectArray('staticRoute', index))}</li>`
     })
 
     return `
@@ -199,8 +195,8 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
 <ul>
   <li>${this._toHtmlKeyValue('nodeType', 'Node Type')}
   <li>${this._toHtmlKeyValue('routerId', 'Router ID')}</li>
-  <li>${this._toHtmlKeyValue('logAdjacencyChange', 'Log adjacency change')}</li>
-  <li>${this._toHtmlDefaultAttrKey('Redictribute')}
+  <li>${this._toHtmlKeyValue('logAdjacencyChange', 'Log Adjacency Change')}</li>
+  <li>${this._toHtmlDefaultAttrKey('Redistribute')}
     <ul>${redistributeList.join('')}</ul>
   </li>
 </ul>

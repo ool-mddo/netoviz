@@ -37,6 +37,7 @@ class MddoOspfTimer extends RfcAttributeModelBase {
    */
   toHtml(diffElements) {
     super.toHtml(diffElements)
+
     return `
 <ul>
   <li>${this._toHtmlKeyValue('helloInterval', 'Hello interval')}</li>

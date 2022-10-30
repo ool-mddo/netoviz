@@ -32,11 +32,11 @@ class RfcL2NodeAttribute extends RfcAttributeModelBase {
      * List of IP address.
      * @type {Array<string>}
      */
-    this.mgmtAddr = data['management-address'] || data.mgmtAddr || []
+    this.managementAddress = data['management-address'] || data.managementAddress || []
     /** @type {string} */
-    this.sysMacAddr = data['sys-mac-address'] || data.sysMacAddr || 'zz:zz:zz:zz:zz:zz'
+    this.sysMacAddress = data['sys-mac-address'] || data.sysMacAddress || 'zz:zz:zz:zz:zz:zz'
     /** @type {number} */
-    this.mgmtVid = data['management-vid'] || data.mgmtVid || 1
+    this.managementVid = data['management-vid'] || data.managementVid || 1
     /** @type {Array<string>} */
     this.flag = data.flag || [] // list
   }
@@ -46,16 +46,18 @@ class RfcL2NodeAttribute extends RfcAttributeModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
-    const mgmtIpStr = this.mgmtAddr.map((d) => `<li>${d}</li>`)
+  toHtml(_diffElements) {
+    const mgmtIpStr = this.managementAddress.map((d) => {
+      return `<li>${d}</li>` // TODO: fine diff for literal-array
+    })
     return `
 <ul>
-  <li><span class="attr">Name:</span> ${this.name}</li>
-  <li><span class="attr">Description:</span> ${this.description}</li>
-  <li><span class="attr">Management IP:</span></li>
+  <li>${this._toHtmlKeyValue('name', 'Name')}</li>
+  <li>${this._toHtmlKeyValue('description', 'Description')}</li>
+  <li>${this._toHtmlDefaultAttrKey('Management IP')}</li>
     <ul>${mgmtIpStr.join('')}</ul>
-  <li><span class="attr">Management VID:</span> ${this.mgmtVid}</li>
-  <li><span class="attr">Flag:</span> ${this.flag}</li>
+  <li>${this._toHtmlKeyValue('managementVid', 'Management VID')}</li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
 `
   }
 }

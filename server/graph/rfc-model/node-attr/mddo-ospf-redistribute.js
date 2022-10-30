@@ -34,6 +34,7 @@ class MddoOspfRedistribute extends RfcAttributeModelBase {
    */
   toHtml(diffElements) {
     super.toHtml(diffElements)
+
     return `
 ${this._toHtmlKeyValue('protocol', 'Protocol')},
 ${this._toHtmlKeyValue('metricType', 'Metric Type')}

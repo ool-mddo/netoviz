@@ -33,6 +33,7 @@ class MddoOspfNeighbor extends RfcAttributeModelBase {
    */
   toHtml(diffElements) {
     super.toHtml(diffElements)
+
     return `
 <li>
   ${this._toHtmlKeyValue('routerId', 'Router ID')},

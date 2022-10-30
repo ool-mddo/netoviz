@@ -32,10 +32,10 @@ class RfcL3TermPointAttribute extends RfcAttributeModelBase {
    * @returns {string} HTML string of attribute.
    * @public
    */
-  toHtml() {
+  toHtml(_diffElements) {
     return `
 <ul>
- <li><span class="attr">IP Address:</span> ${this.ipAddress}</li>
+ <li>${this._toHtmlKeyValue('ipAddress', 'IP Address')}</li>
 </ul>
 `
   }

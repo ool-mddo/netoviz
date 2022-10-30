@@ -45,9 +45,10 @@ class MddoStaticRoute extends RfcAttributeModelBase {
    */
   toHtml(diffElements) {
     super.toHtml(diffElements)
+
     return `
 ${this._toHtmlKeyValue('prefix', 'Prefix')},
-${this._toHtmlKeyValue('nextHop', 'Next hop')},
+${this._toHtmlKeyValue('nextHop', 'Next Hop')},
 ${this._toHtmlKeyValue('interface', 'Interface')},
 ${this._toHtmlKeyValue('preference', 'Preference')},
 ${this._toHtmlKeyValue('description', 'Description')}

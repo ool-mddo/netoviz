@@ -36,6 +36,7 @@ class RfcL3Prefix extends RfcAttributeModelBase {
    */
   toHtml(diffElements) {
     super.toHtml(diffElements)
+
     return `
 ${this._toHtmlKeyValue('prefix', 'Prefix')},
 ${this._toHtmlKeyValue('metric', 'Metric')},
