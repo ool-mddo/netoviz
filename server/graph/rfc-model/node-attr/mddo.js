@@ -173,6 +173,8 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
     this.nodeType = data.nodeType || data['node-type'] || ''
     /** @type {string} */
     this.routerId = data.routerId || data['router-id'] || ''
+    /** @type {string} } */
+    this.processId = data.processId || data['process-id'] || 'default'
     /** @type {string} */
     this.routerIdSource = data.routerIdSource || data['router-id-source'] || ''
     /** @type {boolean} */
@@ -195,6 +197,7 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
 <ul>
   <li>${this._toHtmlKeyValue('nodeType', 'Node Type')}
   <li>${this._toHtmlKeyValue('routerId', 'Router ID')}</li>
+  <li>${this._toHtmlKeyValue('processId', 'Process ID')}</li>
   <li>${this._toHtmlKeyValue('logAdjacencyChange', 'Log Adjacency Change')}</li>
   <li>${this._toHtmlDefaultAttrKey('Redistribute')}
     <ul>${redistributeList.join('')}</ul>
