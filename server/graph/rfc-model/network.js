@@ -123,9 +123,7 @@ class RfcNetwork extends RfcModelBase {
     /** @type {Array<RfcSupportingNetwork>} */
     this.supportingNetworks = []
     if (data['supporting-network']) {
-      this.supportingNetworks = data['supporting-network'].map(
-        (d) => new RfcSupportingNetwork(d)
-      )
+      this.supportingNetworks = data['supporting-network'].map((d) => new RfcSupportingNetwork(d))
     }
   }
 
@@ -279,6 +277,15 @@ class RfcNetwork extends RfcModelBase {
   isTypeMddoLayer3() {
     const nwMddoL3TypeKey = 'mddo-topology:l3-network' // alias
     return this.networkTypes.hasType(nwMddoL3TypeKey)
+  }
+
+  /**
+   * Check network type is MDDO ospf-area
+   * @returns {Boolean}
+   */
+  isTypeMddoOspfArea() {
+    const nwMddoOspfAreatypeKey = 'mddo-topology:ospf-area-network' // alias
+    return this.networkTypes.hasType(nwMddoOspfAreatypeKey)
   }
 }
 

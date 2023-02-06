@@ -20,9 +20,7 @@ class ForceSimulationTopology extends BaseContainer {
     /** @type {RfcTopology} */
     this.rfcTopology = new RfcTopology(rfcTopologyData)
     /** @type {Array<ForceSimulationNetwork>} */
-    this.networks = this.rfcTopology.networks.map(
-      (nw) => new ForceSimulationNetwork(nw)
-    )
+    this.networks = this.rfcTopology.networks.map((nw) => new ForceSimulationNetwork(nw))
     /** @type {Array<ForceSimulationNode>} */
     this.nodes = this._makeNodes()
     this._makeParentRef()

@@ -24,18 +24,10 @@
         <v-switch v-model="aggregation" inset label="Aggregate" />
       </v-col>
       <v-col>
-        <v-text-field
-          v-model="depth"
-          label="Base depth"
-          type="number"
-          min="1"
-          v-on:input="drawRfcTopologyData()"
-        />
+        <v-text-field v-model="depth" label="Base depth" type="number" min="1" v-on:input="drawRfcTopologyData()" />
       </v-col>
       <v-col>
-        <v-btn rounded color="info" v-on:click="saveLayout()">
-          Save Layout
-        </v-btn>
+        <v-btn rounded color="info" v-on:click="saveLayout()"> Save Layout </v-btn>
       </v-col>
     </v-row>
     <v-row v-resize="resizeSVG">
@@ -82,11 +74,7 @@ export default {
   methods: {
     ...mapMutations('alert', ['setAlertHost']),
     makeVisualizer() {
-      return new NestedDiagramVisualizer(
-        this.apiParam,
-        this.svgWidth,
-        this.svgHeight
-      )
+      return new NestedDiagramVisualizer(this.apiParam, this.svgWidth, this.svgHeight)
     },
     clearAllHighlight() {
       this.visualizer.clearAllAlertHighlight()

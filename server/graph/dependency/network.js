@@ -68,10 +68,7 @@ class DependencyNetwork {
    * @private
    */
   _calcY() {
-    return (
-      this.c.layerYPad1 +
-      (this._layerHeight() + this.c.layerYPad2) * (this.index - 1)
-    )
+    return this.c.layerYPad1 + (this._layerHeight() + this.c.layerYPad2) * (this.index - 1)
   }
 
   /**
@@ -125,11 +122,7 @@ class DependencyNetwork {
         termPoint.setCenterPosition(parentNode.x, parentNode.y)
         this.termPoints.push(termPoint)
       } else {
-        console.log(
-          `[dep] Error: parent node (path=${termPoint.parentPath()}) of tp=${
-            termPoint.path
-          } not found.`
-        )
+        console.log(`[dep] Error: parent node (path=${termPoint.parentPath()}) of tp=${termPoint.path} not found.`)
       }
     }
   }

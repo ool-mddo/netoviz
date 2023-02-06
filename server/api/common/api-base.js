@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import { promisify } from 'util'
 import { splitAlertHost } from './alert-util'
 import CacheRfcTopologyDataConverter from './cache-topo-graph-converter'
@@ -24,7 +25,7 @@ class APIBase {
      * @type {CacheRfcTopologyDataConverter}
      * @protected
      */
-    this.converter = new CacheRfcTopologyDataConverter(this.modelDir, distDir)
+    this.converter = new CacheRfcTopologyDataConverter(this.modelDir, this.modelDir)
   }
 
   /**
@@ -52,8 +53,9 @@ class APIBase {
    */
   async readLayoutJSON(jsonName) {
     try {
-      const baseName = jsonName.split('.').shift()
-      const layoutJsonName = `${this.modelDir}/${baseName}-layout.json`
+      // jsonName = <network>/<snapshot>/<file>.json style path
+      const dirName = path.dirname(jsonName)
+      const layoutJsonName = path.join(this.modelDir, dirName, 'layout.json')
       const buffer = await asyncReadFile(layoutJsonName)
       return JSON.parse(buffer.toString())
     } catch (error) {
@@ -77,7 +79,7 @@ class APIBase {
   /**
    * Convert rfc-topology data to topology data for dependency diagram.
    * @param {string} jsonName - file name of rfc-topology data.
-   * @param {Request|proto.netoviz.GraphRequest} req - HTTP/gRPC request.
+   * @param {Request} req - HTTP request.
    * @returns {Promise<DependencyTopologyData>} Graph data object for nested graph.
    * @abstract
    * @protected
@@ -93,7 +95,7 @@ class APIBase {
   /**
    * Convert rfc-topology data to topology data for nested diagram.
    * @param {string} jsonName - file name of rfc-topology data.
-   * @param {Request|proto.netoviz.GraphRequest} req - HTTP/gRPC request.
+   * @param {Request} req - HTTP request.
    * @returns {Promise<NestedTopologyData>} Graph data object for nested graph.
    * @abstract
    * @protected
@@ -114,7 +116,7 @@ class APIBase {
   /**
    * Convert rfc-topology data to topology data for distance diagram.
    * @param {string} jsonName - file name of rfc-topology data.
-   * @param {Request|proto.netoviz.GraphRequest} req - HTTP/gRPC request.
+   * @param {Request} req - HTTP request.
    * @returns {Promise<DistanceTopologyData>} Graph data object for distance graph.
    * @abstract
    * @protected
@@ -132,7 +134,7 @@ class APIBase {
    * Get converted graph data for web-frontend visualization.
    * @param {string} graphName - Graoh name (type).
    * @param {string} jsonName - Topology data file name (json).
-   * @param {Request|proto.netoviz.GraphRequest} req - HTTP/gRPC request.
+   * @param {Request} req - HTTP request.
    * @returns {Promise<string>} Graph data as JSON format string.
    * @public
    */

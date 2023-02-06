@@ -7,16 +7,8 @@ export default {
   computed: {
     apiParam() {
       return {
-        use: this.$env.NETOVIZ_API,
-        grpcURIBase: this.grpcURIBase,
         restURIBase: this.restURIBase
       }
-    },
-    grpcURIBase() {
-      const protocol = window.location.protocol
-      const host = window.location.hostname
-      const port = this.$env.NETOVIZ_GRPC_WEB_PORT
-      return `${protocol}//${host}:${port}`
     },
     restURIBase() {
       const protocol = window.location.protocol

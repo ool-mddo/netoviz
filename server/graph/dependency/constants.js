@@ -46,9 +46,7 @@ class DependencyConstants {
    */
   nodeWidth(tpLength) {
     const length = tpLength > 0 ? tpLength : 1 // minimum size
-    return (
-      this.tpXPad1 * 2 + 2 * this.tpR * length + this.tpXPad2 * (length - 1)
-    )
+    return this.tpXPad1 * 2 + 2 * this.tpR * length + this.tpXPad2 * (length - 1)
   }
 
   /**

@@ -1,7 +1,6 @@
 .git/
 .idea/
 .nuxt/
-docker/
 fig/
 static/docs/
 static/*.cache

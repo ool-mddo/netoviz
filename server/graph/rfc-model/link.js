@@ -92,9 +92,7 @@ class RfcLink extends RfcModelBase {
     /** @type {Array<RfcSupportingLink>} */
     this.supportingLinks = []
     if (data['supporting-link']) {
-      this.supportingLinks = data['supporting-link'].map(
-        (d) => new RfcSupportingLink(d)
-      )
+      this.supportingLinks = data['supporting-link'].map((d) => new RfcSupportingLink(d))
     }
   }
 

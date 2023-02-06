@@ -77,9 +77,7 @@ class DistanceLink extends ForceSimulationLink {
    * @public
    */
   isReverseLink(link) {
-    return (
-      this.sourcePath === link.targetPath && this.targetPath === link.sourcePath
-    )
+    return this.sourcePath === link.targetPath && this.targetPath === link.sourcePath
   }
 }
 

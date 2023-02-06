@@ -22,9 +22,7 @@ export default {
   data: () => ({ selectedLayers: [] }),
   computed: {
     notSelectedLayers() {
-      return this.wholeLayers.filter(
-        (layer) => !this.selectedLayers.includes(layer)
-      )
+      return this.wholeLayers.filter((layer) => !this.selectedLayers.includes(layer))
     }
   },
   watch: {

@@ -8,7 +8,9 @@ Netoviz (**Ne**twork **To**pology **Vis**ualizer) is a tool to visualize network
 See also [Netomox (Network topology modeling toolbox)](https://github.com/corestate55/netomox), the tool to construct RFC8345 based network topology data.
 
 ## Demo
+
 ### Live demo
+
 A live demo (with limited functions) can be viewed at the following URI,
 
 * https://netoviz.herokuapp.com/
@@ -62,68 +64,16 @@ This application depends on:
 npm install [--legacy-peer-deps]
 ```
 
-### Install docker/gRPC tools
-Currently, Netoviz has gRPC and REST API.
-It choose API according to `NETOVIZ_API` value (`rest` or `grpc`).
-So it needs gRPC tools to run netoviz with gRPC mode
-and docker tools to manipulate docker image of envoy proxy.
-
-Install docker and docker-compose.
-```
-sudo apt install docker-ce docker-compose
-```
-
-Install grpc-tools. (`grpc_tools_node_protoc`)
-```
-sudo npm install -g --unsafe-perm grpc-tools
-```
-
-Download `protoc-gen-grpc-web` binary from [grpc/grpc\-web](https://github.com/grpc/grpc-web/releases )
-and install it.
-```
-sudo cp ~/Downloads/protoc-gen-grpc-web-1.0.7-linux-x86_64 /usr/local/bin/protoc-gen-grpc-web
-sudo chmod +x /usr/local/bin/protoc-gen-grpc-web
-```
-
-### Build envoy docker image
-See [Dockerfile for netoviz/envoy](./docker/envoy/Dockerfile) and [docker-compose config](./docker-compose.yml).
-
-Copy `dot.env` to `.env` and edit environment variables. 
-```
-cp dot.env .env
-# edit NETOVIZ_GRPC_HOST to set gRPC server host/address for envoy proxy
-# vi .env
-```
-
-Check parameters.
-```
-docker-compose config
-```
-
-Build envoy docker image for netoviz.
-```
-docker-compose build
-```
-
 ## Run Netoviz
-### Configure environment variable
-Netoviz has REST and gRPC API. 
-Its frontend application and backend server changes API to communicate each other by value of `NETOVIZ_API`.
-You can change (override) the API to use by the variable at run-time like that:
-```
-NETOVIZ_API=grpc npm run (dev|start)
-```
-
-* `NETOVIZ_API=rest` (default): frontend (client) and backend (server) use only REST.
-* `NETOVIZ_API=grpc`: frontend (client) and backend (server) use REST and gRPC.
-  * Not all the features of the REST API are achieved with the gRPC API.
 
 ### Netoviz server (development mode)
+
 ```
 npm run dev
 ```
 
 ### Netoviz server (production mode)
+
 Build (compile and minify) script for production,
 ```
 npm run build
@@ -131,12 +81,6 @@ npm run build
 and run the application.
 ```
 npm run start
-```
-
-### Run envoy proxy (for gRPC API)
-Run envoy container to proxy grpc-web request.
-```
-docker-compose up
 ```
 
 ### All-in-one docker container
@@ -155,20 +99,15 @@ Run.
 docker run -p3000:3000 --name nv-allinone netoviz/allinone
 ```
 
-It can run with gRPC API (port 9090 is for gRPC) with environment variable `NETOVIZ_API=grpc`.
-Then, it need envoy proxy to use gRPC-web.
-```
-# build and run envoy proxy at first.
-docker run -p3000:3000 -p9090:9090 --env NETOVIZ_API=grpc --name nv-allinone netoviz/allinone                        
-```
-
 Debug.
 ```
 docker run -it netoviz/allinone /bin/sh
 ```
 
 ## Development
+
 ### Document
+
 Generate documents with JSDoc.
 ```
 npm run doc
@@ -189,13 +128,8 @@ npm run doc
 
 Application (see [pages](./pages))
 
-* List/Table to select diagram
-  * `/`
-  * `/model[/:modelFile]`
-  * `/visualizer[/:visualizer]`
 * Diagram
-  * `/model/:modelFile/:visualizer`
-  * `/visualizer/:visualizer/:modelFile`
+  * `/model/:network/:snapshot/:modelFile[?visualizer=:visualizer]`
 
 ### REST API
 
@@ -203,39 +137,13 @@ Server (JSON API) (see [server/api.js](server/api/rest/index.js))
 
 * Topology data handling
   * GET `/api/models` (return [topology model list](./static/model/_index.json))
-  * POST `/api/graph/:graphName/:jsonName`
+  * POST `/api/graph/:graphName/:network/:snapshot/:jsonName`
     * to save layout (for nested-graph)
-  * GET `/api/graph/:graphName/:jsonName`
+  * GET `/api/graph/:graphName/:network/:snapshot/:jsonName`
     * return diagram data converted from RFC8345-based topology model.
 
-### gRPC API
-
-Compile protocol buffer. (It can run with `npm run protoc`.)
-```
-hagiwara@dev01:~/nwmodel/netoviz/server/graph-api/grpc$ grpc_tools_node_protoc \
-  --js_out=import_style=commonjs,binary:. \
-  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. \
-  --grpc_out=. \
-  topology-data.proto 
-```
-
-Run test-server (returns dummy data)
-```
-hagiwara@dev01:~/nwmodel/netoviz/$ node bin/grpc-server.js 
-```
-
-Run test-client (CLI-client)
-```
-# PWD: ~/nwmodel/netoviz/
-
-# Arguments: graph <graph_name> <json>
-node bin/grpc-client.js graph force_simulation nlink_check.json
-
-# Arguments: graph <number>
-node bin/grpc-client.js alerts 3
-```
-
 ### Format, Lints and fixes files
+
 prettier
 ```bash
 npm run format

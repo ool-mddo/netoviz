@@ -34,11 +34,7 @@ export default {
   }),
   methods: {
     makeVisualizer() {
-      return new Dependency2DiagramVisualizer(
-        this.apiParam,
-        this.svgWidth,
-        this.svgHeight
-      )
+      return new Dependency2DiagramVisualizer(this.apiParam, this.svgWidth, this.svgHeight)
     },
     clearAllHighlight() {
       this.visualizer.clearDependencyLines()

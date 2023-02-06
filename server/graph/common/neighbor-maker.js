@@ -55,11 +55,7 @@ class NeighborMaker extends RelationMakerBase {
     // TODO: when targetNodeName is term-point?
     const targetNode = this.findTargetNode(targetNodeName, targetNodeLayer)
     if (!targetNode) {
-      this.consoleDebug(
-        0,
-        'markNeighborWT',
-        `target: ${targetNodeName} (in layer: ${targetNodeLayer}) not found`
-      )
+      this.consoleDebug(0, 'markNeighborWT', `target: ${targetNodeName} (in layer: ${targetNodeLayer}) not found`)
       return false
     }
     const targetLinks = this._findAllTpTpLinksInLayerOf(targetNode)
@@ -92,55 +88,31 @@ class NeighborMaker extends RelationMakerBase {
    * @private
    */
   _markNeighbor(srcNode, wholeLinks, degree) {
-    this.consoleDebug(
-      degree,
-      '_markNeighbor',
-      `src=${srcNode.path}, wl.len=${wholeLinks.length}`
-    )
+    this.consoleDebug(degree, '_markNeighbor', `src=${srcNode.path}, wl.len=${wholeLinks.length}`)
     if (wholeLinks.length === 0) {
       return
     }
 
     const targetLinks = this._findAllLinksWithOrigin(wholeLinks, srcNode)
     const nextSrcNodes = []
-    this.consoleDebug(
-      degree,
-      '_markNeighbor',
-      `targetLinks: ${targetLinks.map((d) => d.path)}`
-    )
+    this.consoleDebug(degree, '_markNeighbor', `targetLinks: ${targetLinks.map((d) => d.path)}`)
     for (const targetLink of targetLinks) {
       const dstNode = this._findNodeByPath(targetLink.targetNodePath)
       if (dstNode?.neighbor?.degree <= degree) {
-        this.consoleDebug(
-          degree,
-          '_markNeighbor',
-          `pass dst=${dstNode.path}, degree=${dstNode.neighbor.degree}`
-        )
+        this.consoleDebug(degree, '_markNeighbor', `pass dst=${dstNode.path}, degree=${dstNode.neighbor.degree}`)
         continue
       }
 
-      this.consoleDebug(
-        degree,
-        '_markNeighbor',
-        `mark ${dstNode.path}.heighbor = ${degree}`
-      )
+      this.consoleDebug(degree, '_markNeighbor', `mark ${dstNode.path}.heighbor = ${degree}`)
       dstNode.neighbor = new NeighborRelation(degree)
       nextSrcNodes.push(dstNode)
     }
 
     const leftLinks = this._findAllLinksWithoutOrigin(wholeLinks, srcNode)
-    this.consoleDebug(
-      degree,
-      '_markNeighbor',
-      `nextSrcNodes=${nextSrcNodes.map((d) => d.path)}`
-    )
+    this.consoleDebug(degree, '_markNeighbor', `nextSrcNodes=${nextSrcNodes.map((d) => d.path)}`)
     degree += 1
     for (const nextSrcNode of nextSrcNodes) {
-      this.consoleDebug(
-        degree - 1,
-        '_markNeighbor',
-        `goto next src=${nextSrcNode.path}`
-      )
+      this.consoleDebug(degree - 1, '_markNeighbor', `goto next src=${nextSrcNode.path}`)
       this._markNeighbor(nextSrcNode, leftLinks, degree)
     }
   }
@@ -186,12 +158,7 @@ class NeighborMaker extends RelationMakerBase {
  * @param {string} [targetNodeLayer] - Layer of target node.
  * @returns {boolean} True if found target and marked other nodes.
  */
-const markNeighborWithTarget = (
-  nodes,
-  links,
-  targetNodeName,
-  targetNodeLayer
-) => {
+const markNeighborWithTarget = (nodes, links, targetNodeName, targetNodeLayer) => {
   const neighborMaker = new NeighborMaker(nodes, links)
   return neighborMaker.markNeighborWithTarget(targetNodeName, targetNodeLayer)
 }

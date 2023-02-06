@@ -36,11 +36,7 @@ export default {
   methods: {
     ...mapMutations('alert', ['setAlertHost']),
     makeVisualizer() {
-      return new DistanceDiagramVisualizer(
-        this.apiParam,
-        this.svgWidth,
-        this.svgHeight
-      )
+      return new DistanceDiagramVisualizer(this.apiParam, this.svgWidth, this.svgHeight)
     },
     clearAllHighlight() {
       this.visualizer.clearHighlight()

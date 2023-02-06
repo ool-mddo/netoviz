@@ -32,13 +32,14 @@ const collectWebpackConfigs = async () => {
   const nuxt = new Nuxt(config)
   const customBuilder = new Builder(nuxt, CustomBundleBuilder)
   await customBuilder.build()
-  customBuilder.close() // EDIT: By default nuxt.options is set for development, need to close builder to stop nuxt from watching for fileChange
+  // EDIT: By default nuxt.options is set for development,
+  // need to close builder to stop nuxt from watching for fileChange
+  customBuilder.close()
 
   return customBuilder.bundleBuilder.compilerMap
 }
 
-const makeWebpackConfigName = (postFix) =>
-  path.join(__dirname, 'webpack.config.' + postFix + '.js')
+const makeWebpackConfigName = (postFix) => path.join(__dirname, 'webpack.config.' + postFix + '.js')
 const outputConfigurationAsFile = ({ name, options }) => {
   const webpackFilePath = makeWebpackConfigName(name)
   const content = 'module.exports = ' + JSON.stringify(options)

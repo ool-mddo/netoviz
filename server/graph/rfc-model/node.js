@@ -107,9 +107,7 @@ class RfcNode extends RfcModelBase {
     /** @type {Array<RfcSupportingNode>} */
     this.supportingNodes = []
     if (data['supporting-node']) {
-      this.supportingNodes = data['supporting-node'].map(
-        (d) => new RfcSupportingNode(d)
-      )
+      this.supportingNodes = data['supporting-node'].map((d) => new RfcSupportingNode(d))
     }
   }
 

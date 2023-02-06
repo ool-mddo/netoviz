@@ -17,13 +17,9 @@ class DistanceTopology {
   constructor(graphQuery) {
     const networks = graphQuery.topologyData
     /** @type {Array<DistanceNode>} */
-    this.nodes = this._correctArrays(networks, 'nodes').map(
-      (d) => new DistanceNode(d)
-    )
+    this.nodes = this._correctArrays(networks, 'nodes').map((d) => new DistanceNode(d))
     /** @type {Array<DistanceLink>} */
-    this.links = this._correctArrays(networks, 'links').map(
-      (d) => new DistanceLink(d)
-    )
+    this.links = this._correctArrays(networks, 'links').map((d) => new DistanceLink(d))
 
     /**
      * Radius of node circle.
@@ -56,9 +52,7 @@ class DistanceTopology {
    * @private
    */
   _correctArrays(networks, attribute) {
-    return networks
-      .map((nw) => nw[attribute])
-      .reduce((sum, arr) => sum.concat(arr), [])
+    return networks.map((nw) => nw[attribute]).reduce((sum, arr) => sum.concat(arr), [])
   }
 
   /**
@@ -81,9 +75,7 @@ class DistanceTopology {
     }
 
     const theta = (2 * Math.PI) / count
-    return diR * Math.sin(theta / 2) < this.nodeRadius
-      ? this.nodeRadius / Math.sin(theta / 2)
-      : diR
+    return diR * Math.sin(theta / 2) < this.nodeRadius ? this.nodeRadius / Math.sin(theta / 2) : diR
   }
 
   /**
@@ -153,9 +145,7 @@ class DistanceTopology {
    * @private
    */
   _nodesInLayouts(layouts) {
-    return layouts
-      .map((layout) => layout.nodes)
-      .reduce((sum, n) => sum.concat(n), [])
+    return layouts.map((layout) => layout.nodes).reduce((sum, n) => sum.concat(n), [])
   }
 
   /**
@@ -201,9 +191,7 @@ class DistanceTopology {
     const links = []
 
     for (const srcNode of nodes) {
-      const linksFromSrcNode = baseLinks.filter(
-        (l) => l.sourceNodePath === srcNode.path
-      )
+      const linksFromSrcNode = baseLinks.filter((l) => l.sourceNodePath === srcNode.path)
       for (const linkFromSrcNode of linksFromSrcNode) {
         if (
           nodes.find((d) => d.path === linkFromSrcNode.targetNodePath) &&

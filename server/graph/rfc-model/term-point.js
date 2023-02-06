@@ -75,9 +75,7 @@ class RfcTermPoint extends RfcModelBase {
     this.supportingTermPoints = []
     const stpKey = 'supporting-termination-point' // alias
     if (data[stpKey]) {
-      this.supportingTermPoints = data[stpKey].map(
-        (d) => new RfcSupportingTermPoint(d)
-      )
+      this.supportingTermPoints = data[stpKey].map((d) => new RfcSupportingTermPoint(d))
     }
   }
 

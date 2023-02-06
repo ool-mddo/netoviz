@@ -49,12 +49,7 @@ class DependencyTermPoint extends ForceSimulationNode {
    * @private
    */
   _calcX(nx) {
-    return (
-      nx +
-      this.c.tpXPad1 +
-      (2 * this.c.tpR + this.c.tpXPad2) * (this.index - 1) +
-      this.c.tpR
-    )
+    return nx + this.c.tpXPad1 + (2 * this.c.tpR + this.c.tpXPad2) * (this.index - 1) + this.c.tpR
   }
 
   /**
