@@ -173,6 +173,8 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
     this.timer = data.timer ? new MddoOspfTimer(data.timer) : new MddoOspfTimer() // default timer config
     /** @type {Array<MddoOspfNeighbor>} */
     this.neighbor = data.neighbor ? data.neighbor.map((n) => new MddoOspfNeighbor(n)) : []
+    /** @type {number} */
+    this.area = data.area >= 0 ? data.area : -1
   }
 
   /**
@@ -192,6 +194,7 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlKeyValue('priority', 'Priority')}</li>
   <li>${this._toHtmlKeyValue('metric', 'Metric')}</li>
   <li>${this._toHtmlKeyValue('passive', 'Passive')}</li>
+  <li>${this._toHtmlKeyValue('area', 'Area')}</li>
   <li>${this._toHtmlDefaultAttrKey('Timer')}
     ${this.timer.toHtml(this?.diffState.findAllDiffDataMatchesPath(/timer\.(.+)/))}
   </li>
