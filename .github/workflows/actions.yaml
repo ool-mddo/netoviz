@@ -2,11 +2,12 @@ name: Build netoviz image
 
 on: push
 
+env:
+  IMAGE_NAME: netoviz
+
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: netoviz
     permissions:
       contents: read
       packages: write
@@ -32,6 +33,12 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
 
+  delete_old_container_images:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
       - name: Delete old container images
         uses: actions/delete-package-versions@v4
         with:
@@ -39,4 +46,3 @@ jobs:
           package-type: 'container'
           min-versions-to-keep: 10
           delete-only-untagged-versions: 'true'
-
