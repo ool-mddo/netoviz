@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 import { promisify } from 'util'
+import toForceSimulationTopologyData from '../../graph/force-simulation'
 import { splitAlertHost } from './alert-util'
-import CacheRfcTopologyDataConverter from './cache-topo-graph-converter'
 
 const asyncReadFile = promisify(fs.readFile)
 
@@ -20,12 +20,6 @@ class APIBase {
      * @protected
      */
     this.modelDir = `${distDir}/model`
-    /**
-     * Topology data converter with data cache function.
-     * @type {CacheRfcTopologyDataConverter}
-     * @protected
-     */
-    this.converter = new CacheRfcTopologyDataConverter(this.modelDir, this.modelDir)
   }
 
   /**
@@ -67,13 +61,31 @@ class APIBase {
   }
 
   /**
+   * Read topology data from json file.
+   * @param {string} jsonName - File name of topology json
+   * @return {Promise<RfcTopologyData>} Topology data object from file
+   * @private
+   */
+  async _readForceSimulationTopologyDataJSON(jsonName) {
+    try {
+      const jsonPath = `${this.modelDir}/${jsonName}`
+      const buffer = await asyncReadFile(jsonPath)
+      return JSON.parse(buffer.toString())
+    } catch (error) {
+      console.error('Error: cannot read model file: ', jsonName)
+      throw error
+    }
+  }
+
+  /**
    * Convert rfc-topology data to topology data to draw diagram.
    * @param {string} jsonName - File name of rfc-topology data.
    * @returns {Promise<ForceSimulationTopologyData>} topology data for force-simulation diagram.
    * @protected
    */
-  toForceSimulationTopologyData(jsonName) {
-    return this.converter.toForceSimulationTopologyData(jsonName)
+  async toForceSimulationTopologyData(jsonName) {
+    const rfcTopologyData = await this._readForceSimulationTopologyDataJSON(jsonName)
+    return toForceSimulationTopologyData(rfcTopologyData)
   }
 
   /**
