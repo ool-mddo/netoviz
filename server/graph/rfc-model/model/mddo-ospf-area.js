@@ -76,7 +76,7 @@ export class MddoOspfAreaNetwork extends RfcNetwork {
    */
   constructor(data, nwNum) {
     super(data, nwNum)
-    const attrKey = 'mddo-topology:ospf-area-network-attributes'
+    const attrKey = 'mddo-topology:ospf-area-network-attributes' // alias
     /** @type {MddoOspfAreaNetworkAttribute} */
     this.attribute = new MddoOspfAreaNetworkAttribute(data[attrKey] || {}) // avoid undefined
   }

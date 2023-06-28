@@ -22,8 +22,7 @@ export class MddoL1LinkAttribute extends RfcAttributeModelBase {
     super(data)
     /** @type {string} */
     this.class = 'MddoL1LinkAttribute'
-
-    /** @type {number} */
+    /** @type {string} */
     this.name = data.name || ''
     /** @type {Array<string>} */
     this.flag = data.flag || []
@@ -47,8 +46,7 @@ export class MddoL2LinkAttribute extends RfcAttributeModelBase {
     super(data)
     /** @type {string} */
     this.class = 'MddoL2LinkAttribute'
-
-    /** @type {number} */
+    /** @type {string} */
     this.name = data.name || ''
     /** @type {Array<string>} */
     this.flag = data.flag || []
@@ -72,8 +70,7 @@ export class MddoL3LinkAttribute extends RfcAttributeModelBase {
     super(data)
     /** @type {string} */
     this.class = 'MddoL3LinkAttribute'
-
-    /** @type {number} */
+    /** @type {string} */
     this.name = data.name || ''
     /** @type {Array<string>} */
     this.flag = data.flag || []
@@ -97,8 +94,31 @@ export class MddoOspfAreaLinkAttribute extends RfcAttributeModelBase {
     super(data)
     /** @type {string} */
     this.class = 'MddoOspfAreaLinkAttribute'
+    /** @type {string} */
+    this.name = data.name || ''
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
+  }
+}
 
-    /** @type {number} */
+/**
+ * Attribute class for bgp link.
+ * @extends {RfcAttributeModelBase}
+ */
+export class MddoBgpLinkAttribute extends RfcAttributeModelBase {
+  /**
+   * @typedef {Object} MddoBgpLinkAttributeData
+   * @prop {string} name
+   * @prop {Array<string>} flag
+   */
+  /**
+   * @param {MddoBgpLinkAttributeData|MddoBgpLinkAttribute} data - BGP link attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoBgpLinkAttribute'
+    /** @type {string} */
     this.name = data.name || ''
     /** @type {Array<string>} */
     this.flag = data.flag || []

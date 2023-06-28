@@ -38,8 +38,8 @@ export class MddoL1NodeAttribute extends RfcAttributeModelBase {
   toHtml(_diffElements) {
     return `
 <ul>
-  <li>${this._toHtmlKeyValue('osType', 'OS Type')}
-  <li>${this._toHtmlKeyValue('flag', 'Flag')}
+  <li>${this._toHtmlKeyValue('osType', 'OS Type')}</li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
 </ul>
 `
   }
@@ -79,15 +79,15 @@ export class MddoL2NodeAttribute extends RfcAttributeModelBase {
   toHtml(_diffElements) {
     return `
 <ul>
-  <li>${this._toHtmlKeyValue('name', 'Name')}
-  <li>${this._toHtmlKeyValue('vlanId', 'VLAN ID')}
-  <li>${this._toHtmlKeyValue('flag', 'Flag')}
+  <li>${this._toHtmlKeyValue('name', 'Name')}</li>
+  <li>${this._toHtmlKeyValue('vlanId', 'VLAN ID')}</li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
 </ul>`
   }
 }
 
 /**
- * Attribute class MDDO for layer3 node.
+ * Attribute class for MDDO layer3 node.
  * @extends {RfcAttributeModelBase}
  */
 export class MddoL3NodeAttribute extends RfcAttributeModelBase {
@@ -135,8 +135,8 @@ export class MddoL3NodeAttribute extends RfcAttributeModelBase {
 
     return `
 <ul>
-  <li>${this._toHtmlKeyValue('nodeType', 'Node Type')}
-  <li>${this._toHtmlKeyValue('flag', 'Flag')}
+  <li>${this._toHtmlKeyValue('nodeType', 'Node Type')}</li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
   <li>${this._toHtmlDefaultAttrKey('Prefix')}
     <ul>${prefixList.join('')}</ul>
   </li>
@@ -149,7 +149,7 @@ export class MddoL3NodeAttribute extends RfcAttributeModelBase {
 }
 
 /**
- * Attribute class MDDO for ospf-area node (ospf-proc).
+ * Attribute class for MDDO ospf-area node (ospf-proc).
  * @extends {RfcAttributeModelBase}
  */
 export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
@@ -158,7 +158,7 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
    * @prop {string} nodeType
    * @prop {string} routerId
    * @prop {string} routerIdSource
-   * @prop {boolean} logAdjacencyChange
+   * @prop {Boolean} logAdjacencyChange
    * @prop {Array<MddoOspRedistributeData>} redistribute
    */
   /**
@@ -177,7 +177,7 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
     this.processId = data.processId || data['process-id'] || 'default'
     /** @type {string} */
     this.routerIdSource = data.routerIdSource || data['router-id-source'] || ''
-    /** @type {boolean} */
+    /** @type {Boolean} */
     this.logAdjacencyChange = data.logAdjacencyChange || data['log-adjacency-change'] || false
     /** @type {Array<MddoOspfRedistribute>} */
     this.redistribute = data.redistribute.map((d) => new MddoOspfRedistribute(d))
@@ -195,13 +195,72 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
 
     return `
 <ul>
-  <li>${this._toHtmlKeyValue('nodeType', 'Node Type')}
+  <li>${this._toHtmlKeyValue('nodeType', 'Node Type')}</li>
   <li>${this._toHtmlKeyValue('routerId', 'Router ID')}</li>
   <li>${this._toHtmlKeyValue('processId', 'Process ID')}</li>
   <li>${this._toHtmlKeyValue('logAdjacencyChange', 'Log Adjacency Change')}</li>
   <li>${this._toHtmlDefaultAttrKey('Redistribute')}
     <ul>${redistributeList.join('')}</ul>
   </li>
+</ul>
+`
+  }
+}
+
+/**
+ * Attribute class for MDDO bgp node (bgp-proc)
+ * @extends {RfcAttributeModelBase}
+ */
+export class MddoBgpNodeAttribute extends RfcAttributeModelBase {
+  /**
+   * @typedef {Object} MddoBgpNodeAttributeData
+   * @prop {string} routerId
+   * @prop {number} confederationId
+   * @prop {Array<number>} confederationMember
+   * @prop {Boolean} routeReflector
+   * @prop {Array<string>} peerGroup // TODO: attr implementation
+   * @prop {Array} policy // TODO: attr implementation
+   * @prop {Array} redistribute // TODO: attr implementation
+   */
+  /**
+   * @param {MddoBgpNodeAttributeData|MddoBgpNodeAttribute} data - bgp node attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoBgpNodeAttribute'
+
+    /** @type {string} */
+    this.routerId = data.routerId || data['router-id'] || ''
+    /** @type {number} */
+    this.confederationId = data.confederationId || data['confederation-id'] || -1
+    /** @type {Array<number>} */
+    this.confederationMember = data.confederationMember || data['confederation-member'] || []
+    /** @type {Boolean} */
+    this.routeReflector = data.routeReflector || data['route-reflector'] || false
+    /** @type {Array<string>} */
+    this.peerGroup = data.peerGroup || data['peer-group'] || [] // TODO: attr implementation
+    /** @type {Array} */
+    this.policy = data.policy || [] // TODO: attr implementation
+    /** @type {Array} */
+    this.redistribute = data.redistribute || [] // TODO: attr implementation
+  }
+
+  /**
+   * Convert attribute to html string.
+   * @returns {string} HTML string of attribute.
+   * @public
+   */
+  toHtml(_diffElements) {
+    return `
+<ul>
+  <li>${this._toHtmlKeyValue('routerId', 'Router ID')}</li>
+  <li>${this._toHtmlKeyValue('confederationId', 'Confederation ID')}</li>
+  <li>${this._toHtmlKeyValue('confederationMember', 'Confederation Members')}</li>
+  <li>${this._toHtmlKeyValue('routeReflector', 'Route reflector?')}</li>
+  <li>${this._toHtmlKeyValue('peerGroup', 'Peer group')}</li>
+  <li>${this._toHtmlKeyValue('policy', 'Policies')}</li>
+  <li>${this._toHtmlKeyValue('redistribute', 'Redistribute')}</li>
 </ul>
 `
   }

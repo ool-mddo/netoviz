@@ -88,7 +88,7 @@ export class MddoOspfAreaNetworkAttribute extends RfcAttributeModelBase {
    * @prop {Array<string>} flag
    */
   /**
-   * @param {MddoOspfAreaNetworkAttributeData|MddoOspfAreaNetworkAttribute} data - L3 network attribute data.
+   * @param {MddoOspfAreaNetworkAttributeData|MddoOspfAreaNetworkAttribute} data - ospf-area network attribute data.
    */
   constructor(data) {
     super(data)
@@ -98,6 +98,30 @@ export class MddoOspfAreaNetworkAttribute extends RfcAttributeModelBase {
     this.name = data.name || ''
     /** @type {string} */
     this.identifier = data.identifier || ''
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
+  }
+}
+
+/**
+ * Attribute class for MDDO bgp network.
+ * @extends {RfcAttributeModelBase}
+ */
+export class MddoBgpNetworkAttribute extends RfcAttributeModelBase {
+  /**
+   * @typedef {Object} MddoBgpNetworkAttributeData
+   * @prop {string} name
+   * @prop {Array<string>} flag
+   */
+  /**
+   * @param {MddoBgpNetworkAttributeData|MddoBgpNetworkAttribute} data - bgp network attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoBgpNetworkAttribute'
+    /** @type {string} */
+    this.name = data.name || ''
     /** @type {Array<string>} */
     this.flag = data.flag || []
   }
