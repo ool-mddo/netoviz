@@ -5,148 +5,119 @@
 import RfcAttributeModelBase from '../attr-base'
 
 /**
- * Attribute class for MDDO layer1 network.
+ * Attribute base-class for Mddo network.
  * @extends {RfcAttributeModelBase}
  */
-export class MddoL1NetworkAttribute extends RfcAttributeModelBase {
+class MddoNetworkAttributeBase extends RfcAttributeModelBase {
   /**
-   * @typedef {Object} MddoL1NetworkAttributeData
+   * @typedef {Object} MddoNetworkAttributeBaseData
    * @prop {string} name
    * @prop {Array<string>} flag
    */
   /**
-   * @param {MddoL1NetworkAttributeData|MddoL1NetworkAttribute} data - L1 network attribute data.
+   * @param {MddoNetworkAttributeBaseData|MddoNetworkAttributeBase} data - Network attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoNetworkAttributeBase'
+
+    /** @type {string} */
+    this.name = data.name || ''
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
+  }
+}
+
+/**
+ * Attribute class for MDDO layer1 network.
+ * @extends {MddoNetworkAttributeBase}
+ */
+export class MddoL1NetworkAttribute extends MddoNetworkAttributeBase {
+  /**
+   * @override
    */
   constructor(data) {
     super(data)
     /** @type {string} */
     this.class = 'MddoL1NetworkAttribute'
-    /** @type {string} */
-    this.name = data.name || ''
-    /** @type {Array<string>} */
-    this.flag = data.flag || []
   }
 }
 
 /**
  * Attribute class for MDDO layer2 network.
- * @extends {RfcAttributeModelBase}
+ * @extends {MddoNetworkAttributeBase}
  */
-export class MddoL2NetworkAttribute extends RfcAttributeModelBase {
+export class MddoL2NetworkAttribute extends MddoNetworkAttributeBase {
   /**
-   * @typedef {Object} MddoL2NetworkAttributeData
-   * @prop {string} name
-   * @prop {Array<string>} flag
-   */
-  /**
-   * @param {MddoL2NetworkAttributeData|MddoL2NetworkAttribute} data - L2 network attribute data.
+   * @override
    */
   constructor(data) {
     super(data)
     /** @type {string} */
     this.class = 'MddoL2NetworkAttribute'
-    /** @type {string} */
-    this.name = data.name || ''
-    /** @type {Array<string>} */
-    this.flag = data.flag || []
   }
 }
 
 /**
  * Attribute class for MDDO layer3 network.
- * @extends {RfcAttributeModelBase}
+ * @extends {MddoNetworkAttributeBase}
  */
-export class MddoL3NetworkAttribute extends RfcAttributeModelBase {
+export class MddoL3NetworkAttribute extends MddoNetworkAttributeBase {
   /**
-   * @typedef {Object} MddoL3NetworkAttributeData
-   * @prop {string} name
-   * @prop {Array<string>} flag
-   */
-  /**
-   * @param {MddoL3NetworkAttributeData|MddoL3NetworkAttribute} data - L3 network attribute data.
+   * @override
    */
   constructor(data) {
     super(data)
     /** @type {string} */
     this.class = 'MddoL3NetworkAttribute'
-    /** @type {string} */
-    this.name = data.name || ''
-    /** @type {Array<string>} */
-    this.flag = data.flag || []
   }
 }
 
 /**
  * Attribute class for MDDO ospf-area network.
- * @extends {RfcAttributeModelBase}
+ * @extends {MddoNetworkAttributeBase}
  */
-export class MddoOspfAreaNetworkAttribute extends RfcAttributeModelBase {
+export class MddoOspfAreaNetworkAttribute extends MddoNetworkAttributeBase {
   /**
-   * @typedef {Object} MddoOspfAreaNetworkAttributeData
-   * @prop {string} name
-   * @prop {string} identifier
-   * @prop {Array<string>} flag
-   */
-  /**
-   * @param {MddoOspfAreaNetworkAttributeData|MddoOspfAreaNetworkAttribute} data - ospf-area network attribute data.
+   * @override
    */
   constructor(data) {
     super(data)
     /** @type {string} */
     this.class = 'MddoOspfAreaNetworkAttribute'
-    /** @type {string} */
-    this.name = data.name || ''
+
     /** @type {string} */
     this.identifier = data.identifier || ''
-    /** @type {Array<string>} */
-    this.flag = data.flag || []
   }
 }
 
 /**
  * Attribute class for MDDO bgp-proc network.
- * @extends {RfcAttributeModelBase}
+ * @extends {MddoNetworkAttributeBase}
  */
-export class MddoBgpProcNetworkAttribute extends RfcAttributeModelBase {
+export class MddoBgpProcNetworkAttribute extends MddoNetworkAttributeBase {
   /**
-   * @typedef {Object} MddoBgpProcNetworkAttributeData
-   * @prop {string} name
-   * @prop {Array<string>} flag
-   */
-  /**
-   * @param {MddoBgpProcNetworkAttributeData|MddoBgpProcNetworkAttribute} data - bgp-proc network attribute data.
+   * @override
    */
   constructor(data) {
     super(data)
     /** @type {string} */
     this.class = 'MddoBgpProcNetworkAttribute'
-    /** @type {string} */
-    this.name = data.name || ''
-    /** @type {Array<string>} */
-    this.flag = data.flag || []
   }
 }
 
 /**
  * Attribute class for MDDO bgp-as network.
- * @extends {RfcAttributeModelBase}
+ * @extends {MddoNetworkAttributeBase}
  */
-export class MddoBgpAsNetworkAttribute extends RfcAttributeModelBase {
+export class MddoBgpAsNetworkAttribute extends MddoNetworkAttributeBase {
   /**
-   * @typedef {Object} MddoBgpAsNetworkAttributeData
-   * @prop {string} name
-   * @prop {Array<string>} flag
-   */
-  /**
-   * @param {MddoBgpAsNetworkAttributeData|MddoBgpAsNetworkAttribute} data - bgp-as network attribute data.
+   * @override
    */
   constructor(data) {
     super(data)
     /** @type {string} */
     this.class = 'MddoBgpAsNetworkAttribute'
-    /** @type {string} */
-    this.name = data.name || ''
-    /** @type {Array<string>} */
-    this.flag = data.flag || []
   }
 }

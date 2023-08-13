@@ -63,6 +63,7 @@ export class MddoL2NodeAttribute extends RfcAttributeModelBase {
     super(data)
     /** @type {string} */
     this.class = 'MddoL2NodeAttribute'
+
     /** @type {string} */
     this.name = data.name || ''
     /** @type {string} */
