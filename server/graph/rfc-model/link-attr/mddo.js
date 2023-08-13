@@ -102,22 +102,46 @@ export class MddoOspfAreaLinkAttribute extends RfcAttributeModelBase {
 }
 
 /**
- * Attribute class for bgp link.
+ * Attribute class for bgp-proc link.
  * @extends {RfcAttributeModelBase}
  */
-export class MddoBgpLinkAttribute extends RfcAttributeModelBase {
+export class MddoBgpProcLinkAttribute extends RfcAttributeModelBase {
   /**
-   * @typedef {Object} MddoBgpLinkAttributeData
+   * @typedef {Object} MddoBgpProcLinkAttributeData
    * @prop {string} name
    * @prop {Array<string>} flag
    */
   /**
-   * @param {MddoBgpLinkAttributeData|MddoBgpLinkAttribute} data - BGP link attribute data.
+   * @param {MddoBgpProcLinkAttributeData|MddoBgpProcLinkAttribute} data - BGP-proc link attribute data.
    */
   constructor(data) {
     super(data)
     /** @type {string} */
-    this.class = 'MddoBgpLinkAttribute'
+    this.class = 'MddoBgpProcLinkAttribute'
+    /** @type {string} */
+    this.name = data.name || ''
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
+  }
+}
+
+/**
+ * Attribute class for bgp-as link.
+ * @extends {RfcAttributeModelBase}
+ */
+export class MddoBgpAsLinkAttribute extends RfcAttributeModelBase {
+  /**
+   * @typedef {Object} MddoBgpAsLinkAttributeData
+   * @prop {string} name
+   * @prop {Array<string>} flag
+   */
+  /**
+   * @param {MddoBgpAsLinkAttributeData|MddoBgpAsLinkAttribute} data - BGP-as link attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoBgpAsLinkAttribute'
     /** @type {string} */
     this.name = data.name || ''
     /** @type {Array<string>} */

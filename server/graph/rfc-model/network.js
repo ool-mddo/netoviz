@@ -289,12 +289,21 @@ class RfcNetwork extends RfcModelBase {
   }
 
   /**
-   * Check network type is Mddo bgp
+   * Check network type is Mddo bgp-proc
    * @returns {Boolean}
    */
-  isTypeMddoBgp() {
-    const nwMddoBgpTypeKey = 'mddo-topology:bgp-network' // alias
-    return this.networkTypes.hasType(nwMddoBgpTypeKey)
+  isTypeMddoBgpProc() {
+    const nwMddoBgpProcTypeKey = 'mddo-topology:bgp-proc-network' // alias
+    return this.networkTypes.hasType(nwMddoBgpProcTypeKey)
+  }
+
+  /**
+   * Check network type is Mddo bgp-as
+   * @returns {Boolean}
+   */
+  isTypeMddoBgpAs() {
+    const nwMddoBgpAsTypeKey = 'mddo-topology:bgp-as-network' // alias
+    return this.networkTypes.hasType(nwMddoBgpAsTypeKey)
   }
 }
 

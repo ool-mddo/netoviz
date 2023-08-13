@@ -208,12 +208,12 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
 }
 
 /**
- * Attribute class for MDDO bgp node (bgp-proc)
+ * Attribute class for MDDO bgp-proc node
  * @extends {RfcAttributeModelBase}
  */
-export class MddoBgpNodeAttribute extends RfcAttributeModelBase {
+export class MddoBgpProcNodeAttribute extends RfcAttributeModelBase {
   /**
-   * @typedef {Object} MddoBgpNodeAttributeData
+   * @typedef {Object} MddoBgpProcNodeAttributeData
    * @prop {string} routerId
    * @prop {number} confederationId
    * @prop {Array<number>} confederationMember
@@ -223,12 +223,12 @@ export class MddoBgpNodeAttribute extends RfcAttributeModelBase {
    * @prop {Array} redistribute // TODO: attr implementation
    */
   /**
-   * @param {MddoBgpNodeAttributeData|MddoBgpNodeAttribute} data - bgp node attribute data.
+   * @param {MddoBgpProcNodeAttributeData|MddoBgpProcNodeAttribute} data - bgp-proc node attribute data.
    */
   constructor(data) {
     super(data)
     /** @type {string} */
-    this.class = 'MddoBgpNodeAttribute'
+    this.class = 'MddoBgpProcNodeAttribute'
 
     /** @type {string} */
     this.routerId = data.routerId || data['router-id'] || ''
@@ -261,6 +261,41 @@ export class MddoBgpNodeAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlKeyValue('peerGroup', 'Peer group')}</li>
   <li>${this._toHtmlKeyValue('policy', 'Policies')}</li>
   <li>${this._toHtmlKeyValue('redistribute', 'Redistribute')}</li>
+</ul>
+`
+  }
+}
+
+/**
+ * Attribute class for MDDO bgp-as node
+ * @extends {RfcAttributeModelBase}
+ */
+export class MddoBgpAsNodeAttribute extends RfcAttributeModelBase {
+  /**
+   * @typedef {Object} MddoBgpAsNodeAttributeData
+   * @prop {number} asNumber
+   */
+  /**
+   * @param {MddoBgpAsNodeAttributeData|MddoBgpAsNodeAttribute} data - bgp-as node attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoBgpAsNodeAttribute'
+
+    /** @type{number} */
+    this.asNumber = data.asNumber || data['as-number'] || -1
+  }
+
+  /**
+   * Convert attribute to html string.
+   * @returns {string} HTML string of attribute.
+   * @public
+   */
+  toHtml(_diffElements) {
+    return `
+<ul>
+  <li>${this._toHtmlKeyValue('asNumber', 'AS Number')}</li>
 </ul>
 `
   }

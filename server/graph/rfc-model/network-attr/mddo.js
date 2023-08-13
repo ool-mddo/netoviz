@@ -104,22 +104,46 @@ export class MddoOspfAreaNetworkAttribute extends RfcAttributeModelBase {
 }
 
 /**
- * Attribute class for MDDO bgp network.
+ * Attribute class for MDDO bgp-proc network.
  * @extends {RfcAttributeModelBase}
  */
-export class MddoBgpNetworkAttribute extends RfcAttributeModelBase {
+export class MddoBgpProcNetworkAttribute extends RfcAttributeModelBase {
   /**
-   * @typedef {Object} MddoBgpNetworkAttributeData
+   * @typedef {Object} MddoBgpProcNetworkAttributeData
    * @prop {string} name
    * @prop {Array<string>} flag
    */
   /**
-   * @param {MddoBgpNetworkAttributeData|MddoBgpNetworkAttribute} data - bgp network attribute data.
+   * @param {MddoBgpProcNetworkAttributeData|MddoBgpProcNetworkAttribute} data - bgp-proc network attribute data.
    */
   constructor(data) {
     super(data)
     /** @type {string} */
-    this.class = 'MddoBgpNetworkAttribute'
+    this.class = 'MddoBgpProcNetworkAttribute'
+    /** @type {string} */
+    this.name = data.name || ''
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
+  }
+}
+
+/**
+ * Attribute class for MDDO bgp-as network.
+ * @extends {RfcAttributeModelBase}
+ */
+export class MddoBgpAsNetworkAttribute extends RfcAttributeModelBase {
+  /**
+   * @typedef {Object} MddoBgpAsNetworkAttributeData
+   * @prop {string} name
+   * @prop {Array<string>} flag
+   */
+  /**
+   * @param {MddoBgpAsNetworkAttributeData|MddoBgpAsNetworkAttribute} data - bgp-as network attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoBgpAsNetworkAttribute'
     /** @type {string} */
     this.name = data.name || ''
     /** @type {Array<string>} */

@@ -208,12 +208,12 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
 }
 
 /**
- * Attribute class for MDDO bgp term-point.
+ * Attribute class for MDDO bgp-proc term-point.
  * @extends {RfcAttributeModelBase}
  */
-export class MddoBgpTermPointAttribute extends RfcAttributeModelBase {
+export class MddoBgpProcTermPointAttribute extends RfcAttributeModelBase {
   /**
-   * @typedef {Object} MddoBgpTermPointAttributeData
+   * @typedef {Object} MddoBgpProcTermPointAttributeData
    * @prop {number} localAs
    * @prop {string} localIp
    * @prop {number} remoteAs
@@ -227,12 +227,12 @@ export class MddoBgpTermPointAttribute extends RfcAttributeModelBase {
    * @prop {MddoBgpTimerData} timer
    */
   /**
-   * @param {MddoBgpTermPointAttributeData|MddoBgpTermPointAttribute} data - bgp term-point attribute data.
+   * @param {MddoBgpProcTermPointAttributeData|MddoBgpProcTermPointAttribute} data - bgp-proc term-point attribute data.
    */
   constructor(data) {
     super(data)
     /** @type {string} */
-    this.class = 'MddoBgpTermPointAttribute'
+    this.class = 'MddoBgpProcTermPointAttribute'
 
     /** @type {number} */
     this.localAs = data.localAs || data['local-as'] || -1
@@ -282,5 +282,17 @@ export class MddoBgpTermPointAttribute extends RfcAttributeModelBase {
   </li>
 </ul>
 `
+  }
+}
+
+/**
+ * Attribute class for MDDO bgp-as term-point.
+ * @extends {MddoL1TermPointAttribute}
+ */
+export class MddoBgpAsTermPointAttribute extends MddoL1TermPointAttribute {
+  constructor(data) {
+    super(data)
+    /** [type {string}] */
+    this.class = 'MddoBgpAsTermPointAttribute'
   }
 }
