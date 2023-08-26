@@ -284,8 +284,26 @@ class RfcNetwork extends RfcModelBase {
    * @returns {Boolean}
    */
   isTypeMddoOspfArea() {
-    const nwMddoOspfAreatypeKey = 'mddo-topology:ospf-area-network' // alias
-    return this.networkTypes.hasType(nwMddoOspfAreatypeKey)
+    const nwMddoOspfAreaTypeKey = 'mddo-topology:ospf-area-network' // alias
+    return this.networkTypes.hasType(nwMddoOspfAreaTypeKey)
+  }
+
+  /**
+   * Check network type is Mddo bgp-proc
+   * @returns {Boolean}
+   */
+  isTypeMddoBgpProc() {
+    const nwMddoBgpProcTypeKey = 'mddo-topology:bgp-proc-network' // alias
+    return this.networkTypes.hasType(nwMddoBgpProcTypeKey)
+  }
+
+  /**
+   * Check network type is Mddo bgp-as
+   * @returns {Boolean}
+   */
+  isTypeMddoBgpAs() {
+    const nwMddoBgpAsTypeKey = 'mddo-topology:bgp-as-network' // alias
+    return this.networkTypes.hasType(nwMddoBgpAsTypeKey)
   }
 }
 

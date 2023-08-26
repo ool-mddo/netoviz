@@ -5,6 +5,7 @@
 import RfcAttributeModelBase from '../attr-base'
 import MddoOspfTimer from '../tp-attr/mddo-ospf-timer'
 import MddoOspfNeighbor from '../tp-attr/mddo-ospf-neighbor'
+import MddoBgpTimer from '../tp-attr/mddo-bgp-timer'
 
 /**
  * Attribute class for MDDO Layer1 term-point.
@@ -148,7 +149,7 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
    * @prop {string} networkType
    * @prop {number} priority
    * @prop {number} metric
-   * @prop {boolean} passive
+   * @prop {Boolean} passive
    * @prop {MddoOspfTimerData} timer
    * @prop {Array<MddoOspfNeighborData>} neighbor
    */
@@ -167,7 +168,7 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
     this.priority = data.priority || 10
     /** @type {number} */
     this.metric = data.metric || 1
-    /** @type {boolean} */
+    /** @type {Boolean} */
     this.passive = data.passive || false
     /** @type {MddoOspfTimer} */
     this.timer = data.timer ? new MddoOspfTimer(data.timer) : new MddoOspfTimer() // default timer config
@@ -203,5 +204,95 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
   </li>
 </ul>
 `
+  }
+}
+
+/**
+ * Attribute class for MDDO bgp-proc term-point.
+ * @extends {RfcAttributeModelBase}
+ */
+export class MddoBgpProcTermPointAttribute extends RfcAttributeModelBase {
+  /**
+   * @typedef {Object} MddoBgpProcTermPointAttributeData
+   * @prop {number} localAs
+   * @prop {string} localIp
+   * @prop {number} remoteAs
+   * @prop {string} remoteIp
+   * @prop {number} confederation
+   * @prop {Boolean} routeReflectorClient
+   * @prop {string} clusterId
+   * @prop {string} peerGroup
+   * @prop {Array<string>} importPolicy
+   * @prop {Array<string>} exportPolicy
+   * @prop {MddoBgpTimerData} timer
+   */
+  /**
+   * @param {MddoBgpProcTermPointAttributeData|MddoBgpProcTermPointAttribute} data - bgp-proc term-point attribute data.
+   */
+  constructor(data) {
+    super(data)
+    /** @type {string} */
+    this.class = 'MddoBgpProcTermPointAttribute'
+
+    /** @type {number} */
+    this.localAs = data.localAs || data['local-as'] || -1
+    /** @type {string} */
+    this.localIp = data.localIp || data['local-ip'] || ''
+    /** @type {number} */
+    this.remoteAs = data.remoteAs || data['remote-as'] || -1
+    /** @type {string} */
+    this.remoteIp = data.remoteIp || data['remote-ip'] || ''
+    /** @type {number} */
+    this.confederation = data.confederation || -1
+    /** @type {Boolean} */
+    this.routeReflectorClient = data.routeReflectorClient || data['route-reflector-client'] || false
+    /** @type {string} */
+    this.clusterId = data.clusterId || data['cluster-id'] || ''
+    /** @type {string} */
+    this.peerGroup = data.peerGroup || data['peer-group'] || ''
+    /** @type {Array<string>} */
+    this.importPolicy = data.importPolicy || data['import-policy'] || []
+    /** @type {Array<string>} */
+    this.exportPolicy = data.exportPolicy || data['export-policy'] || []
+    /** @type {MddoBgpTimer} */
+    this.timer = data.timer ? new MddoBgpTimer(data.timer) : new MddoBgpTimer() // default timer config
+  }
+
+  /**
+   * Convert attribute to html string.
+   * @see {TooltipCreator}
+   * @returns {string} HTML string of attribute.
+   * @public
+   */
+  toHtml(_diffElements) {
+    return `
+<ul>
+  <li>${this._toHtmlKeyValue('localAs', 'Local AS')}</li>
+  <li>${this._toHtmlKeyValue('localIp', 'Local IP')}</li>
+  <li>${this._toHtmlKeyValue('remoteAs', 'Remote AS')}</li>
+  <li>${this._toHtmlKeyValue('remoteIp', 'Remote IP')}</li>
+  <li>${this._toHtmlKeyValue('confederation', 'Confederation')}</li>
+  <li>${this._toHtmlKeyValue('routeReflectorClient', 'RR Client?')}</li>
+  <li>${this._toHtmlKeyValue('clusterId', 'Cluster ID')}</li>
+  <li>${this._toHtmlKeyValue('peerGroup', 'Peer group')}</li>
+  <li>${this._toHtmlKeyValue('importPolicy', 'Import policies')}</li>
+  <li>${this._toHtmlKeyValue('exportPolicy', 'Export policies')}</li>
+  <li>${this._toHtmlDefaultAttrKey('Timer')}
+    ${this.timer.toHtml(this?.diffState.findAllDiffDataMatchesPath(/timer\.(.+)/))}
+  </li>
+</ul>
+`
+  }
+}
+
+/**
+ * Attribute class for MDDO bgp-as term-point.
+ * @extends {MddoL1TermPointAttribute}
+ */
+export class MddoBgpAsTermPointAttribute extends MddoL1TermPointAttribute {
+  constructor(data) {
+    super(data)
+    /** [type {string}] */
+    this.class = 'MddoBgpAsTermPointAttribute'
   }
 }

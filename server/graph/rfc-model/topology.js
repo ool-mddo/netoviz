@@ -11,6 +11,8 @@ import { MddoL1Network } from './model/mddo-l1'
 import { MddoL2Network } from './model/mddo-l2'
 import { MddoL3Network } from './model/mddo-l3'
 import { MddoOspfAreaNetwork } from './model/mddo-ospf-area'
+import { MddoBgpProcNetwork } from './model/mddo-bgp-proc'
+import { MddoBgpAsNetwork } from './model/mddo-bgp-as'
 
 /**
  * @typedef {
@@ -69,6 +71,10 @@ class RfcTopology extends RfcModelBase {
       return new MddoL3Network(data, nwNum)
     } else if (nw.isTypeMddoOspfArea()) {
       return new MddoOspfAreaNetwork(data, nwNum)
+    } else if (nw.isTypeMddoBgpProc()) {
+      return new MddoBgpProcNetwork(data, nwNum)
+    } else if (nw.isTypeMddoBgpAs()) {
+      return new MddoBgpAsNetwork(data, nwNum)
     }
     return nw
   }
