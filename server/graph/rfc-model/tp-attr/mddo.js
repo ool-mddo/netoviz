@@ -218,6 +218,7 @@ export class MddoBgpProcTermPointAttribute extends RfcAttributeModelBase {
    * @prop {string} localIp
    * @prop {number} remoteAs
    * @prop {string} remoteIp
+   * @prop {string} description
    * @prop {number} confederation
    * @prop {Boolean} routeReflectorClient
    * @prop {string} clusterId
@@ -242,6 +243,8 @@ export class MddoBgpProcTermPointAttribute extends RfcAttributeModelBase {
     this.remoteAs = data.remoteAs || data['remote-as'] || -1
     /** @type {string} */
     this.remoteIp = data.remoteIp || data['remote-ip'] || ''
+    /** @type {string} */
+    this.description = data.description || ''
     /** @type {number} */
     this.confederation = data.confederation || -1
     /** @type {Boolean} */
@@ -271,6 +274,7 @@ export class MddoBgpProcTermPointAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlKeyValue('localIp', 'Local IP')}</li>
   <li>${this._toHtmlKeyValue('remoteAs', 'Remote AS')}</li>
   <li>${this._toHtmlKeyValue('remoteIp', 'Remote IP')}</li>
+  <li>${this._toHtmlKeyValue('description', 'Description')}</li>
   <li>${this._toHtmlKeyValue('confederation', 'Confederation')}</li>
   <li>${this._toHtmlKeyValue('routeReflectorClient', 'RR Client?')}</li>
   <li>${this._toHtmlKeyValue('clusterId', 'Cluster ID')}</li>
