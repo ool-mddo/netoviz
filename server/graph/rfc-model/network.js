@@ -110,8 +110,12 @@ class RfcNetwork extends RfcModelBase {
     this.networkTypes = new RfcNetworkTypes(data['network-types'])
     /** @type {string} */
     this.name = data['network-id'] // name string
-    /** @type {number} */
-    this.id = nwNum * 10000 // integer
+    /**
+     * @type {number}
+     * ID: L L N N N T T T
+     *     ^^^ network (layer) number
+     */
+    this.id = nwNum * 1000000 // integer
     /** @type {string} */
     this.path = this.name
     this._constructSupportingNetworks(data)

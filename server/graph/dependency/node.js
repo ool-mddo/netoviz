@@ -20,7 +20,7 @@ class DependencyNode extends ForceSimulationNode {
     /** @type {DependencyConstants} */
     this.c = new DependencyConstants()
     /** @type {number} */
-    this.index = Math.floor((nodeData.id % 10000) / 100)
+    this.index = Math.floor((nodeData.id % 1000000) / 1000)
     /**
      * @callback DependencyNode-ownTermPointCallback
      * @param {ForceSimulationNodeData} nodeData - Node data.

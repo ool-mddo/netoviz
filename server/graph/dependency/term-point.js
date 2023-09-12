@@ -18,7 +18,7 @@ class DependencyTermPoint extends ForceSimulationNode {
     /** @type {DependencyConstants} */
     this.c = new DependencyConstants()
     /** @type {number} */
-    this.index = nodeData.id % 100
+    this.index = nodeData.id % 1000
   }
 
   /**
