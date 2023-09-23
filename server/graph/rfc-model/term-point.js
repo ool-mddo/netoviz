@@ -54,7 +54,11 @@ class RfcTermPoint extends RfcModelBase {
     super(data)
     /** @type {string} */
     this.name = data['tp-id'] // name string
-    /** @type {number} */
+    /**
+     * @type {number}
+     * ID: L L N N N T T T
+     *               ^^^^^ term-point number
+     */
     this.id = nodeId + tpNum
     /** @type {string} */
     this.parentPath = nodePath

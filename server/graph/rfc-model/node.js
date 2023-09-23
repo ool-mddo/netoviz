@@ -59,8 +59,12 @@ class RfcNode extends RfcModelBase {
     super(data)
     /** @type {string} */
     this.name = data['node-id'] // name string
-    /** @type {number} */
-    this.id = nwId + nodeNum * 100
+    /**
+     * @type {number}
+     * ID: L L N N N T T T
+     *         ^^^^^ node number
+     */
+    this.id = nwId + nodeNum * 1000
     /** @type {string} */
     this.parentPath = nwPath
     /** @type {string} */
