@@ -221,6 +221,9 @@ export class MddoBgpProcNodeAttribute extends RfcAttributeModelBase {
    * @prop {Boolean} routeReflector
    * @prop {Array<string>} peerGroup // TODO: attr implementation
    * @prop {Array} policy // TODO: attr implementation
+   * @prop {Array} prefixSet // TODO: attr implementation
+   * @prop {Array} asPathSet // TODO: attr implementation
+   * @prop {Array} communitySet // TODO: attr implementation
    * @prop {Array} redistribute // TODO: attr implementation
    */
   /**
@@ -244,6 +247,12 @@ export class MddoBgpProcNodeAttribute extends RfcAttributeModelBase {
     /** @type {Array} */
     this.policy = data.policy || [] // TODO: attr implementation
     /** @type {Array} */
+    this.prefixSet = data.prefixSet || data['prefix-set'] || [] // TODO: attr implementation
+    /** @type {Array} */
+    this.asPathSet = data.asPathSet || data['as-path-set'] || [] // TODO: attr implementation
+    /** @type {Array} */
+    this.communitySet = data.communitySet || data['community-set'] || [] // TODO: attr implementation
+    /** @type {Array} */
     this.redistribute = data.redistribute || [] // TODO: attr implementation
   }
 
@@ -260,7 +269,10 @@ export class MddoBgpProcNodeAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlKeyValue('confederationMember', 'Confederation Members')}</li>
   <li>${this._toHtmlKeyValue('routeReflector', 'Route reflector?')}</li>
   <li>${this._toHtmlKeyValue('peerGroup', 'Peer group')}</li>
-  <li>${this._toHtmlKeyValue('policy', 'Policies')}</li>
+  <li>${this._toHtmlLargeKeyValue('policy', 'Policies')}</li>
+  <li>${this._toHtmlLargeKeyValue('prefixSet', 'Prefix Sets')}</li>
+  <li>${this._toHtmlLargeKeyValue('asPathSet', 'AS-Path Sets')}</li>
+  <li>${this._toHtmlLargeKeyValue('communitySet', 'Community Sets')}</li>
   <li>${this._toHtmlKeyValue('redistribute', 'Redistribute')}</li>
 </ul>
 `

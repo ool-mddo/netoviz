@@ -92,6 +92,20 @@ class RfcAttributeModelBase extends RfcModelBase {
   }
 
   /**
+   * Convert a attribute key-value pair to html string. (value = large object data (array/hash))
+   * @param {string} attrKey - Key of attribute
+   * @param {string} attrKeyDisplay - String to display name of the key
+   * @return {string}
+   * @private
+   */
+  _toHtmlLargeKeyValue(attrKey, attrKeyDisplay) {
+    const ddElement = this?.diffState.findDiffDataByPath(attrKey)
+    const keyClassStr = this._attrKeyClassString(attrKey, ddElement)
+    const valueStr = JSON.stringify(this[attrKey])
+    return `<span class="${keyClassStr}">${attrKeyDisplay}:</span> <span class="val">${valueStr}</span>`
+  }
+
+  /**
    * Make dummy diff-state
    * @param {string} state
    * @param {Array<DiffElement>} diffElements
