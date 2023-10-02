@@ -92,6 +92,21 @@ class RfcAttributeModelBase extends RfcModelBase {
   }
 
   /**
+   * Convert value = large object data (array/hash)
+   * @param valueObj
+   * @returns {string}
+   * @private
+   */
+  _toHtmlLargeValue(valueObj) {
+    if (Array.isArray(valueObj)) {
+      const valueStrings = valueObj.map((obj) => `<li>${this._toHtmlLargeValue(obj)}</li>`).join('')
+      return `<ul>${valueStrings}</ul>`
+    } else {
+      return `<span class="val">${JSON.stringify(valueObj)}</span>`
+    }
+  }
+
+  /**
    * Convert a attribute key-value pair to html string. (value = large object data (array/hash))
    * @param {string} attrKey - Key of attribute
    * @param {string} attrKeyDisplay - String to display name of the key
@@ -101,8 +116,8 @@ class RfcAttributeModelBase extends RfcModelBase {
   _toHtmlLargeKeyValue(attrKey, attrKeyDisplay) {
     const ddElement = this?.diffState.findDiffDataByPath(attrKey)
     const keyClassStr = this._attrKeyClassString(attrKey, ddElement)
-    const valueStr = JSON.stringify(this[attrKey])
-    return `<span class="${keyClassStr}">${attrKeyDisplay}:</span> <span class="val">${valueStr}</span>`
+    const valueStr = this._toHtmlLargeValue((this[attrKey]))
+    return `<span class="${keyClassStr}">${attrKeyDisplay}:</span> ${valueStr}`
   }
 
   /**
