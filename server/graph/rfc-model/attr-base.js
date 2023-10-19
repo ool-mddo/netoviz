@@ -102,7 +102,11 @@ class RfcAttributeModelBase extends RfcModelBase {
       const valueStrings = valueObj.map((obj) => `<li>${this._toHtmlLargeValue(obj)}</li>`).join('')
       return `<ul>${valueStrings}</ul>`
     } else {
-      return `<span class="val">${JSON.stringify(valueObj)}</span>`
+      const jsonStr = JSON.stringify(valueObj)
+      // set attribute-key class
+      const jsonStrK = jsonStr.replace(/"([^"]+)":/g, `<span class="attr-key">$1</span>:`)
+      // set attribute-value class
+      return jsonStrK.replace(/:"([^"]*)"/g, `:<span class="val">$1</span>`)
     }
   }
 
