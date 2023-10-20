@@ -92,6 +92,39 @@ class RfcAttributeModelBase extends RfcModelBase {
   }
 
   /**
+   * Convert value = large object data (array/hash)
+   * @param valueObj
+   * @returns {string}
+   * @private
+   */
+  _toHtmlLargeValue(valueObj) {
+    if (Array.isArray(valueObj)) {
+      const valueStrings = valueObj.map((obj) => `<li>${this._toHtmlLargeValue(obj)}</li>`).join('')
+      return `<ul>${valueStrings}</ul>`
+    } else {
+      const jsonStr = JSON.stringify(valueObj)
+      // set attribute-key class
+      const jsonStrK = jsonStr.replace(/"([^"]+)":/g, `<span class="attr-key">$1</span>:`)
+      // set attribute-value class
+      return jsonStrK.replace(/:"([^"]*)"/g, `:<span class="val">$1</span>`)
+    }
+  }
+
+  /**
+   * Convert a attribute key-value pair to html string. (value = large object data (array/hash))
+   * @param {string} attrKey - Key of attribute
+   * @param {string} attrKeyDisplay - String to display name of the key
+   * @return {string}
+   * @private
+   */
+  _toHtmlLargeKeyValue(attrKey, attrKeyDisplay) {
+    const ddElement = this?.diffState.findDiffDataByPath(attrKey)
+    const keyClassStr = this._attrKeyClassString(attrKey, ddElement)
+    const valueStr = this._toHtmlLargeValue((this[attrKey]))
+    return `<span class="${keyClassStr}">${attrKeyDisplay}:</span> ${valueStr}`
+  }
+
+  /**
    * Make dummy diff-state
    * @param {string} state
    * @param {Array<DiffElement>} diffElements
