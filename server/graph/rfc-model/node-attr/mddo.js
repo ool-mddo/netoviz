@@ -161,6 +161,7 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
    * @prop {string} routerIdSource
    * @prop {Boolean} logAdjacencyChange
    * @prop {Array<MddoOspRedistributeData>} redistribute
+   * @prop {Array<string>} flag
    */
   /**
    * @param {MddoOspfAreaNodeAttributeData|MddoOspfAreaNodeAttribute} data - ospf-area node attribute data.
@@ -182,6 +183,8 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
     this.logAdjacencyChange = data.logAdjacencyChange || data['log-adjacency-change'] || false
     /** @type {Array<MddoOspfRedistribute>} */
     this.redistribute = data.redistribute.map((d) => new MddoOspfRedistribute(d))
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
   }
 
   /**
@@ -203,6 +206,7 @@ export class MddoOspfAreaNodeAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlDefaultAttrKey('Redistribute')}
     <ul>${redistributeList.join('')}</ul>
   </li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
 </ul>
 `
   }
@@ -225,6 +229,7 @@ export class MddoBgpProcNodeAttribute extends RfcAttributeModelBase {
    * @prop {Array} asPathSet // TODO: attr implementation
    * @prop {Array} communitySet // TODO: attr implementation
    * @prop {Array} redistribute // TODO: attr implementation
+   * @prop {Array<string>} flag
    */
   /**
    * @param {MddoBgpProcNodeAttributeData|MddoBgpProcNodeAttribute} data - bgp-proc node attribute data.
@@ -254,6 +259,8 @@ export class MddoBgpProcNodeAttribute extends RfcAttributeModelBase {
     this.communitySet = data.communitySet || data['community-set'] || [] // TODO: attr implementation
     /** @type {Array} */
     this.redistribute = data.redistribute || [] // TODO: attr implementation
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
   }
 
   /**
@@ -274,6 +281,7 @@ export class MddoBgpProcNodeAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlLargeKeyValue('asPathSet', 'AS-Path Sets')}</li>
   <li>${this._toHtmlLargeKeyValue('communitySet', 'Community Sets')}</li>
   <li>${this._toHtmlKeyValue('redistribute', 'Redistribute')}</li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
 </ul>
 `
   }
@@ -287,6 +295,7 @@ export class MddoBgpAsNodeAttribute extends RfcAttributeModelBase {
   /**
    * @typedef {Object} MddoBgpAsNodeAttributeData
    * @prop {number} asNumber
+   * @prop {Array<string>} flag
    */
   /**
    * @param {MddoBgpAsNodeAttributeData|MddoBgpAsNodeAttribute} data - bgp-as node attribute data.
@@ -298,6 +307,8 @@ export class MddoBgpAsNodeAttribute extends RfcAttributeModelBase {
 
     /** @type{number} */
     this.asNumber = data.asNumber || data['as-number'] || -1
+    /** @type {Array<string>} */
+    this.flag = data.flag || []
   }
 
   /**
@@ -309,6 +320,7 @@ export class MddoBgpAsNodeAttribute extends RfcAttributeModelBase {
     return `
 <ul>
   <li>${this._toHtmlKeyValue('asNumber', 'AS Number')}</li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
 </ul>
 `
   }

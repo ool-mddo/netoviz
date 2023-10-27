@@ -152,6 +152,7 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
    * @prop {Boolean} passive
    * @prop {MddoOspfTimerData} timer
    * @prop {Array<MddoOspfNeighborData>} neighbor
+   * @prop {Array<string>} flag
    */
   /**
    * @param {MddoOspfAreaTermPointAttributeData|MddoOspfAreaTermPointAttribute} data
@@ -176,6 +177,8 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
     this.neighbor = data.neighbor ? data.neighbor.map((n) => new MddoOspfNeighbor(n)) : []
     /** @type {number} */
     this.area = data.area >= 0 ? data.area : -1
+    /** @type {Array<String> } */
+    this.flag = data.flag || []
   }
 
   /**
@@ -202,6 +205,7 @@ export class MddoOspfAreaTermPointAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlDefaultAttrKey('Neighbor')}
     <ul>${neighborStr.join('')}</ul>
   </li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
 </ul>
 `
   }
@@ -226,6 +230,7 @@ export class MddoBgpProcTermPointAttribute extends RfcAttributeModelBase {
    * @prop {Array<string>} importPolicy
    * @prop {Array<string>} exportPolicy
    * @prop {MddoBgpTimerData} timer
+   * @prop {Array<String>} flag
    */
   /**
    * @param {MddoBgpProcTermPointAttributeData|MddoBgpProcTermPointAttribute} data - bgp-proc term-point attribute data.
@@ -259,6 +264,8 @@ export class MddoBgpProcTermPointAttribute extends RfcAttributeModelBase {
     this.exportPolicy = data.exportPolicy || data['export-policy'] || []
     /** @type {MddoBgpTimer} */
     this.timer = data.timer ? new MddoBgpTimer(data.timer) : new MddoBgpTimer() // default timer config
+    /** @type {Array<string> */
+    this.flag = data.flag || []
   }
 
   /**
@@ -284,6 +291,7 @@ export class MddoBgpProcTermPointAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlDefaultAttrKey('Timer')}
     ${this.timer.toHtml(this?.diffState.findAllDiffDataMatchesPath(/timer\.(.+)/))}
   </li>
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}</li>
 </ul>
 `
   }
