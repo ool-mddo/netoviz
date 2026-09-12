@@ -12,7 +12,7 @@
     "include": ["components", "layouts", "lib", "pages", "server", "store"],
     "exclude": [".nuxt", "bin", "fig", "node_modules", "static"],
     "includePattern": ".+\\.js(doc|x)?$",
-    "excludePattern": "((^|\\/|\\\\)_|.*_grpc_(web_)?pb.js$)"
+    "excludePattern": "(^|\\/|\\\\)_"
   },
   "sourceType": "module",
   "tags": {

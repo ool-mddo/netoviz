@@ -53,7 +53,7 @@ module.exports = {
     [
       'nuxt-env',
       {
-        keys: [{ key: 'NETOVIZ_API', default: 'rest' }, 'NETOVIZ_REST_PORT', 'NETOVIZ_GRPC_WEB_PORT']
+        keys: ['NETOVIZ_REST_PORT']
       }
     ]
   ],

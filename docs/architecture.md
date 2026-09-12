@@ -55,7 +55,7 @@ flowchart TD
 ```
 netoviz/
 ├── server/                     サーバーサイド
-│   ├── index.mjs               エントリポイント (Express + Nuxt 起動)
+│   ├── index.js                エントリポイント (Express + Nuxt 起動)
 │   ├── api/
 │   │   ├── rest/
 │   │   │   ├── index.js        Express Router (3エンドポイント定義)
@@ -127,7 +127,7 @@ netoviz/
 │
 ├── nuxt.config.js
 ├── dot.env                     .env テンプレート
-└── Dockerfile                  node:18-alpine ベース
+└── Dockerfile                  node:22-alpine ベース
 ```
 
 ---

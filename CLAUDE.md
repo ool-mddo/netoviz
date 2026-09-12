@@ -9,7 +9,7 @@ RFC 8345 ベースのネットワークトポロジ JSON を可視化する Web 
 
 - **Frontend**: Nuxt 2 (Vue 2) + Vuetify + D3.js
 - **Backend**: Express + Nuxt (サーバーサイドで RFC8345 JSON を各 Diagram 用 JSON に変換して返す)
-- **実行環境**: Node.js ≥ 14 / Docker (node:18-alpine)
+- **実行環境**: Node.js ≥ 22 / Docker (node:22-alpine)
 
 ## 開発コマンド
 
@@ -66,7 +66,6 @@ npm run docker-build     # Docker イメージビルド
 `Dockerfile` の `CMD` は意図的に `npm run dev` (開発モード)。
 コードをボリュームマウントして変更を即時反映する運用のため。
 
-## gRPC について
+## Node.js バージョンの注意点
 
-以前 gRPC 対応があったが現在は削除済み。
-`google-protobuf` 依存や `NETOVIZ_GRPC_WEB_PORT` 環境変数は残留しているが不要。
+サーバーエントリポイントは `server/index.js` (CJS)。`.mjs` (ネイティブ ESM) にすると `@babel/register` フックが効かず、Node 22 で起動失敗する。

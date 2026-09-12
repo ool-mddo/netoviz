@@ -52,8 +52,8 @@ Slide
 ## Installation
 ### Environment setup
 This application depends on:
-* [Node.js](https://nodejs.org/ja/) (v10.x or later)
-* [NPM](https://www.npmjs.com/) (v6.x or later)
+* [Node.js](https://nodejs.org/ja/) (v22.x or later)
+* [NPM](https://www.npmjs.com/) (v10.x or later)
 
 ### Project setup
 This application depends on:
