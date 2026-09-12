@@ -224,6 +224,25 @@ topology.json の各要素に "_diff_state_" フィールドが含まれる場�
 | `mddo-topology:bgp-proc-network` | `MddoBgpProcNetwork` |
 | `mddo-topology:bgp-as-network` | `MddoBgpAsNetwork` |
 
+### ノード属性の主要フィールド
+
+各ネットワーク型のノード属性クラス (`server/graph/rfc-model/node-attr/`) が `toHtml()` を実装しており、マウスオーバー時のツールチップ表示に使われる。
+
+**`MddoL3NodeAttribute`** の主要フィールド:
+
+| フィールド | 型 | 説明 |
+|---|---|---|
+| `nodeType` | string | ノード種別 |
+| `flag` | string[] | フラグ |
+| `prefix` | RfcL3Prefix[] | プレフィックス一覧 |
+| `staticRoute` | MddoStaticRoute[] | スタティックルート |
+| `firewall` | Object\|null | FW ノードのみ。`node` / `pair` / `policies` / `zones` を含む |
+
+**ツールチップ属性を拡張する際の変更箇所**:
+`server/graph/rfc-model/node-attr/` 内の対応属性クラスのみを変更すればよい。
+コンストラクタでフィールドを追加し、`toHtml()` に表示ロジックを追加するだけで、
+`ForceSimulationNode`・`tooltip-creator.js` など他のファイルへの変更は不要。
+
 ### オブジェクト ID 体系
 
 ```

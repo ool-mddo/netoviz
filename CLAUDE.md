@@ -66,6 +66,17 @@ npm run docker-build     # Docker イメージビルド
 `Dockerfile` の `CMD` は意図的に `npm run dev` (開発モード)。
 コードをボリュームマウントして変更を即時反映する運用のため。
 
+## ツールチップ属性の拡張方法
+
+マウスオーバー時のノード属性表示を拡張する場合、変更が必要なのは
+`server/graph/rfc-model/node-attr/` 内の対応する属性クラス 1ファイルのみ。
+
+1. コンストラクタに新フィールドを追加 (`this.xxx = data.xxx || null`)
+2. `toHtml()` に表示ロジックを追加
+
+`ForceSimulationNode` や `tooltip-creator.js` など他ファイルへの変更は不要。
+属性オブジェクトはパイプライン全体を透過的に通過し、フロントエンドで `class` フィールドを元に再構築される設計のため。
+
 ## Node.js バージョンの注意点
 
 サーバーエントリポイントは `server/index.js` (CJS)。`.mjs` (ネイティブ ESM) にすると `@babel/register` フックが効かず、Node 22 で起動失敗する。

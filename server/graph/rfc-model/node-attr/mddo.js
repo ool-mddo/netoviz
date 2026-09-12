@@ -119,6 +119,8 @@ export class MddoL3NodeAttribute extends RfcAttributeModelBase {
     /** @type {Array<MddoStaticRoute>} */
     const sr = data.staticRoute || data['static-route'] || []
     this.staticRoute = sr.map((d) => new MddoStaticRoute(d))
+    /** @type {Object|null} */
+    this.firewall = data.firewall || null
   }
 
   /**
@@ -133,6 +135,21 @@ export class MddoL3NodeAttribute extends RfcAttributeModelBase {
     const staticRouteList = this.staticRoute.map((d, index) => {
       return `<li>${d.toHtml(this?.diffState.diffDataForObjectArray('staticRoute', index))}</li>`
     })
+    const firewallHtml = this.firewall
+      ? `<li>${this._toHtmlDefaultAttrKey('Firewall')}
+          <ul>
+            <li><span class="attr-key">node:</span> <span class="val">${this.firewall.node || ''}</span></li>
+            <li><span class="attr-key">pair:</span>
+              <ul>
+                <li><span class="attr-key">primary:</span> ${this._toHtmlLargeValue(this.firewall.pair?.primary || {})}</li>
+                <li><span class="attr-key">secondary:</span> ${this._toHtmlLargeValue(this.firewall.pair?.secondary || {})}</li>
+              </ul>
+            </li>
+            <li><span class="attr-key">policies:</span> ${this._toHtmlLargeValue(this.firewall.policies || [])}</li>
+            <li><span class="attr-key">zones:</span> ${this._toHtmlLargeValue(this.firewall.zones || [])}</li>
+          </ul>
+        </li>`
+      : ''
 
     return `
 <ul>
@@ -144,6 +161,7 @@ export class MddoL3NodeAttribute extends RfcAttributeModelBase {
   <li>${this._toHtmlDefaultAttrKey('Static Route')}
     <ul>${staticRouteList.join('')}</ul>
   </li>
+  ${firewallHtml}
 </ul>
 `
   }
