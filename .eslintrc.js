@@ -4,6 +4,13 @@ module.exports = {
     browser: true,
     node: true
   },
+  // TODO(Phase2): replace with @nuxt/eslint's auto-generated globals (flat config).
+  globals: {
+    defineNuxtConfig: 'readonly',
+    defineNitroPlugin: 'readonly',
+    useHead: 'readonly',
+    useRoute: 'readonly'
+  },
   parserOptions: {
     parser: '@babel/eslint-parser'
   },

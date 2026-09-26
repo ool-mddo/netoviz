@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-app-bar app dense dark>
+    <v-app-bar app density="compact" theme="dark">
       <v-toolbar-title>Netoviz</v-toolbar-title>
       <div class="flex-grow-1" />
       <v-toolbar-items>
@@ -11,11 +11,11 @@
     <v-main>
       <v-container fluid>
         <v-row>
-          <v-col><AppBreadcrumbs v-bind:path="$nuxt.$route.path" /></v-col>
+          <v-col><AppBreadcrumbs v-bind:path="$route.path" /></v-col>
           <v-col><TableAlerts /></v-col>
         </v-row>
         <v-row>
-          <nuxt />
+          <NuxtPage />
         </v-row>
       </v-container>
     </v-main>
@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { defineAsyncComponent } from 'vue'
+import { mapState, mapActions } from 'pinia'
 import AppAPICommon from '~/components/AppAPICommon'
 import AppBarLinkSource from '~/components/AppBarLinkSource'
 import AppBreadcrumbs from '~/components/AppBreadcrumbs'
-const TableAlerts = () => ({
-  component: import('~/components/TableAlerts')
-})
+import { useMainStore } from '~/stores/main'
+const TableAlerts = defineAsyncComponent(() => import('~/components/TableAlerts'))
 
 export default {
   components: {
@@ -39,13 +39,13 @@ export default {
   },
   mixins: [AppAPICommon],
   computed: {
-    ...mapState(['modelFiles'])
+    ...mapState(useMainStore, ['modelFiles'])
   },
   mounted() {
     this.updateModelFiles()
   },
   methods: {
-    ...mapMutations(['setModelFiles']),
+    ...mapActions(useMainStore, ['setModelFiles']),
     async updateModelFiles() {
       try {
         const response = await fetch(this.apiParam.restURIBase + '/api/models')

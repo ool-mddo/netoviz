@@ -1,17 +1,6 @@
+// NOTE: no longer used for the app build (Nuxt4 builds via Vite/esbuild).
+// Kept only so @babel/eslint-parser (see .eslintrc.js) can parse modern
+// syntax. Full removal is tracked for Phase 2 (ESLint9 flat config).
 module.exports = {
-  presets: [
-    '@babel/env',
-    [
-      '@nuxt/babel-preset-app',
-      {
-        corejs: { version: 3 },
-        useBuiltIns: 'entry'
-      }
-    ]
-  ],
-  plugins: [
-    '@babel/transform-runtime',
-    ['@babel/plugin-proposal-private-methods', { loose: true }],
-    ['@babel/plugin-proposal-private-property-in-object', { loose: true }]
-  ]
+  presets: ['@babel/preset-env']
 }

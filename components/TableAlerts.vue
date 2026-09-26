@@ -17,13 +17,16 @@
 </template>
 
 <script>
+import { watch } from 'vue'
 import debounce from 'debounce'
 import AppAPICommon from './AppAPICommon'
+import { useAlertStore } from '~/stores/alert'
 
 export default {
   mixins: [AppAPICommon],
   data() {
     return {
+      alertStore: useAlertStore(),
       alertHostInput: '', // local state of alertHost
       unwatchAlertHost: null,
       debug: false
@@ -32,16 +35,16 @@ export default {
   computed: {
     alertHost: {
       get() {
-        return this.$store.state.alert.alertHost
+        return this.alertStore.alertHost
       },
       set(value) {
-        this.$store.commit('alert/setAlertHost', value)
+        this.alertStore.setAlertHost(value)
       }
     }
   },
   mounted() {
-    this.unwatchAlertHost = this.$store.watch(
-      (state) => state.alert.alertHost,
+    this.unwatchAlertHost = watch(
+      () => this.alertStore.alertHost,
       (newValue, oldValue) => {
         this.alertHostInput = newValue
       }
