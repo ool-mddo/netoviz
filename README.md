@@ -130,6 +130,10 @@ Application (see [pages](./pages))
 
 * Diagram
   * `/model/:network/:snapshot/:modelFile[?visualizer=:visualizer]`
+* Model listing (drill-down)
+  * `/model` : list of networks
+  * `/model/:network` : list of snapshots in the network
+  * `/model/:network/:snapshot` : list of model files/visualizers in the snapshot
 
 ### REST API
 

@@ -101,6 +101,8 @@ netoviz/
 │   │   ├── dependency2/        Dependency2 図 D3 描画 (水平レイアウト)
 │   │   ├── force-simulation/   Force-simulation 図 D3 描画
 │   │   └── distance/           Distance 図 D3 描画
+│   ├── util/
+│   │   └── model-link.js       modelFile ⇔ /model/... URL 変換の共通ヘルパー
 │   └── style/                  SCSS スタイル (diff ハイライト含む)
 │
 ├── components/                 Vue コンポーネント
@@ -112,11 +114,17 @@ netoviz/
 │   ├── VisualizeDiagramDistance.vue
 │   ├── AppAPICommon.vue                 REST API URL 構築 mixin
 │   ├── VisualizeDiagramCommon.vue       ライフサイクル管理 mixin
-│   └── TableDiagrams.vue               トップページのモデル/visualizer 一覧表
+│   ├── TableDiagrams.vue               トップページのモデル/visualizer 一覧表
+│   ├── TableNetworks.vue               /model 用: network 一覧
+│   ├── TableSnapshots.vue              /model/:network 用: snapshot 一覧
+│   └── TableModelFiles.vue             /model/:network/:snapshot 用: モデルファイル/visualizer 一覧
 │
 ├── pages/
-│   ├── index.vue               / → TableDiagrams
-│   └── model/[network]/[snapshot]/[modelFile].vue  動的ルート → VisualizeDiagram
+│   ├── index.vue                                     / → TableDiagrams
+│   ├── model/index.vue                                /model → TableNetworks
+│   ├── model/[network]/index.vue                      /model/:network → TableSnapshots
+│   ├── model/[network]/[snapshot]/index.vue           /model/:network/:snapshot → TableModelFiles
+│   └── model/[network]/[snapshot]/[modelFile].vue     動的ルート → VisualizeDiagram
 │
 ├── error.vue                    Nuxt4 標準のエラーページ (旧 layouts/error.vue)
 │

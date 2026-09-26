@@ -68,8 +68,12 @@ npm run docker-build     # Docker イメージビルド
 - `static/model/<network>/<snapshot>/layout.json` はネスト図のグリッドレイアウト。git 管理下 (サンプルデータとして保持)。
 
 ### URL とファイルパスの対応
-- スナップショット名に含まれる `/` は URL で `__` にエンコードされる (`ssUrlDec` で復元)。
+- スナップショット名に含まれる `/` は URL で `__` にエンコードされる (`snapshotUrlEncode`/`snapshotUrlDecode`、`lib/util/model-link.js`)。
 - スナップショット名に `__` を含むと衝突するため使用不可。
+- `/model`・`/model/:network`・`/model/:network/:snapshot` はそれぞれ network 一覧・snapshot 一覧・
+  モデルファイル/visualizer 一覧を表示するドリルダウンページ(`pages/model/**/index.vue` +
+  `components/Table{Networks,Snapshots,ModelFiles}.vue`)。これにより `AppBreadcrumbs.vue` が生成する
+  パンくずの各セグメントが実在するルートになり、vue-router4 の `VUE_ROUTER_R0004` 警告が解消されている。
 
 ### フロント・バックエンドの依存
 - `lib/diagram/` (フロントエンド) が `server/graph/common/base.js` を直接 import している。

@@ -44,6 +44,7 @@
 <script>
 import { mapState } from 'pinia'
 import { useMainStore } from '~/stores/main'
+import { visualizerLinksForModelFile } from '~/lib/util/model-link'
 
 export default {
   name: 'TableDiagrams',
@@ -99,16 +100,7 @@ export default {
           }
         }
 
-        // encode multiple-depth snapshot as single path
-        const ssUrlEnc = modelFile.snapshot.replace('/', '__')
-        const filePath = `${modelFile.network}/${ssUrlEnc}/${modelFile.file}`
-        for (const visualizer of this.visualizers) {
-          item[visualizer.value] = {
-            text: visualizer.text,
-            value: visualizer.value,
-            link: `/model/${filePath}?visualizer=${visualizer.value}`
-          }
-        }
+        Object.assign(item, visualizerLinksForModelFile(modelFile, this.visualizers))
         rows.push(item)
       }
       return rows
