@@ -9,20 +9,18 @@
         density="compact"
       >
         <template v-slot:headers="{ columns }">
-          <thead class="v-data-table-header">
-            <tr>
-              <th v-for="(header, index) in columns" v-bind:key="index">
-                <div v-if="header.link">
-                  <router-link v-bind:to="header.link">
-                    {{ header.title }}
-                  </router-link>
-                </div>
-                <div v-else>
+          <tr>
+            <th v-for="(header, index) in columns" v-bind:key="index">
+              <div v-if="header.link">
+                <router-link v-bind:to="header.link">
                   {{ header.title }}
-                </div>
-              </th>
-            </tr>
-          </thead>
+                </router-link>
+              </div>
+              <div v-else>
+                {{ header.title }}
+              </div>
+            </th>
+          </tr>
         </template>
         <template v-slot:item="{ item }">
           <tr>
