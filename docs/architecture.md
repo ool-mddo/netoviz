@@ -308,6 +308,7 @@ DiffElement = [typeSign, jsonpath, before, after]
 | `layout.json` は `postGraphData` で上書き保存される | データ管理 |
 | オブジェクト ID に上限がある (`LL NNN TTT` 体系) | 大規模トポロジ |
 | テストコードがゼロ | 品質保証 |
+| Docker イメージは `npm install --omit=dev` でビルドされるため、Nuxt モジュールや dev server 起動に必須のパッケージ (`vuetify-nuxt-module`/`@nuxt/eslint`/`vite`/`sass-embedded` 等) は `dependencies` に置く必要がある | 依存パッケージ管理・Docker イメージサイズ |
 
 ---
 

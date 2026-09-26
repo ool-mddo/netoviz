@@ -28,6 +28,10 @@ RFC 8345 ベースのネットワークトポロジ JSON を可視化する Web 
   スロット内は `<tr>` から書き始める。
 - **`v-data-table` の `headers` prop / `v-breadcrumbs` の `items` prop**: Vuetify2の
   `{ text, value, disable }` は Vuetify4 で `{ title, key, disabled }` にリネームされている。
+- **`vuetify-nuxt-module` の `useLayout` 自動import**: デフォルト(`moduleOptions.importComposables: true`)では
+  Vuetifyの `useLayout` がグローバル自動importされ、Nuxt4組み込みの `useLayout`(`#app/composables/layout`)と
+  名前が衝突し `[NUXT_B6002]`/`Duplicated imports` 警告が出る。本リポジトリでは `useLayout` を未使用のため、
+  `nuxt.config.js` の `vuetify.moduleOptions.importComposables` を明示的な配列にして除外している。
 
 ## 開発コマンド
 
@@ -96,6 +100,23 @@ npm run docker-build     # Docker イメージビルド
 
 `Dockerfile` の `CMD` は意図的に `npm run dev` (開発モード)。
 コードをボリュームマウントして変更を即時反映する運用のため。
+
+- イメージサイズ削減のため `npm install` は `--omit=dev` で実行している(eslint/prettier/jsdoc等の
+  lint/format/doc生成専用ツールのみを除外)。
+- **`package.json` の `dependencies`/`devDependencies` 分類に注意**: `nuxt.config.js` の `modules` に
+  登録されている Nuxt モジュール(`vuetify-nuxt-module`、`@nuxt/eslint` 等)や、`npm run dev` の
+  起動自体に必要なパッケージ(`vite`、`sass-embedded`)は、実際にはlintツールではなく
+  **`npm run dev` 実行に必須**のため `dependencies` に置く必要がある。`devDependencies` に置くと
+  `--omit=dev` インストール時に `nuxt prepare`/`nuxt dev` が
+  `The module xxx could not be loaded. It may not be installed.` で失敗する
+  (新規Nuxtモジュールを追加する際は同様の注意が必要)。
+
+### SCSS の `@use` 移行
+
+`lib/style/` 配下は Dart Sass の `@import` 廃止(3.0.0で削除予定)に対応済み。`color-schema.scss` の
+変数/`%placeholder` を参照するファイルは `@use './color-schema' as *;`(グローバルスコープで参照する
+既存の挙動を維持するため名前空間を展開)、CSS出力のみが目的のファイルは `@use './xxx';` を使う。
+新規にSCSS変数/placeholderを参照するファイルを追加する場合もこのパターンに従うこと。
 
 ## ツールチップ属性の拡張方法
 
