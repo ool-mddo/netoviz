@@ -44,9 +44,15 @@ export default defineNuxtConfig({
   /*
    ** vuetify-nuxt-module configuration
    ** https://github.com/vuetifyjs/nuxt-module
+   ** NOTE: `useLayout` is excluded from auto-imported composables because it collides
+   ** with Nuxt4's own built-in `useLayout` (`#app/composables/layout`), which otherwise
+   ** logs a `[NUXT_B6002]`/"Duplicated imports" warning on every dev server start.
+   ** Vuetify's `useLayout` is not used anywhere in this codebase.
    */
   vuetify: {
-    moduleOptions: {},
+    moduleOptions: {
+      importComposables: ['useDate', 'useLocale', 'useDefaults', 'useDisplay', 'useRtl', 'useTheme']
+    },
     vuetifyOptions: {}
   }
 })
