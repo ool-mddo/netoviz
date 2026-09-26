@@ -17,7 +17,8 @@
     "lint:fix": "eslint --fix .",
     "doc": "jsdoc --configure .jsdocrc.json --readme README.md --package package.json",
     "fig": "./bin/gen_fig.rb > fig/classes_js.plantuml && PLANTUML_LIMIT_SIZE=8192 plantuml fig/classes_js.plantuml",
-    "docker-build": "docker build -t netoviz/allinone ."
+    "docker-build": "docker build -t netoviz/allinone .",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@pinia/nuxt": "^1.0.2",

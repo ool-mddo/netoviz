@@ -6,5 +6,5 @@ RUN cp dot.env .env && npm install
 
 EXPOSE 3000
 
-# CMD NODE_ENV=production npm run start
-CMD npm run dev
+# CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]

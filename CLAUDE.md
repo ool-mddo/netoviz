@@ -7,15 +7,21 @@ RFC 8345 ベースのネットワークトポロジ JSON を可視化する Web 
 
 ## 技術スタック
 
-- **Frontend**: Nuxt 2 (Vue 2) + Vuetify + D3.js
-- **Backend**: Express + Nuxt (サーバーサイドで RFC8345 JSON を各 Diagram 用 JSON に変換して返す)
-- **実行環境**: Node.js ≥ 22 / Docker (node:22-alpine)
+- **Frontend**: Nuxt 4 (Vue 3) + Vuetify 4 (`vuetify-nuxt-module`) + Pinia + D3.js
+- **Backend**: Nitro (Nuxt標準サーバーエンジン) + Express Router。既存の Express Router (`server/api/rest/`) は
+  `server/plugins/express-api.js` で h3 の `fromNodeMiddleware` を介して Nitro にマウントしている
+  (サーバーサイドで RFC8345 JSON を各 Diagram 用 JSON に変換して返す処理自体は変更なし)
+- **実行環境**: Node.js ≥ 24 / Docker (node:24-alpine)
+- **Lint/Format**: ESLint 10 (flat config, `@nuxt/eslint`) + Prettier 3
+  (`eslint.config.mjs` は `.nuxt/eslint.config.mjs` を import する。`.nuxt/` を消した状態で
+  `npm run lint` を実行するとエラーになるため、`npm install` の `postinstall` (`nuxt prepare`) で
+  自動生成している)
 
 ## 開発コマンド
 
 ```bash
 cp dot.env .env          # 初回のみ。NETOVIZ_WEB_LISTEN=3000 が設定される
-npm install              # 依存パッケージインストール (必要なら --legacy-peer-deps)
+npm install              # 依存パッケージインストール (postinstallで`nuxt prepare`が自動実行される)
 npm run dev              # 開発サーバー起動 → http://localhost:3000
 npm run lint             # ESLint チェック
 npm run lint:fix         # ESLint 自動修正
@@ -77,6 +83,17 @@ npm run docker-build     # Docker イメージビルド
 `ForceSimulationNode` や `tooltip-creator.js` など他ファイルへの変更は不要。
 属性オブジェクトはパイプライン全体を透過的に通過し、フロントエンドで `class` フィールドを元に再構築される設計のため。
 
-## Node.js バージョンの注意点
+## サーバー統合 (Nitro + Express Router) の注意点
 
-サーバーエントリポイントは `server/index.js` (CJS)。`.mjs` (ネイティブ ESM) にすると `@babel/register` フックが効かず、Node 22 で起動失敗する。
+Nuxt4 は Nitro (h3) ベースのサーバーエンジンを持ち、Nuxt2 の `Builder`/`nuxt.render` の
+ような「Express に Nuxt をマウントする」方式は存在しない。本リポジトリでは逆方向の
+「Nitro に既存の Express Router をマウントする」構成を `server/plugins/express-api.js` で実現している。
+
+- `server/api/rest/` 配下の Express Router (`express.Router()`, `express.json()`, `req`/`res`) 自体は変更不要。
+- h3 v2 の `nitroApp.router.use(path, handler)` は **Express のような prefix マウントではなく厳密一致**。
+  そのため `/api/**` のワイルドカードパターンで登録し、かつ内部で薄い Express app
+  (`express().use('/api', apiRouter)`) を1枚挟んで `/api` prefix の strip を再現している
+  (`fromNodeMiddleware` は受け取ったパスをそのまま渡すため、Express Router 単体だと
+  `/models` ではなく `/api/models` として解釈されてしまい、ルートが一致しない)。
+- `server/index.js` (Nuxt2 時代の Express エントリポイント、`babel-node` 起動) は廃止済み。
+  起動は `nuxt dev` / `node .output/server/index.mjs` (`npm run dev`/`start` 経由)。
