@@ -1,8 +1,9 @@
-@import "common";
-@import "node";
-@import "term-point";
-@import "text-label";
-@import "link";
+@use './common';
+@use './node';
+@use './term-point';
+@use './text-label';
+@use './link';
+@use './color-schema' as *;
 
 svg {
   &.network {

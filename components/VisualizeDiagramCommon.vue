@@ -3,6 +3,9 @@
 </template>
 
 <script>
+import { watch } from 'vue'
+import { useAlertStore } from '~/stores/alert'
+
 export default {
   props: {
     modelFile: {
@@ -13,6 +16,7 @@ export default {
   },
   data() {
     return {
+      alertStore: useAlertStore(),
       visualizer: null,
       visualizerName: 'base',
       unwatchAlertHost: null
@@ -21,17 +25,17 @@ export default {
   computed: {
     alertHost: {
       get() {
-        return this.$store.state.alert.alertHost
+        return this.alertStore.alertHost
       },
       set(value) {
-        this.$store.commit('alert/setAlertHost', value)
+        this.alertStore.setAlertHost(value)
       }
     },
     svgWidth() {
-      return this.$vuetify.breakpoint.width * 0.95
+      return this.$vuetify.display.width * 0.95
     },
     svgHeight() {
-      return this.$vuetify.breakpoint.height * 0.8
+      return this.$vuetify.display.height * 0.8
     }
   },
   watch: {
@@ -61,15 +65,18 @@ export default {
     this.drawRfcTopologyData() // generate initial diagram
 
     // set watcher for store change
-    this.unwatchalertHost = this.$store.watch((state) => state.alert.alertHost, this.watchAlertHost)
+    this.unwatchalertHost = watch(
+      () => this.alertStore.alertHost,
+      (newValue, oldValue) => this.watchAlertHost(newValue, oldValue)
+    )
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // clear store watcher
     this.unwatchalertHost && this.unwatchalertHost()
 
     // Lifecycle for diagram visualizer:
     // merged at including component X.
-    // called here before X.beforeDestroy()
+    // called here before X.beforeUnmount()
     console.log(`[viz/${this.visualizerName}] before destroy`)
     this.beforeDeleteVisualizer() // hook
     delete this.visualizer
@@ -103,10 +110,10 @@ export default {
       // optional: hook in mounted(): to initialize visualizer
     },
     beforeDeleteVisualizer() {
-      // optional: hook in beforeDestroy()
+      // optional: hook in beforeUnmount()
     },
     afterDeleteVisualizer() {
-      // optional: hook in beforeDestroy()
+      // optional: hook in beforeUnmount()
     },
     drawRfcTopologyData() {
       // function to generate diagram using visualizer.

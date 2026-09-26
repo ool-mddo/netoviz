@@ -32,13 +32,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import NotFound from './NotFound'
 import VisualizeDiagramForceSimulation from './VisualizeDiagramForceSimulation'
 import VisualizeDiagramDependency from './VisualizeDiagramDependency'
 import VisualizeDiagramDependency2 from './VisualizeDiagramDependency2'
 import VisualizeDiagramNested from './VisualizeDiagramNested'
 import VisualizeDiagramDistance from './VisualizeDiagramDistance'
+import { useMainStore } from '~/stores/main'
 import '~/lib/style/tooltip.scss'
 
 export default {
@@ -64,7 +65,7 @@ export default {
   },
   data: () => ({ debug: false }),
   computed: {
-    ...mapState(['modelFiles', 'visualizers']),
+    ...mapState(useMainStore, ['modelFiles', 'visualizers']),
     validVisualizer() {
       return this.visualizers.find((v) => v.value === this.visualizer)
     },

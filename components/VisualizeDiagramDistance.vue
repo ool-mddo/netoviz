@@ -21,10 +21,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'pinia'
 import DistanceDiagramVisualizer from '../lib/diagram/distance/visualizer'
 import AppAPICommon from './AppAPICommon'
 import VisualizeDiagramCommon from './VisualizeDiagramCommon'
+import { useAlertStore } from '~/stores/alert'
 import '~/lib/style/distance.scss'
 
 export default {
@@ -34,7 +35,7 @@ export default {
     debug: false
   }),
   methods: {
-    ...mapMutations('alert', ['setAlertHost']),
+    ...mapActions(useAlertStore, ['setAlertHost']),
     makeVisualizer() {
       return new DistanceDiagramVisualizer(this.apiParam, this.svgWidth, this.svgHeight)
     },

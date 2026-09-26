@@ -16,6 +16,9 @@
 
 <script>
 export default {
+  setup() {
+    useHead({ title: 'About' })
+  },
   data() {
     return {
       links: [
@@ -31,8 +34,7 @@ export default {
         }
       ]
     }
-  },
-  head: () => ({ title: 'About' })
+  }
 }
 </script>
 

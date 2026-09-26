@@ -26,10 +26,10 @@ export default {
   methods: {
     makeCrumb(text, to, disable) {
       return {
-        text,
+        title: text,
         to: to || '/',
         exact: true,
-        disable
+        disabled: disable
       }
     }
   }

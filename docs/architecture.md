@@ -19,7 +19,7 @@ flowchart TD
         Index["_index.json\n(モデル一覧、外部管理)"]
     end
 
-    subgraph Server["server/ (Express + Nuxt)"]
+    subgraph Server["server/ (Nitro + Express Router)"]
         API["REST API\nGET /api/models\nGET /api/graph/:graphName/...\nPOST /api/graph/nested/..."]
         subgraph Converters["server/graph/ — 変換ロジック"]
             RFC["rfc-model/\nRFC8345 JSON → オブジェクトモデル"]
@@ -31,7 +31,7 @@ flowchart TD
         API --> Converters
     end
 
-    subgraph Frontend["Nuxt.js (Vue 2 + Vuetify)"]
+    subgraph Frontend["Nuxt 4 (Vue 3 + Vuetify 4)"]
         Pages["pages/\n/ : モデル一覧\n/model/:network/:snapshot/... : 図表示"]
         VizComp["VisualizeDiagram.vue\n(visualizer 切り替えハブ)"]
         subgraph D3Libs["lib/diagram/ — D3.js 描画"]
@@ -54,15 +54,16 @@ flowchart TD
 
 ```
 netoviz/
-├── server/                     サーバーサイド
-│   ├── index.js                エントリポイント (Express + Nuxt 起動)
+├── server/                     サーバーサイド (Nitro が起動をホスト)
+│   ├── plugins/
+│   │   └── express-api.js      Nitro server plugin (h3 `fromNodeMiddleware` で Express Router をマウント)
 │   ├── api/
 │   │   ├── rest/
 │   │   │   ├── index.js        Express Router (3エンドポイント定義)
 │   │   │   └── integrator.js   グラフ変換の委譲ハブ (RESTIntegrator)
 │   │   └── common/
 │   │       ├── api-base.js     APIBase: ファイル読込・変換共通処理
-│   │       └── alert-util.js   alertHost 文字列のパース
+│   │       └── alert-util.js   alertHost 文字列のパース (サーバー側、独立実装)
 │   └── graph/
 │       ├── rfc-model/          RFC 8345 JSON → オブジェクトモデル
 │       │   ├── topology.js     RfcTopology (ルートクラス)
@@ -89,6 +90,7 @@ netoviz/
 │   │   ├── common/
 │   │   │   ├── diagram-base.js           D3 SVG 基盤 (server/graph/common/base.js を import)
 │   │   │   ├── multilayer-diagram-base.js REST 呼び出し・複数レイヤー描画基盤
+│   │   │   ├── alert-util.js             alertHost 文字列のパース (フロント側、server/api/common/alert-util.js の複製)
 │   │   │   └── tooltip-creator.js        ツールチップ
 │   │   ├── nested/             Nested 図 D3 描画
 │   │   │   ├── visualizer.js   最上位 (saveLayout / clickHook)
@@ -99,6 +101,8 @@ netoviz/
 │   │   ├── dependency2/        Dependency2 図 D3 描画 (水平レイアウト)
 │   │   ├── force-simulation/   Force-simulation 図 D3 描画
 │   │   └── distance/           Distance 図 D3 描画
+│   ├── util/
+│   │   └── model-link.js       modelFile ⇔ /model/... URL 変換の共通ヘルパー
 │   └── style/                  SCSS スタイル (diff ハイライト含む)
 │
 ├── components/                 Vue コンポーネント
@@ -110,15 +114,23 @@ netoviz/
 │   ├── VisualizeDiagramDistance.vue
 │   ├── AppAPICommon.vue                 REST API URL 構築 mixin
 │   ├── VisualizeDiagramCommon.vue       ライフサイクル管理 mixin
-│   └── TableDiagrams.vue               トップページのモデル/visualizer 一覧表
+│   ├── TableDiagrams.vue               トップページのモデル/visualizer 一覧表
+│   ├── TableNetworks.vue               /model 用: network 一覧
+│   ├── TableSnapshots.vue              /model/:network 用: snapshot 一覧
+│   └── TableModelFiles.vue             /model/:network/:snapshot 用: モデルファイル/visualizer 一覧
 │
 ├── pages/
-│   ├── index.vue               / → TableDiagrams
-│   └── model/_network/_snapshot/_modelFile.vue  動的ルート → VisualizeDiagram
+│   ├── index.vue                                     / → TableDiagrams
+│   ├── model/index.vue                                /model → TableNetworks
+│   ├── model/[network]/index.vue                      /model/:network → TableSnapshots
+│   ├── model/[network]/[snapshot]/index.vue           /model/:network/:snapshot → TableModelFiles
+│   └── model/[network]/[snapshot]/[modelFile].vue     動的ルート → VisualizeDiagram
 │
-├── store/
-│   ├── index.js                modelFiles, visualizers 一覧
-│   └── alert.js                alertHost 状態管理
+├── error.vue                    Nuxt4 標準のエラーページ (旧 layouts/error.vue)
+│
+├── stores/                      Pinia (旧 store/、Vuex から移行)
+│   ├── main.js                  modelFiles, visualizers 一覧
+│   └── alert.js                 alertHost 状態管理
 │
 ├── static/model/               トポロジデータ置き場 (通常は外部マウント)
 │   └── <network>/<snapshot>/
@@ -127,7 +139,7 @@ netoviz/
 │
 ├── nuxt.config.js
 ├── dot.env                     .env テンプレート
-└── Dockerfile                  node:22-alpine ベース
+└── Dockerfile                  node:24-alpine ベース
 ```
 
 ---
@@ -138,7 +150,7 @@ netoviz/
 
 ```
 ブラウザ → /model/mddo-ospf/emulated_asis/topology.json?visualizer=nested
-  → pages/model/_network/_snapshot/_modelFile.vue
+  → pages/model/[network]/[snapshot]/[modelFile].vue
   → VisualizeDiagram.vue → VisualizeDiagramNested.vue
   → mounted() → new NestedDiagramVisualizer(apiParam)
   → drawRfcTopologyData()
@@ -156,7 +168,7 @@ netoviz/
 ブラウザ → /
   → TableDiagrams.vue → GET /api/models
       [server] → static/model/_index.json を読んで返す
-  → modelFiles を Vuex store に commit → テーブル描画
+  → modelFiles を Pinia store (stores/main.js) にセット → テーブル描画
 ```
 
 ### 3. ネスト図レイアウト保存
@@ -291,8 +303,15 @@ DiffElement = [typeSign, jsonpath, before, after]
 | `static/model/<network>/<snapshot>/topology.json` のパス構造を変えると URL も変わる | URL 設計・データ管理 |
 | スナップショット名に `__` を含むと URL エンコードと衝突する | URL/ファイルパス |
 | `lib/diagram/` が `server/graph/common/base.js` を直接 import している | バンドル・テスト |
+| `lib/diagram/` から `server/api/` 配下は import 不可 (Nuxt4 の `vite:import-analysis` プラグインが禁止。`server/graph/` は対象外)。`alert-util.js` は両側に複製されている | フロント・バックエンドの依存 |
 | `_index.json` は自動生成されない (外部管理) | データ管理 |
 | `layout.json` は `postGraphData` で上書き保存される | データ管理 |
 | オブジェクト ID に上限がある (`LL NNN TTT` 体系) | 大規模トポロジ |
 | テストコードがゼロ | 品質保証 |
-| Nuxt 2 (Vue 2) はサポート終了済み | 将来的な移行コスト |
+| Docker イメージは `npm install --omit=dev` でビルドされるため、Nuxt モジュールや dev server 起動に必須のパッケージ (`vuetify-nuxt-module`/`@nuxt/eslint`/`vite`/`sass-embedded` 等) は `dependencies` に置く必要がある | 依存パッケージ管理・Docker イメージサイズ |
+
+---
+
+## 関連ドキュメント
+
+* [migration-node24-nuxt4-plan.md](./migration-node24-nuxt4-plan.md) — Node.js 24 / Nuxt4 世代移行の計画・調査・実施記録(アーカイブ)
