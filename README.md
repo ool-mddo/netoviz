@@ -52,13 +52,13 @@ Slide
 ## Installation
 ### Environment setup
 This application depends on:
-* [Node.js](https://nodejs.org/ja/) (v22.x or later)
+* [Node.js](https://nodejs.org/ja/) (v24.x or later)
 * [NPM](https://www.npmjs.com/) (v10.x or later)
 
 ### Project setup
 This application depends on:
 * [D3.js](https://d3js.org/) (v4 or later)
-* [Nuxt.js](https://nuxtjs.org/)
+* [Nuxt](https://nuxt.com/) (v4)
 
 ```
 npm install [--legacy-peer-deps]
