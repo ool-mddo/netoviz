@@ -40,7 +40,7 @@ export default defineNuxtConfig({
   /*
    ** Nuxt.js modules
    */
-  modules: ['@pinia/nuxt', 'vuetify-nuxt-module'],
+  modules: ['@pinia/nuxt', 'vuetify-nuxt-module', '@nuxt/eslint'],
   /*
    ** vuetify-nuxt-module configuration
    ** https://github.com/vuetifyjs/nuxt-module
