@@ -1,7 +1,8 @@
-@import "common";
-@import "node";
-@import "text-label";
-@import "link";
+@use './common';
+@use './node';
+@use './text-label';
+@use './link';
+@use './color-schema' as *;
 
 circle.concentric {
   stroke: none;

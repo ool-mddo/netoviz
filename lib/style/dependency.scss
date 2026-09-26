@@ -1,7 +1,7 @@
-@import "common";
-@import "node";
-@import "term-point";
-@import "text-label";
+@use './common';
+@use './node';
+@use './term-point';
+@use './text-label';
 
 path.dep,
 path.dep2 {

@@ -1,8 +1,9 @@
-@import "common";
-@import "node";
-@import "term-point";
-@import "link";
-@import "text-label";
+@use './common';
+@use './node';
+@use './term-point';
+@use './link';
+@use './text-label';
+@use './color-schema' as *;
 
 $grid_x_color: limegreen;
 $grid_y_color: mediumspringgreen;
