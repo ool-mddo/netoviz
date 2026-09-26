@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { debounce } from 'debounce'
+import debounce from 'debounce'
 import AppAPICommon from './AppAPICommon'
 
 export default {

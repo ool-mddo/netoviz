@@ -1,4 +1,4 @@
-FROM node:22.23-alpine
+FROM node:24-alpine
 
 WORKDIR /netoviz
 COPY . /netoviz/
