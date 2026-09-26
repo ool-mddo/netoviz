@@ -17,6 +17,18 @@ RFC 8345 ベースのネットワークトポロジ JSON を可視化する Web 
   `npm run lint` を実行するとエラーになるため、`npm install` の `postinstall` (`nuxt prepare`) で
   自動生成している)
 
+## Vuetify2→4移行の既知の落とし穴
+
+`npm run dev`/`build` やcurlでの疎通確認だけでは検出できず、実ブラウザでのクライアント側実行
+(hydration・クリック操作)で初めて表面化する類の不具合があるため、UIを変更した際は
+ヘッドレスブラウザ(Playwright等)での確認を推奨する。
+
+- **`v-data-table` の `#headers` スロット**: スロット内で独自に `<thead>` を書くと、
+  Vuetify側が用意する`<thead>`と二重にネストされ不正なHTMLになる(hydration mismatchの原因)。
+  スロット内は `<tr>` から書き始める。
+- **`v-data-table` の `headers` prop / `v-breadcrumbs` の `items` prop**: Vuetify2の
+  `{ text, value, disable }` は Vuetify4 で `{ title, key, disabled }` にリネームされている。
+
 ## 開発コマンド
 
 ```bash
@@ -62,6 +74,15 @@ npm run docker-build     # Docker イメージビルド
 ### フロント・バックエンドの依存
 - `lib/diagram/` (フロントエンド) が `server/graph/common/base.js` を直接 import している。
 - バンドルやテスト追加の際はこの依存関係に注意。
+- **`server/api/` 配下は `lib/diagram/` から import 不可**: Nuxt4 は「Vueアプリ側コードから
+  `server/(api|routes|middleware|plugins)/` 配下を import すること」を `vite:import-analysis` プラグインで
+  明示的に禁止している(`server/graph/` 等それ以外のサブディレクトリは対象外)。
+  そのため `splitAlertHost`(元は `server/api/common/alert-util.js`)は
+  `lib/diagram/common/alert-util.js` に複製して使っている。Nuxt公式は`shared/`ディレクトリの使用を
+  推奨するが、本リポジトリの docker-compose bind mount(playground側、このリポジトリ外)が
+  既存ディレクトリのみを対象にしているため、新規トップレベルディレクトリの追加を避けて複製方式を採用した。
+  `server/api/` 配下のロジックを `lib/diagram/` から使いたくなった場合は複製するか、
+  bind mount設定側に `shared/` を追加した上で移設すること。
 
 ### オブジェクト ID
 - `LL NNN TTT` 形式の数値 ID (ネットワーク×100000 + ノード×1000 + TP×1)。
