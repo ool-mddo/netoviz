@@ -2,17 +2,15 @@
   <v-row>
     <v-col v-if="validModelFile">
       <v-list>
-        <v-subheader>
+        <v-list-subheader>
           Visualizers
           <template v-if="modelFile"> for {{ modelFile }} </template>
-        </v-subheader>
-        <v-list-item-group>
-          <v-list-item v-for="(vizData, index) in visualizerData" v-bind:key="index" v-bind:to="vizData.link">
-            <v-list-item-content>
-              {{ vizData.text }}
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
+        </v-list-subheader>
+        <v-list-item v-for="(vizData, index) in visualizerData" v-bind:key="index" v-bind:to="vizData.link">
+          <v-list-item-title>
+            {{ vizData.text }}
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-col>
     <v-col v-else>
@@ -22,8 +20,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import NotFound from './NotFound'
+import { useMainStore } from '~/stores/main'
 
 export default {
   name: 'TableVisualizers',
@@ -38,7 +37,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['visualizers', 'modelFiles']),
+    ...mapState(useMainStore, ['visualizers', 'modelFiles']),
     validModelFile() {
       if (!this.modelFile) {
         return true

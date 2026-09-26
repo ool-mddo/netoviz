@@ -1,83 +1,52 @@
-require('dotenv').config()
-
-module.exports = {
+export default defineNuxtConfig({
+  compatibilityDate: '2026-01-01',
   telemetry: false,
-  server: {
+  devServer: {
     host: '0.0.0.0',
-    port: process.env.PORT || process.env.NETOVIZ_WEB_LISTEN
+    port: process.env.PORT || process.env.NETOVIZ_WEB_LISTEN || 3000
+  },
+  /*
+   ** Runtime config: values that must be readable in the browser at runtime
+   ** (NETOVIZ_REST_PORT overrides the REST API port; unset it to run all-in-one).
+   */
+  runtimeConfig: {
+    public: {
+      netovizRestPort: process.env.NETOVIZ_REST_PORT || ''
+    }
   },
   /*
    ** Headers of the page
    */
-  head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || ''
-      }
-    ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+  app: {
+    head: {
+      titleTemplate: '%s - ' + process.env.npm_package_name,
+      title: process.env.npm_package_name || '',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          hid: 'description',
+          name: 'description',
+          content: process.env.npm_package_description || ''
+        }
+      ],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    }
   },
-  /*
-   ** Customize the progress-bar color
-   */
-  loading: { color: '#fff' },
   /*
    ** Global CSS
    */
   css: [],
   /*
-   ** Plugins to load before mounting the App
-   */
-  plugins: [],
-  /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify',
-    ['@nuxtjs/dotenv', { systemvars: true }]
-  ],
-  /*
    ** Nuxt.js modules
    */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    [
-      'nuxt-env',
-      {
-        keys: ['NETOVIZ_REST_PORT']
-      }
-    ]
-  ],
+  modules: ['@pinia/nuxt', 'vuetify-nuxt-module', '@nuxt/eslint'],
   /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
+   ** vuetify-nuxt-module configuration
+   ** https://github.com/vuetifyjs/nuxt-module
    */
-  axios: {},
-  /*
-   ** vuetify module configuration
-   ** https://github.com/nuxt-community/vuetify-module
-   */
-  vuetify: {},
-  /*
-   ** Build configuration
-   */
-  build: {
-    extractCSS: true,
-    babel: {
-      configFile: './babel.config.js'
-    },
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+  vuetify: {
+    moduleOptions: {},
+    vuetifyOptions: {}
   }
-}
+})

@@ -9,7 +9,9 @@ export default {
   components: {
     TableDiagrams
   },
-  head: () => ({ title: 'Index: Model/Visualizer Table' })
+  setup() {
+    useHead({ title: 'Index: Model/Visualizer Table' })
+  }
 }
 </script>
 

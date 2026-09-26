@@ -40,10 +40,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'pinia'
 import AppAPICommon from './AppAPICommon'
 import VisualizeDiagramCommon from './VisualizeDiagramCommon'
 import NestedDiagramVisualizer from '~/lib/diagram/nested/visualizer'
+import { useAlertStore } from '~/stores/alert'
 import '~/lib/style/nested.scss'
 
 export default {
@@ -72,7 +73,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('alert', ['setAlertHost']),
+    ...mapActions(useAlertStore, ['setAlertHost']),
     makeVisualizer() {
       return new NestedDiagramVisualizer(this.apiParam, this.svgWidth, this.svgHeight)
     },

@@ -6,35 +6,32 @@
         v-bind:items="table_body_rows"
         v-bind:items-per-page="20"
         caption="Select model/visualizer"
-        dense
-        hide-default-header
+        density="compact"
       >
-        <template v-slot:header="{ props }">
-          <thead class="v-data-table-header">
-            <tr>
-              <th v-for="(header, index) in props.headers" v-bind:key="index">
-                <div v-if="header.link">
-                  <router-link v-bind:to="header.link">
-                    {{ header.text }}
-                  </router-link>
-                </div>
-                <div v-else>
-                  {{ header.text }}
-                </div>
-              </th>
-            </tr>
-          </thead>
-        </template>
-        <template v-slot:item="props">
+        <template v-slot:headers="{ columns }">
           <tr>
-            <td v-for="(col, index) in Object.keys(props.item)" v-bind:key="index">
-              <div v-if="props.item[col].link">
-                <router-link v-bind:to="props.item[col].link">
-                  {{ props.item[col].text }}
+            <th v-for="(header, index) in columns" v-bind:key="index">
+              <div v-if="header.link">
+                <router-link v-bind:to="header.link">
+                  {{ header.title }}
                 </router-link>
               </div>
               <div v-else>
-                {{ props.item[col].text }}
+                {{ header.title }}
+              </div>
+            </th>
+          </tr>
+        </template>
+        <template v-slot:item="{ item }">
+          <tr>
+            <td v-for="(col, index) in Object.keys(item)" v-bind:key="index">
+              <div v-if="item[col].link">
+                <router-link v-bind:to="item[col].link">
+                  {{ item[col].text }}
+                </router-link>
+              </div>
+              <div v-else>
+                {{ item[col].text }}
               </div>
             </td>
           </tr>
@@ -45,36 +42,37 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
+import { useMainStore } from '~/stores/main'
 
 export default {
   name: 'TableDiagrams',
   computed: {
-    ...mapState(['modelFiles', 'visualizers']),
+    ...mapState(useMainStore, ['modelFiles', 'visualizers']),
     header_row() {
       const modelItems = [
         {
-          text: 'Network',
-          value: 'network',
+          title: 'Network',
+          key: 'network',
           sortable: true,
           link: null // '/model/networks'
         },
         {
-          text: 'SnapShot',
-          value: 'snapshot',
+          title: 'SnapShot',
+          key: 'snapshot',
           sortable: true,
           link: null
         },
         {
-          text: 'Model',
-          value: 'model',
+          title: 'Model',
+          key: 'model',
           sortable: false,
           link: null
         }
       ]
       const visualizerItems = this.visualizers.map((v) => ({
-        text: v.text,
-        value: v.value,
+        title: v.text,
+        key: v.value,
         sortable: false,
         link: null
       }))
