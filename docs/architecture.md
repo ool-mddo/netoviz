@@ -300,3 +300,9 @@ DiffElement = [typeSign, jsonpath, before, after]
 | `layout.json` は `postGraphData` で上書き保存される | データ管理 |
 | オブジェクト ID に上限がある (`LL NNN TTT` 体系) | 大規模トポロジ |
 | テストコードがゼロ | 品質保証 |
+
+---
+
+## 関連ドキュメント
+
+* [migration-node24-nuxt4-plan.md](./migration-node24-nuxt4-plan.md) — Node.js 24 / Nuxt4 世代移行の計画・調査・実施記録(アーカイブ)
