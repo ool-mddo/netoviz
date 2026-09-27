@@ -1,0 +1,8 @@
+[
+  {
+    "network": "sample-network",
+    "snapshot": "sample-snapshot",
+    "file": "topology.json",
+    "label": "Sample topology"
+  }
+]

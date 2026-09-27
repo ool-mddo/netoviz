@@ -1,0 +1,68 @@
+{
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "layer2",
+        "network-types": {
+          "ietf-l2-topology:l2-network": {}
+        },
+        "node": [
+          {
+            "node-id": "node1",
+            "ietf-network-topology:termination-point": [{ "tp-id": "eth0" }]
+          },
+          {
+            "node-id": "node2",
+            "ietf-network-topology:termination-point": [{ "tp-id": "eth0" }]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "node1,eth0_node2,eth0",
+            "source": { "source-node": "node1", "source-tp": "eth0" },
+            "destination": { "dest-node": "node2", "dest-tp": "eth0" }
+          }
+        ]
+      },
+      {
+        "network-id": "layer3",
+        "network-types": {
+          "ietf-l3-unicast-topology:l3-unicast-topology": {}
+        },
+        "node": [
+          {
+            "node-id": "node1",
+            "supporting-node": [{ "network-ref": "layer2", "node-ref": "node1" }],
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth0",
+                "supporting-termination-point": [
+                  { "network-ref": "layer2", "node-ref": "node1", "tp-ref": "eth0" }
+                ]
+              }
+            ]
+          },
+          {
+            "node-id": "node2",
+            "supporting-node": [{ "network-ref": "layer2", "node-ref": "node2" }],
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "eth0",
+                "supporting-termination-point": [
+                  { "network-ref": "layer2", "node-ref": "node2", "tp-ref": "eth0" }
+                ]
+              }
+            ]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "node1,eth0_node2,eth0",
+            "source": { "source-node": "node1", "source-tp": "eth0" },
+            "destination": { "dest-node": "node2", "dest-tp": "eth0" }
+          }
+        ]
+      }
+    ]
+  }
+}
