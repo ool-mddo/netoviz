@@ -1,9 +1,10 @@
 # netoviz テスト実装計画
 
 > **実施状況 (2026年実施):** Phase 1〜3 は実装・コミット済み。Phase 4 (D3/DOM smoke test 等の
-> 任意・低優先度項目) は着手しないことを決定した。以下の「## 実施結果」セクションに実際の
-> テストファイル一覧・計画との差分・実装中に見つかった既知の挙動をまとめている。
-> Phase 1〜3 本文はそのまま計画時点の記録として残す。
+> 任意・低優先度項目) は着手しないことを決定した。また、当初スコープ外としていた CI 連携
+> (§6) も、Phase 1〜3 完了後に追加実施した (`npm run lint` / `npm run test` を GitHub Actions
+> に組み込み済み)。以下の「## 実施結果」セクションに実際のテストファイル一覧・計画との差分・
+> 実装中に見つかった既知の挙動をまとめている。Phase 1〜3 本文はそのまま計画時点の記録として残す。
 
 ## Context
 
@@ -155,9 +156,17 @@ D3/DOM に依存しない**純粋なロジック**が大量にある一方、フ
 
 ## 6. CI について
 
-`.github/workflows/actions.yaml` は Docker イメージのビルド&プッシュのみを行っており、
+> **実施済み (2026年実施):** 当初は本計画のスコープ外としていたが、Phase 1〜3 のテストが揃った
+> ことを受けて `.github/workflows/actions.yaml` に `test` ジョブ (`npm ci` → `npm run lint` →
+> `npm run test`) を追加した。`push`/`pull_request` の両方で実行され、Docker イメージの
+> ビルド&プッシュ (`build_and_push` ジョブ) は `needs: test` により test ジョブの成功後、
+> かつ `push` イベントの場合のみ実行される (PR では docker push を行わない)。詳細は下記
+> 「実施結果」を参照。
+
+~~`.github/workflows/actions.yaml` は Docker イメージのビルド&プッシュのみを行っており、
 lint/test 相当のステップは現状存在しない。Phase 1/2 がある程度揃った段階で `npm test` を
-CI ステップとして追加するのは容易だが、**本計画のスコープ外**とし、今回は着手しない。
+CI ステップとして追加するのは容易だが、**本計画のスコープ外**とし、今回は着手しない。~~
+(2026年実施: 上記の通り実施済み)
 
 ## 検証方法
 
@@ -175,6 +184,7 @@ CI ステップとして追加するのは容易だが、**本計画のスコー
 
 Phase 1〜3 を実装・コミット済み(`npm run test` で17ファイル・101テストすべてgreen)。
 Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意・低優先度項目のため)。
+その後、§6 で当初スコープ外としていた CI 連携も追加実施した。
 
 ### コミット
 
@@ -182,6 +192,8 @@ Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意�
 - Phase 2: REST API 統合テスト
 - Phase 3: Vue コンポーネントテスト
 - `.dockerignore` にテスト関連ファイル (`*.test.js`, `test/`, `vitest.config.mjs`) の除外を追加
+- CI: `.github/workflows/actions.yaml` に `npm run lint`/`npm run test` を実行する `test` ジョブを追加し、
+  Docker イメージのビルド&プッシュを `needs: test` でゲート (§6 参照)
 
 ### 実際のテストファイル一覧
 
