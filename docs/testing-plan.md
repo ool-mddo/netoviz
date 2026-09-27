@@ -1,5 +1,10 @@
 # netoviz テスト実装計画
 
+> **実施状況 (2026年実施):** Phase 1〜3 は実装・コミット済み。Phase 4 (D3/DOM smoke test 等の
+> 任意・低優先度項目) は着手しないことを決定した。以下の「## 実施結果」セクションに実際の
+> テストファイル一覧・計画との差分・実装中に見つかった既知の挙動をまとめている。
+> Phase 1〜3 本文はそのまま計画時点の記録として残す。
+
 ## Context
 
 netoviz (`repos/netoviz`) は RFC8345 トポロジ JSON を可視化する Nuxt4/Vue3 + Vuetify4 + Pinia + D3
@@ -165,3 +170,72 @@ CI ステップとして追加するのは容易だが、**本計画のスコー
 - REST 統合テスト (Phase 2) 実装後は、実際に `docker compose up -d` で netoviz を起動し、
   `/api/models`・`/api/graph/...` を手動で叩いて本物の `static/model/` に対する挙動が
   テストと矛盾しないことを一度確認する。
+
+## 実施結果
+
+Phase 1〜3 を実装・コミット済み(`npm run test` で17ファイル・101テストすべてgreen)。
+Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意・低優先度項目のため)。
+
+### コミット
+
+- Phase 1: Vitest導入 + サーバー側純粋ロジックのテスト
+- Phase 2: REST API 統合テスト
+- Phase 3: Vue コンポーネントテスト
+- `.dockerignore` にテスト関連ファイル (`*.test.js`, `test/`, `vitest.config.mjs`) の除外を追加
+
+### 実際のテストファイル一覧
+
+**サーバー側**
+- `server/graph/common/base.test.js`
+- `server/graph/common/diff-element.test.js`
+- `server/graph/common/diff-state.test.js`
+- `server/graph/common/family-maker.test.js`
+- `server/graph/common/neighbor-maker.test.js`
+- `server/graph/rfc-model/topology.test.js` (ID採番・layerディスパッチ)
+- `server/graph/force-simulation/topology.test.js`
+- `server/api/common/alert-util.test.js`
+- `server/api/common/api-base.test.js`
+- `server/api/rest/integrator.test.js` (dependency/nested/distance変換 + `postGraphData`の書き込み)
+
+**フロントエンド**
+- `lib/util/model-link.test.js`
+- `lib/diagram/common/alert-util.test.js`
+- `components/AppBreadcrumbs.test.js`
+- `components/TableNetworks.test.js`
+- `components/TableSnapshots.test.js`
+- `components/TableModelFiles.test.js`
+- `components/VisualizeDiagram.test.js`
+
+**fixture**
+- `test/fixtures/rfc8345/mixed-layers.json` (自作の最小 RFC8345、rfc-l2 + rfc-l3)
+- `test/fixtures/alert-util-cases.js` (2つの `alert-util.js` 実装で共有するテストケーステーブル)
+- `test/fixtures/model/` (REST API 統合テスト用、`static/model/` と同じディレクトリ構造)
+
+計画で挙げていた `server/graph/nested/link-creator.js`/`inter-tp-link.js`(および `lib/diagram/nested/` 側の
+重複コピー)、`dependency`/`nested`/`distance` 個別の `topology.test.js`、`position-cache.js` は
+今回のスコープでは未実装(Phase 1 の中でも優先度が下がる箇所として見送った)。
+
+### 計画からの主な変更点
+
+- **`supertest` は結局未導入**。`server/api/rest/index.js` はモジュール内で
+  `new RESTIntegrator('static')` を固定でハードコードしており、supertest 経由で叩くと本物の
+  `static/model/` にしかアクセスできず fixture が使えないため、`index.js` 自体は変更せず
+  `RESTIntegrator`/`APIBase` を fixture の distDir で直接インスタンス化してテストする方式に変更した。
+- Phase 3 の Vue コンポーネントテストでは、`createTestingPinia` に `createSpy: vi.fn` の指定が
+  必須(未指定だと `PINIA_TESTING_C0001` エラー)。また VTU の自動 stub タグ名は単語ごとに
+  ハイフン区切りになる (`VisualizeDiagramForceSimulation` → `visualize-diagram-force-simulation-stub`)。
+- `NotFound.vue` 内で使われる `v-row`/`v-alert`/`router-link` はテスト内であえて stub 登録せず、
+  Vueの「未解決コンポーネントは素のカスタム要素としてフォールバックレンダリングされる」挙動を
+  利用してスロット内容(メッセージ文言)をそのまま検証できるようにした。
+
+### 実装中に見つかった既知の挙動 (未修正)
+
+`server/graph/dependency/node.js` の `DependencyNode` は `super(nodeData)` 経由で
+`ForceSimulationNode` を継承するが、そのコンストラクタは `family` プロパティをコピーしないため、
+`markFamilyWithTarget` が生の `ForceSimulationNode` に付与した `family` が
+`DependencyNode.toData()` の出力(`toDependencyTopologyData()` の JSON レスポンス)に反映されず、
+常に `family: undefined` になる。target による絞り込み自体(生ノード側の `.family` を参照している)
+は正しく機能しているため実害は表示上のみだが、フロントエンドが `family` フィールドを利用する
+実装を追加する場合は要注意。`server/api/rest/integrator.test.js` はこの現状の挙動
+(絞り込みは効くが `family` は出力されない)をそのままピン留めしている。詳細は
+[architecture.md の「変更時の注意点」](./architecture.md)を参照。
