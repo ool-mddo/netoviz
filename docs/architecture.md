@@ -137,6 +137,10 @@ netoviz/
 │       ├── topology.json       RFC 8345 入力データ
 │       └── layout.json         ネスト図グリッドレイアウト
 │
+├── test/fixtures/               テスト用 fixture (Vitest, static/model/ とは別管理)
+│   ├── rfc8345/                 手書きの最小 RFC8345 JSON
+│   └── model/                   REST API 統合テスト用 (static/model/ と同じ構造)
+│
 ├── nuxt.config.js
 ├── dot.env                     .env テンプレート
 └── Dockerfile                  node:24-alpine ベース
@@ -307,11 +311,14 @@ DiffElement = [typeSign, jsonpath, before, after]
 | `_index.json` は自動生成されない (外部管理) | データ管理 |
 | `layout.json` は `postGraphData` で上書き保存される | データ管理 |
 | オブジェクト ID に上限がある (`LL NNN TTT` 体系) | 大規模トポロジ |
-| テストコードがゼロ | 品質保証 |
+| Vitest 導入済み。対象は純粋ロジック・REST API・単純な Vue コンポーネントのみで、D3/DOM 密結合な描画コードとE2Eは対象外(詳細は [testing-plan.md](./testing-plan.md)) | 品質保証 |
+| `DependencyNode`(`server/graph/dependency/node.js`)は `ForceSimulationNode` を継承する際に生ノードの `family` プロパティをコピーしないため、`toDependencyTopologyData()` の出力 JSON は常に `family: undefined` になる (target による絞り込み自体は生ノード側の `family` を見ているため正しく機能する) | Dependency 図 JSON 出力・既知の未修正挙動 |
 | Docker イメージは `npm install --omit=dev` でビルドされるため、Nuxt モジュールや dev server 起動に必須のパッケージ (`vuetify-nuxt-module`/`@nuxt/eslint`/`vite`/`sass-embedded` 等) は `dependencies` に置く必要がある | 依存パッケージ管理・Docker イメージサイズ |
+| テスト関連ファイル (`*.test.js`, `test/`, `vitest.config.mjs`) は `.dockerignore` で除外している | Docker イメージサイズ |
 
 ---
 
 ## 関連ドキュメント
 
 * [migration-node24-nuxt4-plan.md](./migration-node24-nuxt4-plan.md) — Node.js 24 / Nuxt4 世代移行の計画・調査・実施記録(アーカイブ)
+* [testing-plan.md](./testing-plan.md) — テスト導入の計画・フェーズ分け・実施記録

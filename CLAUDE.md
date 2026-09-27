@@ -44,12 +44,28 @@ npm run lint:fix         # ESLint 自動修正
 npm run format           # Prettier フォーマット
 npm run build            # 本番ビルド
 npm run start            # 本番起動
+npm run test             # Vitest 実行 (1回)
+npm run test:watch       # Vitest 実行 (watch モード)
+npm run test:coverage    # Vitest 実行 (カバレッジ付き)
 npm run docker-build     # Docker イメージビルド
 ```
 
 ## テスト
 
-プロジェクト独自のテストコードは存在しない。動作確認は実際にアプリを起動して行う。
+Vitest 導入済み。テスト対象の選定方針・フェーズ分けの詳細は [docs/testing-plan.md](docs/testing-plan.md) を参照。
+
+- テストファイルはテスト対象と同じディレクトリに `*.test.js` として co-locate している
+  (例: `server/graph/common/base.js` → `server/graph/common/base.test.js`)。
+- 対象: サーバー側の純粋ロジック (`server/graph/`, `server/api/common/`)、REST API 統合
+  (`server/api/rest/`, `test/fixtures/model/` 配下の fixture を使用)、単純な Vue コンポーネント
+  (`AppBreadcrumbs.vue`・`Table{Networks,Snapshots,ModelFiles}.vue`・`VisualizeDiagram.vue` の分岐ロジック)。
+- 対象外(意図的): D3/DOM に密結合な描画コード (`lib/diagram/*/builder.js`・`operator.js` 等、
+  `VisualizeDiagram*.vue` の各ラッパー) やビジュアルリグレッション・E2Eブラウザテスト。これらは引き続き
+  実アプリ起動での手動確認 (上記「Vuetify2→4移行の既知の落とし穴」参照) に委ねている。
+- fixture は `test/fixtures/` 配下 (`static/model/` のサンプルデータとは別、書き込みテストは
+  `fs.mkdtemp` した一時コピーに対して行い `test/fixtures/` 自体は変更しない)。
+- テスト関連ファイル (`*.test.js`, `test/`, `vitest.config.mjs`) は `.dockerignore` で除外しており、
+  Docker イメージには含まれない。
 
 ## ビジュアライザー種別
 

@@ -1,7 +1,13 @@
+.claude/
 .git/
+.github/
 .idea/
 .nuxt/
+docs/
 fig/
 static/docs/
 static/*.cache
 node_modules/
+**/*.test.js
+test/
+vitest.config.mjs

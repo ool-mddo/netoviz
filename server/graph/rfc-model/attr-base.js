@@ -120,7 +120,7 @@ class RfcAttributeModelBase extends RfcModelBase {
   _toHtmlLargeKeyValue(attrKey, attrKeyDisplay) {
     const ddElement = this?.diffState.findDiffDataByPath(attrKey)
     const keyClassStr = this._attrKeyClassString(attrKey, ddElement)
-    const valueStr = this._toHtmlLargeValue((this[attrKey]))
+    const valueStr = this._toHtmlLargeValue(this[attrKey])
     return `<span class="${keyClassStr}">${attrKeyDisplay}:</span> ${valueStr}`
   }
 
