@@ -159,3 +159,14 @@ Nuxt4 は Nitro (h3) ベースのサーバーエンジンを持ち、Nuxt2 の `
   `/models` ではなく `/api/models` として解釈されてしまい、ルートが一致しない)。
 - `server/index.js` (Nuxt2 時代の Express エントリポイント、`babel-node` 起動) は廃止済み。
   起動は `nuxt dev` / `node .output/server/index.mjs` (`npm run dev`/`start` 経由)。
+
+## 自動リロード (ポーリング)
+
+`layouts/default.vue` が 5 秒間隔で `GET /api/models/status?file=<network>/<snapshot>/<file>` を呼び、
+`_index.json` と表示中の `topology.json` の変更シグネチャ (`mtimeMs-size`) を監視する。
+同じ新シグネチャが 2 回連続で観測されたら (書き込み途中の回避) 反映する。
+
+- `_index.json` 変化 → モデル一覧を再取得 (`updateModelFiles`)。
+- 表示中 topology.json 変化 → `<NuxtPage>` の `page-key` を更新してページを再マウント (ズーム等の描画状態は保持しない)。
+- app bar の "Auto reload" スイッチで ON/OFF (`localStorage` の `netoviz.autoReload` に保存、既定 ON)。タブ非表示中は停止。
+- 判定ロジックは `lib/util/change-detector.js`、サーバー側は `APIBase.getModelStatus()` (path traversal 防止あり)。

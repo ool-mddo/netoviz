@@ -20,7 +20,7 @@ flowchart TD
     end
 
     subgraph Server["server/ (Nitro + Express Router)"]
-        API["REST API\nGET /api/models\nGET /api/graph/:graphName/...\nPOST /api/graph/nested/..."]
+        API["REST API\nGET /api/models\nGET /api/models/status\nGET /api/graph/:graphName/...\nPOST /api/graph/nested/..."]
         subgraph Converters["server/graph/ — 変換ロジック"]
             RFC["rfc-model/\nRFC8345 JSON → オブジェクトモデル"]
             FS["force-simulation/"]
@@ -59,10 +59,10 @@ netoviz/
 │   │   └── express-api.js      Nitro server plugin (h3 `fromNodeMiddleware` で Express Router をマウント)
 │   ├── api/
 │   │   ├── rest/
-│   │   │   ├── index.js        Express Router (3エンドポイント定義)
+│   │   │   ├── index.js        Express Router (4エンドポイント定義)
 │   │   │   └── integrator.js   グラフ変換の委譲ハブ (RESTIntegrator)
 │   │   └── common/
-│   │       ├── api-base.js     APIBase: ファイル読込・変換共通処理
+│   │       ├── api-base.js     APIBase: ファイル読込・変換共通処理、getModelStatus (変更シグネチャ)
 │   │       └── alert-util.js   alertHost 文字列のパース (サーバー側、独立実装)
 │   └── graph/
 │       ├── rfc-model/          RFC 8345 JSON → オブジェクトモデル
@@ -102,7 +102,8 @@ netoviz/
 │   │   ├── force-simulation/   Force-simulation 図 D3 描画
 │   │   └── distance/           Distance 図 D3 描画
 │   ├── util/
-│   │   └── model-link.js       modelFile ⇔ /model/... URL 変換の共通ヘルパー
+│   │   ├── model-link.js       modelFile ⇔ /model/... URL 変換の共通ヘルパー
+│   │   └── change-detector.js  ポーリング値の安定変化検知 (自動リロード用)
 │   └── style/                  SCSS スタイル (diff ハイライト含む)
 │
 ├── components/                 Vue コンポーネント
@@ -173,6 +174,17 @@ netoviz/
   → TableDiagrams.vue → GET /api/models
       [server] → static/model/_index.json を読んで返す
   → modelFiles を Pinia store (stores/main.js) にセット → テーブル描画
+```
+
+### 2.5 自動リロード (ポーリング)
+
+```
+layouts/default.vue (5 秒間隔、"Auto reload" ON かつタブ表示中のみ)
+  → GET /api/models/status?file=<network>/<snapshot>/<file>
+      [server] → APIBase.getModelStatus() → { index, file } (mtimeMs-size / null)
+  → ChangeDetector.observe(): 新しい値が 2 回連続で観測されたら「変化」とみなす
+      index 変化 → updateModelFiles() (GET /api/models → Pinia store 更新)
+      file 変化  → <NuxtPage :page-key> を更新 → ページ再マウント → visualizer が再取得・再描画
 ```
 
 ### 3. ネスト図レイアウト保存

@@ -32,6 +32,13 @@ apiRouter.get('/models', async (req, res) => {
   res.send(await restApi.getModels())
 })
 
+// API to send change signatures of model files. (for auto-reload polling)
+apiRouter.get('/models/status', async (req, res) => {
+  const file = typeof req.query.file === 'string' ? req.query.file.replaceAll('__', '/') : undefined
+  res.type('json')
+  res.send(await restApi.getModelStatus(file))
+})
+
 // API to receive graph-layout data. (in nested graph)
 apiRouter.post('/graph/:graphName/:network/:snapshot/:jsonName', (req, res) => {
   console.log('[REST] POST graph layout')

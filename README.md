@@ -100,6 +100,18 @@ npm run doc
   RFC8345 ベースのトポロジモデルから変換した図データを返す
 - POST `/api/graph/:graphName/:network/:snapshot/:jsonName`
   レイアウトを保存する (nested 図用)
+- GET `/api/models/status?file=<network>/<snapshot>/<file>`
+  `_index.json` と指定モデルファイルの変更シグネチャ (`mtimeMs-size`、存在しなければ `null`) を返す。
+  自動リロードのポーリング用 (`file` はスナップショット中の `/` を `__` にしても可)
+
+## 自動リロード
+
+`_index.json` や表示中の `topology.json` が更新されると、画面右上の "Auto reload" スイッチが ON のとき
+(既定 ON、`localStorage` に保存) 手動リロードなしで反映される。
+5 秒間隔で `/api/models/status` をポーリングし、同じ新シグネチャが 2 回連続で観測された時点
+(書き込み途中の回避) で、`_index.json` ならモデル一覧を再取得、表示中の topology.json なら
+ページを再マウントして再描画する (ズーム等の描画状態は保持されない)。
+タブが非表示の間はポーリングしない。
 
 ## 参考リンク
 

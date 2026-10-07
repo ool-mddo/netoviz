@@ -6,6 +6,26 @@ const fixtureDistDir = fileURLToPath(new URL('../../../test/fixtures', import.me
 const sampleJsonName = 'sample-network/sample-snapshot/topology.json'
 
 describe('APIBase', () => {
+  describe('getModelStatus', () => {
+    const api = new APIBase(fixtureDistDir)
+
+    it('returns signatures of _index.json and the given model file', async () => {
+      const status = await api.getModelStatus(sampleJsonName)
+      expect(status.index).toMatch(/^[\d.]+-\d+$/)
+      expect(status.file).toMatch(/^[\d.]+-\d+$/)
+    })
+
+    it('returns null file signature when file is omitted or missing', async () => {
+      expect((await api.getModelStatus()).file).toBeNull()
+      expect((await api.getModelStatus('sample-network/none/topology.json')).file).toBeNull()
+    })
+
+    it('rejects path traversal outside of the model directory', async () => {
+      const status = await api.getModelStatus('../../package.json')
+      expect(status.file).toBeNull()
+    })
+  })
+
   describe('getModels', () => {
     it('reads and parses _index.json under <distDir>/model', async () => {
       const api = new APIBase(fixtureDistDir)
