@@ -206,7 +206,8 @@ Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意�
 - `server/graph/rfc-model/topology.test.js` (ID採番・layerディスパッチ)
 - `server/graph/force-simulation/topology.test.js`
 - `server/api/common/alert-util.test.js`
-- `server/api/common/api-base.test.js`
+- `server/api/common/api-base.test.js` (`getModelStatus` による自動リロード用シグネチャ取得を含む)
+- `lib/util/change-detector.test.js` (自動リロードの安定変化検知)
 - `server/api/rest/integrator.test.js` (dependency/nested/distance変換 + `postGraphData`の書き込み)
 
 **フロントエンド**

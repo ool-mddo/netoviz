@@ -40,6 +40,42 @@ class APIBase {
   }
 
   /**
+   * Get change signature (mtime-size) of a file. null if the file does not exist.
+   * @param {string} filePath - File path.
+   * @returns {Promise<null|string>} Signature.
+   * @private
+   */
+  async _fileSignature(filePath) {
+    try {
+      const stat = await fs.promises.stat(filePath)
+      return `${stat.mtimeMs}-${stat.size}`
+    } catch {
+      return null
+    }
+  }
+
+  /**
+   * Get change signatures of the model index (`_index.json`) and a model file.
+   * Frontend polls this to detect updates of the files.
+   * @param {string} [jsonName] - `<network>/<snapshot>/<file>` style path of model file.
+   * @returns {Promise<{index: null|string, file: null|string}>} Signatures.
+   * @public
+   */
+  async getModelStatus(jsonName) {
+    const index = await this._fileSignature(`${this.modelDir}/_index.json`)
+    let file = null
+    if (jsonName) {
+      const baseDir = path.resolve(this.modelDir)
+      const target = path.resolve(baseDir, jsonName)
+      // reject path traversal outside of model directory
+      if (target.startsWith(baseDir + path.sep)) {
+        file = await this._fileSignature(target)
+      }
+    }
+    return { index, file }
+  }
+
+  /**
    * Read graph layout data from layout file.
    * @param {string} jsonName - File name of layout file (json).
    * @returns {Promise<null|LayoutData>} Layout data.
