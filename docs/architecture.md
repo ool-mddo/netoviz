@@ -73,7 +73,7 @@ netoviz/
 │       │   ├── term-point.js   RfcTermPoint
 │       │   ├── model/          拡張ネットワーク型 (L2/L3/MDDO系)
 │       │   ├── node-attr/      ノード属性拡張
-│       │   ├── tp-attr/        TP 属性拡張
+│       │   ├── tp-attr/        TP 属性拡張 (mddo-fhrp.js: layer3 TP の VRRP/HSRP (`fhrp`) のサブ属性)
 │       │   ├── link-attr/      リンク属性拡張
 │       │   └── network-attr/   ネットワーク属性拡張
 │       ├── force-simulation/   ForceSimulation 図用変換
@@ -266,8 +266,38 @@ topology.json の各要素に "_diff_state_" フィールドが含まれる場�
 | `staticRoute` | MddoStaticRoute[] | スタティックルート |
 | `firewall` | Object\|null | FW ノードのみ。`node` / `pair` / `policies` / `zones` を含む |
 
+### TP 属性の主要フィールド
+
+TP 属性クラス (`server/graph/rfc-model/tp-attr/`) もノード属性と同様に `toHtml()` を実装している。
+
+**`MddoL3TermPointAttribute`** (layer3 の TP) の主要フィールド:
+
+| フィールド | 型 | 説明 |
+|---|---|---|
+| `description` | string | インタフェースの description |
+| `ipAddress` | string[] | IP アドレス |
+| `flag` | string[] | フラグ |
+| `fhrp` | MddoFhrp[] | VRRP/HSRP のグループ (無い TP では空配列。ツールチップには `fhrp` があるときだけ `FHRP:` を表示) |
+
+**`MddoFhrp`** (`tp-attr/mddo-fhrp.js`) のフィールド (topology.json のキーは kebab-case):
+
+| フィールド | topology.json のキー | 型 | 説明 |
+|---|---|---|---|
+| `protocol` | `protocol` | string | `vrrp` / `hsrp` (表示は大文字) |
+| `groupId` | `group-id` | number | グループ ID |
+| `virtualAddress` | `virtual-address` | string[] | 仮想 IP アドレス |
+| `priority` | `priority` | number | 優先度 |
+| `preempt` | `preempt` | boolean | プリエンプト |
+| `sourceAddress` | `source-address` | string | グループを持つインタフェースの IP アドレス/プレフィックス長 |
+| `active` | `active` | boolean | 有効か |
+
+ツールチップは 1 グループ 1 行 (例: `VRRP group 1: Virtual Address: 192.168.101.1, Priority: 150, ...`)。
+スナップショット差分 (diff) 表示では、`DiffState#diffDataForArrayElement('fhrp', index)` で要素ごとの diff を取り、
+値の変更 (新旧並記)・グループの追加/削除・`fhrp` 全体の追加/削除を既存の色分けで示す
+(要素内の配列 (`virtual-address`) の変更は、要素単位ではなくそのキーの変更として示す)。
+
 **ツールチップ属性を拡張する際の変更箇所**:
-`server/graph/rfc-model/node-attr/` 内の対応属性クラスのみを変更すればよい。
+`server/graph/rfc-model/node-attr/` (ノード) / `tp-attr/` (TP) 内の対応属性クラスのみを変更すればよい。
 コンストラクタでフィールドを追加し、`toHtml()` に表示ロジックを追加するだけで、
 `ForceSimulationNode`・`tooltip-creator.js` など他のファイルへの変更は不要。
 

@@ -201,10 +201,14 @@ Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意�
 - `server/graph/common/base.test.js`
 - `server/graph/common/diff-element.test.js`
 - `server/graph/common/diff-state.test.js`
+- `server/graph/common/diff-state-array-element.test.js` (`diffDataForArrayElement`: オブジェクト配列属性 (`fhrp` 等) の要素ごとの diff)
 - `server/graph/common/family-maker.test.js`
 - `server/graph/common/neighbor-maker.test.js`
 - `server/graph/rfc-model/topology.test.js` (ID採番・layerディスパッチ)
 - `server/graph/force-simulation/topology.test.js`
+- `server/graph/force-simulation/topology-fhrp.test.js` (図用データの TP 属性に `fhrp` が載ること)
+- `server/graph/rfc-model/tp-attr/mddo-fhrp.test.js` (`MddoFhrp`: kebab/camel 両キー、JSON 往復、`toHtml`)
+- `server/graph/rfc-model/tp-attr/mddo-l3-term-point-attribute-fhrp.test.js` (layer3 TP 属性の `fhrp` 表示と diff 表示)
 - `server/api/common/alert-util.test.js`
 - `server/api/common/api-base.test.js` (`getModelStatus` による自動リロード用シグネチャ取得を含む)
 - `lib/util/change-detector.test.js` (自動リロードの安定変化検知)
@@ -221,6 +225,7 @@ Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意�
 
 **fixture**
 - `test/fixtures/rfc8345/mixed-layers.json` (自作の最小 RFC8345、rfc-l2 + rfc-l3)
+- `test/fixtures/rfc8345/mddo-l3-fhrp.json` (mddo-l3 の TP に `fhrp` (VRRP / VRRP+HSRP / なし) を持つ最小トポロジ)
 - `test/fixtures/alert-util-cases.js` (2つの `alert-util.js` 実装で共有するテストケーステーブル)
 - `test/fixtures/model/` (REST API 統合テスト用、`static/model/` と同じディレクトリ構造)
 

@@ -136,14 +136,26 @@ Vitest 導入済み。テスト対象の選定方針・フェーズ分けの詳�
 
 ## ツールチップ属性の拡張方法
 
-マウスオーバー時のノード属性表示を拡張する場合、変更が必要なのは
-`server/graph/rfc-model/node-attr/` 内の対応する属性クラス 1ファイルのみ。
+マウスオーバー時のノード/TP 属性表示を拡張する場合、変更が必要なのは
+`server/graph/rfc-model/node-attr/` (ノード) または `server/graph/rfc-model/tp-attr/` (TP) 内の対応する属性クラスのみ。
 
 1. コンストラクタに新フィールドを追加 (`this.xxx = data.xxx || null`)
 2. `toHtml()` に表示ロジックを追加
 
 `ForceSimulationNode` や `tooltip-creator.js` など他ファイルへの変更は不要。
 属性オブジェクトはパイプライン全体を透過的に通過し、フロントエンドで `class` フィールドを元に再構築される設計のため。
+
+### 入れ子のオブジェクト配列を持つ属性 (例: `MddoL3TermPointAttribute#fhrp`)
+
+- 要素用のサブ属性クラスを作る (`RfcAttributeModelBase` 継承。例: `tp-attr/mddo-fhrp.js`、`mddo-ospf-neighbor.js`)。
+  サブ属性クラスは `tooltip-creator.js` の `AttributeClassOf` に登録しない (トップレベルの属性クラスのみ登録する)。
+- **サーバーで生成した属性は JSON として図データに載り、ブラウザで再構築される**ため、サブ属性クラスのコンストラクタは
+  topology データのキー (kebab-case。`group-id`) と、オブジェクトのプロパティ名 (camelCase。`groupId`) の**両方を受け付ける**。
+  `false` / `0` を取りうる値は `||` ではなく `??` で扱う。
+- 親の `toHtml()` では、要素を空のときは項目ごと出さない (既存のツールチップを変えない)。要素ごとの diff は
+  `this.diffState.diffDataForArrayElement('<属性名>', index)` で取り、要素の `toHtml(diffElements)` に渡す
+  (`fhrp[0].priority` のような要素内の変更、要素全体 / 配列全体の追加・削除に対応する。
+  `diffDataForObjectArray` は要素全体の追加・削除のみ対応のため、値の変更がある属性では使わない)。
 
 ## サーバー統合 (Nitro + Express Router) の注意点
 
