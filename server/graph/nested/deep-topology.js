@@ -48,7 +48,6 @@ class DeepNestedTopology extends ShallowNestedTopology {
    * @protected
    */
   splitNode(parentNode, childNode) {
-    // eslint-disable-next-line max-len
     // console.log(`  ** child: ${childNode.path} has ${childNode.numberOfParentNodes()} parent nodes : `, childNode.parents)
     if (parentNode.split <= 0 && childNode.numberOfParentNodes() <= 1) {
       return childNode

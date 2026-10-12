@@ -102,9 +102,7 @@ export default {
         }
         if (!this.snapshot) {
           // network 階層では snapshot 階層のページへのリンクにする
-          const link = this.network
-            ? `/model/${modelFile.network}/${snapshotUrlEncode(modelFile.snapshot)}`
-            : null
+          const link = this.network ? `/model/${modelFile.network}/${snapshotUrlEncode(modelFile.snapshot)}` : null
           item.snapshot = { text: modelFile.snapshot, value: modelFile.snapshot, link }
         }
         item.model = { text: modelFile.label, value: modelFile.file, link: null }
