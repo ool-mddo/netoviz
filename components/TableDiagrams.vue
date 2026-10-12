@@ -44,26 +44,40 @@
 <script>
 import { mapState } from 'pinia'
 import { useMainStore } from '~/stores/main'
-import { visualizerLinksForModelFile } from '~/lib/util/model-link'
+import { snapshotUrlEncode, visualizerLinksForModelFile } from '~/lib/util/model-link'
 
 export default {
   name: 'TableDiagrams',
+  props: {
+    // 指定した場合、その network / snapshot (URL エンコード済み) 配下のみ表示する
+    network: { type: String, default: null },
+    snapshot: { type: String, default: null }
+  },
   computed: {
     ...mapState(useMainStore, ['modelFiles', 'visualizers']),
+    targetModelFiles() {
+      return this.modelFiles.filter(
+        (m) =>
+          (!this.network || m.network === this.network) &&
+          (!this.snapshot || snapshotUrlEncode(m.snapshot) === this.snapshot)
+      )
+    },
     header_row() {
+      const networkItem = {
+        title: 'Network',
+        key: 'network',
+        sortable: true,
+        link: null // '/model/networks'
+      }
+      const snapshotItem = {
+        title: 'SnapShot',
+        key: 'snapshot',
+        sortable: true,
+        link: null
+      }
       const modelItems = [
-        {
-          title: 'Network',
-          key: 'network',
-          sortable: true,
-          link: null // '/model/networks'
-        },
-        {
-          title: 'SnapShot',
-          key: 'snapshot',
-          sortable: true,
-          link: null
-        },
+        ...(this.network ? [] : [networkItem]),
+        ...(this.snapshot ? [] : [snapshotItem]),
         {
           title: 'Model',
           key: 'model',
@@ -81,24 +95,19 @@ export default {
     },
     table_body_rows() {
       const rows = []
-      for (const modelFile of this.modelFiles) {
-        const item = {
-          network: {
-            text: modelFile.network,
-            value: modelFile.network,
-            link: null
-          },
-          snapshot: {
-            text: modelFile.snapshot,
-            value: modelFile.snapshot,
-            link: null
-          },
-          model: {
-            text: modelFile.label,
-            value: modelFile.file,
-            link: null
-          }
+      for (const modelFile of this.targetModelFiles) {
+        const item = {}
+        if (!this.network) {
+          item.network = { text: modelFile.network, value: modelFile.network, link: null }
         }
+        if (!this.snapshot) {
+          // network 階層では snapshot 階層のページへのリンクにする
+          const link = this.network
+            ? `/model/${modelFile.network}/${snapshotUrlEncode(modelFile.snapshot)}`
+            : null
+          item.snapshot = { text: modelFile.snapshot, value: modelFile.snapshot, link }
+        }
+        item.model = { text: modelFile.label, value: modelFile.file, link: null }
 
         Object.assign(item, visualizerLinksForModelFile(modelFile, this.visualizers))
         rows.push(item)

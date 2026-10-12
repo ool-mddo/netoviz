@@ -115,16 +115,13 @@ netoviz/
 │   ├── VisualizeDiagramDistance.vue
 │   ├── AppAPICommon.vue                 REST API URL 構築 mixin
 │   ├── VisualizeDiagramCommon.vue       ライフサイクル管理 mixin
-│   ├── TableDiagrams.vue               トップページのモデル/visualizer 一覧表
-│   ├── TableNetworks.vue               /model 用: network 一覧
-│   ├── TableSnapshots.vue              /model/:network 用: snapshot 一覧
-│   └── TableModelFiles.vue             /model/:network/:snapshot 用: モデルファイル/visualizer 一覧
+│   └── TableDiagrams.vue               モデル/visualizer 一覧表 (network/snapshot prop で絞り込み。トップと /model 配下の各階層で共用)
 │
 ├── pages/
 │   ├── index.vue                                     / → TableDiagrams
-│   ├── model/index.vue                                /model → TableNetworks
-│   ├── model/[network]/index.vue                      /model/:network → TableSnapshots
-│   ├── model/[network]/[snapshot]/index.vue           /model/:network/:snapshot → TableModelFiles
+│   ├── model/index.vue                                /model → network ごとの TableDiagrams
+│   ├── model/[network]/index.vue                      /model/:network → TableDiagrams (network 絞り込み)
+│   ├── model/[network]/[snapshot]/index.vue           /model/:network/:snapshot → TableDiagrams (network+snapshot 絞り込み)
 │   └── model/[network]/[snapshot]/[modelFile].vue     動的ルート → VisualizeDiagram
 │
 ├── error.vue                    Nuxt4 標準のエラーページ (旧 layouts/error.vue)

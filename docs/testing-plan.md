@@ -99,10 +99,10 @@ D3/DOM に依存しない**純粋なロジック**が大量にある一方、フ
 
 - `components/AppBreadcrumbs.test.js` — Pinia 不要、`path` prop のみに依存。単一/複数セグメント、
   前後スラッシュのエッジケースをテーブル駆動で検証。
-- `components/TableNetworks.test.js`, `TableSnapshots.test.js`, `TableModelFiles.test.js` —
+- `components/TableDiagrams.test.js` —
   `createTestingPinia({ initialState: { main: { modelFiles: [...] } } })` で 2 ネットワーク×2
   スナップショット程度の合成データを注入し、`v-data-table` は `stubs` で潰した上で
-  computed (`tableRows` 等) の出力を直接検証する (Vuetify の実描画までは検証しない)。
+  computed (`table_body_rows` 等) の出力を直接検証する (Vuetify の実描画までは検証しない)。
 - `components/VisualizeDiagram.test.js` — `visualizer` prop の 5 種類 + 不正値で、正しい子
   コンポーネント (または `NotFound`) が選ばれることを検証。5 つの `VisualizeDiagram*` 子コンポーネント
   自体は `stubs` で潰し、D3 に依存する `mounted()` が実行されないようにする。
@@ -218,9 +218,7 @@ Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意�
 - `lib/util/model-link.test.js`
 - `lib/diagram/common/alert-util.test.js`
 - `components/AppBreadcrumbs.test.js`
-- `components/TableNetworks.test.js`
-- `components/TableSnapshots.test.js`
-- `components/TableModelFiles.test.js`
+- `components/TableDiagrams.test.js`
 - `components/VisualizeDiagram.test.js`
 
 **fixture**
