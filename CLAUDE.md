@@ -58,7 +58,7 @@ Vitest 導入済み。テスト対象の選定方針・フェーズ分けの詳�
   (例: `server/graph/common/base.js` → `server/graph/common/base.test.js`)。
 - 対象: サーバー側の純粋ロジック (`server/graph/`, `server/api/common/`)、REST API 統合
   (`server/api/rest/`, `test/fixtures/model/` 配下の fixture を使用)、単純な Vue コンポーネント
-  (`AppBreadcrumbs.vue`・`TableDiagrams.vue`・`VisualizeDiagram.vue` の分岐ロジック)。
+  (`AppBreadcrumbs.vue`・`TableDiagrams.vue`・`VisualizeDiagram.vue`・`NetworksFlags.vue` の分岐ロジック)。
 - 対象外(意図的): D3/DOM に密結合な描画コード (`lib/diagram/*/builder.js`・`operator.js` 等、
   `VisualizeDiagram*.vue` の各ラッパー) やビジュアルリグレッション・E2Eブラウザテスト。これらは引き続き
   実アプリ起動での手動確認 (上記「Vuetify2→4移行の既知の落とし穴」参照) に委ねている。

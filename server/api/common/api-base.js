@@ -76,6 +76,29 @@ class APIBase {
   }
 
   /**
+   * Get networks-level attributes (`mddo-topology:networks-attributes`) of a model file.
+   * @param {string} jsonName - `<network>/<snapshot>/<file>` style path of model file.
+   * @returns {Promise<{flag: Array<string>}>} Attributes (`flag` is empty if the file has no attribute).
+   * @public
+   */
+  async getNetworksAttributes(jsonName) {
+    const empty = { flag: [] }
+    const baseDir = path.resolve(this.modelDir)
+    const target = path.resolve(baseDir, jsonName || '')
+    // reject path traversal outside of model directory
+    if (!jsonName || !target.startsWith(baseDir + path.sep)) {
+      return empty
+    }
+    try {
+      const buffer = await asyncReadFile(target)
+      const attr = JSON.parse(buffer.toString())?.['ietf-network:networks']?.['mddo-topology:networks-attributes']
+      return { flag: Array.isArray(attr?.flag) ? attr.flag : [] }
+    } catch {
+      return empty
+    }
+  }
+
+  /**
    * Read graph layout data from layout file.
    * @param {string} jsonName - File name of layout file (json).
    * @returns {Promise<null|LayoutData>} Layout data.

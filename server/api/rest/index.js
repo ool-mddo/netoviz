@@ -39,6 +39,13 @@ apiRouter.get('/models/status', async (req, res) => {
   res.send(await restApi.getModelStatus(file))
 })
 
+// API to send networks-level attributes (flags) of a model file. (for page header)
+apiRouter.get('/models/attributes', async (req, res) => {
+  const file = typeof req.query.file === 'string' ? req.query.file.replaceAll('__', '/') : undefined
+  res.type('json')
+  res.send(await restApi.getNetworksAttributes(file))
+})
+
 // API to receive graph-layout data. (in nested graph)
 apiRouter.post('/graph/:graphName/:network/:snapshot/:jsonName', (req, res) => {
   console.log('[REST] POST graph layout')
