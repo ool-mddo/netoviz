@@ -1,14 +1,14 @@
 <template>
-  <TableSnapshots v-bind:network="network" />
+  <TableDiagrams v-bind:network="network" />
 </template>
 
 <script>
 import { computed } from 'vue'
-import TableSnapshots from '~/components/TableSnapshots'
+import TableDiagrams from '~/components/TableDiagrams'
 
 export default {
   components: {
-    TableSnapshots
+    TableDiagrams
   },
   setup() {
     const route = useRoute()

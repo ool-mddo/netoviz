@@ -123,6 +123,50 @@ class DiffState {
     // not found or unknown pattern: ignore it
     return undefined
   }
+
+  /**
+   * Convert each key-value of an object into diff-element (used for added/deleted whole object)
+   * @param {DiffElement} diffElement - diff-element of the whole object
+   * @param {Object} obj - added/deleted object
+   * @return {Array<DiffElement>}
+   * @private
+   */
+  _objectKeysToDiffElements(diffElement, obj) {
+    return Object.keys(obj).map((key) => new DiffElement([diffElement.typeSign, key, obj[key]]))
+  }
+
+  /**
+   * Find diff-elements of an element of object-array attribute (e.g. `fhrp[0].priority`).
+   * This does not modify the diff-data of this state.
+   * @param {string} path - Array attribute path (e.g. 'fhrp')
+   * @param {number} index - Index of the element
+   * @return {Array<DiffElement>} Diff-elements. Their path is the attribute key in the element
+   *     (kebab-case, e.g. 'priority'). Empty array if the element has no diff.
+   * @public
+   */
+  diffDataForArrayElement(path, index) {
+    const kebabCasePath = this._camelToKebabCase(path)
+    const childRegexp = new RegExp(`^${kebabCasePath}\\[${index}]\\.([^.\\[]+)(?:\\[\\d+])?$`)
+    const elementPath = `${kebabCasePath}[${index}]`
+    const found = new Map() // key => diff-element (an attribute key has one diff-element)
+
+    this.diffData.forEach((d) => {
+      const matches = d.path.match(childRegexp)
+      let elements = []
+      if (matches) {
+        // changed value of the element (`path[index].key`, `path[index].key[n]` (value in the array))
+        elements = [new DiffElement({ ...d, path: matches[1] })]
+      } else if (d.path === elementPath && d.ddAll[0] && typeof d.ddAll[0] === 'object') {
+        // added/deleted whole element (`path[index]`)
+        elements = this._objectKeysToDiffElements(d, d.ddAll[0])
+      } else if (d.path === kebabCasePath && Array.isArray(d.ddAll[0]) && d.ddAll[0][index]) {
+        // added/deleted whole array (`path`)
+        elements = this._objectKeysToDiffElements(d, d.ddAll[0][index])
+      }
+      elements.filter((e) => !found.has(e.path)).forEach((e) => found.set(e.path, e))
+    })
+    return [...found.values()]
+  }
 }
 
 export default DiffState

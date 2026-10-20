@@ -58,7 +58,7 @@ Vitest 導入済み。テスト対象の選定方針・フェーズ分けの詳�
   (例: `server/graph/common/base.js` → `server/graph/common/base.test.js`)。
 - 対象: サーバー側の純粋ロジック (`server/graph/`, `server/api/common/`)、REST API 統合
   (`server/api/rest/`, `test/fixtures/model/` 配下の fixture を使用)、単純な Vue コンポーネント
-  (`AppBreadcrumbs.vue`・`Table{Networks,Snapshots,ModelFiles}.vue`・`VisualizeDiagram.vue` の分岐ロジック)。
+  (`AppBreadcrumbs.vue`・`TableDiagrams.vue`・`VisualizeDiagram.vue`・`NetworksFlags.vue` の分岐ロジック)。
 - 対象外(意図的): D3/DOM に密結合な描画コード (`lib/diagram/*/builder.js`・`operator.js` 等、
   `VisualizeDiagram*.vue` の各ラッパー) やビジュアルリグレッション・E2Eブラウザテスト。これらは引き続き
   実アプリ起動での手動確認 (上記「Vuetify2→4移行の既知の落とし穴」参照) に委ねている。
@@ -90,9 +90,9 @@ Vitest 導入済み。テスト対象の選定方針・フェーズ分けの詳�
 ### URL とファイルパスの対応
 - スナップショット名に含まれる `/` は URL で `__` にエンコードされる (`snapshotUrlEncode`/`snapshotUrlDecode`、`lib/util/model-link.js`)。
 - スナップショット名に `__` を含むと衝突するため使用不可。
-- `/model`・`/model/:network`・`/model/:network/:snapshot` はそれぞれ network 一覧・snapshot 一覧・
-  モデルファイル/visualizer 一覧を表示するドリルダウンページ(`pages/model/**/index.vue` +
-  `components/Table{Networks,Snapshots,ModelFiles}.vue`)。これにより `AppBreadcrumbs.vue` が生成する
+- `/model`・`/model/:network`・`/model/:network/:snapshot` は、いずれもその階層配下のモデルファイル/visualizer
+  一覧(index と同じ `components/TableDiagrams.vue`。`network`/`snapshot` prop で絞り込み、絞り込んだ階層の列は隠す。
+  `/model` は network ごとに見出し付きで分けて表示)を出すドリルダウンページ(`pages/model/**/index.vue`)。これにより `AppBreadcrumbs.vue` が生成する
   パンくずの各セグメントが実在するルートになり、vue-router4 の `VUE_ROUTER_R0004` 警告が解消されている。
 
 ### フロント・バックエンドの依存
@@ -136,14 +136,26 @@ Vitest 導入済み。テスト対象の選定方針・フェーズ分けの詳�
 
 ## ツールチップ属性の拡張方法
 
-マウスオーバー時のノード属性表示を拡張する場合、変更が必要なのは
-`server/graph/rfc-model/node-attr/` 内の対応する属性クラス 1ファイルのみ。
+マウスオーバー時のノード/TP 属性表示を拡張する場合、変更が必要なのは
+`server/graph/rfc-model/node-attr/` (ノード) または `server/graph/rfc-model/tp-attr/` (TP) 内の対応する属性クラスのみ。
 
 1. コンストラクタに新フィールドを追加 (`this.xxx = data.xxx || null`)
 2. `toHtml()` に表示ロジックを追加
 
 `ForceSimulationNode` や `tooltip-creator.js` など他ファイルへの変更は不要。
 属性オブジェクトはパイプライン全体を透過的に通過し、フロントエンドで `class` フィールドを元に再構築される設計のため。
+
+### 入れ子のオブジェクト配列を持つ属性 (例: `MddoL3TermPointAttribute#fhrp`)
+
+- 要素用のサブ属性クラスを作る (`RfcAttributeModelBase` 継承。例: `tp-attr/mddo-fhrp.js`、`mddo-ospf-neighbor.js`)。
+  サブ属性クラスは `tooltip-creator.js` の `AttributeClassOf` に登録しない (トップレベルの属性クラスのみ登録する)。
+- **サーバーで生成した属性は JSON として図データに載り、ブラウザで再構築される**ため、サブ属性クラスのコンストラクタは
+  topology データのキー (kebab-case。`group-id`) と、オブジェクトのプロパティ名 (camelCase。`groupId`) の**両方を受け付ける**。
+  `false` / `0` を取りうる値は `||` ではなく `??` で扱う。
+- 親の `toHtml()` では、要素を空のときは項目ごと出さない (既存のツールチップを変えない)。要素ごとの diff は
+  `this.diffState.diffDataForArrayElement('<属性名>', index)` で取り、要素の `toHtml(diffElements)` に渡す
+  (`fhrp[0].priority` のような要素内の変更、要素全体 / 配列全体の追加・削除に対応する。
+  `diffDataForObjectArray` は要素全体の追加・削除のみ対応のため、値の変更がある属性では使わない)。
 
 ## サーバー統合 (Nitro + Express Router) の注意点
 

@@ -86,9 +86,9 @@ npm run doc
 
 - 図の表示: `/model/:network/:snapshot/:modelFile[?visualizer=:visualizer]`
 - モデル一覧 (ドリルダウン)
-  - `/model` : ネットワーク一覧
-  - `/model/:network` : スナップショット一覧
-  - `/model/:network/:snapshot` : モデルファイル/ビジュアライザー一覧
+  - `/model` : ネットワークごとの、モデルファイル/ビジュアライザー一覧
+  - `/model/:network` : そのネットワーク配下の、モデルファイル/ビジュアライザー一覧 (スナップショットの階層ページへのリンク付き)
+  - `/model/:network/:snapshot` : そのスナップショット配下の、モデルファイル/ビジュアライザー一覧
 
 ## REST API
 

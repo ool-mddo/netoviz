@@ -12,6 +12,15 @@
         class="mr-4 flex-grow-0"
         v-on:update:model-value="saveAutoReload"
       />
+      <v-btn
+        icon
+        density="compact"
+        class="mr-2"
+        v-bind:title="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
+        v-on:click="toggleTheme"
+      >
+        <v-icon>{{ isDark ? 'mdi-weather-night' : 'mdi-weather-sunny' }}</v-icon>
+      </v-btn>
       <v-toolbar-items>
         <AppBarLinkSource />
       </v-toolbar-items>
@@ -19,8 +28,12 @@
 
     <v-main>
       <v-container fluid>
+        <v-row v-if="currentModelFile">
+          <v-col><NetworksFlags v-bind:model-file="currentModelFile" v-bind:reload-key="reloadKey" /></v-col>
+        </v-row>
         <v-row>
-          <v-col><AppBreadcrumbs v-bind:path="$route.path" /></v-col>
+          <!-- key: force re-render on every navigation -->
+          <v-col><AppBreadcrumbs v-bind:key="currentPath" v-bind:path="currentPath" /></v-col>
           <v-col><TableAlerts /></v-col>
         </v-row>
         <v-row>
@@ -37,6 +50,7 @@ import { mapState, mapActions } from 'pinia'
 import AppAPICommon from '~/components/AppAPICommon'
 import AppBarLinkSource from '~/components/AppBarLinkSource'
 import AppBreadcrumbs from '~/components/AppBreadcrumbs'
+import NetworksFlags from '~/components/NetworksFlags'
 import { useMainStore } from '~/stores/main'
 import { ChangeDetector } from '~/lib/util/change-detector'
 const TableAlerts = defineAsyncComponent(() => import('~/components/TableAlerts'))
@@ -45,9 +59,13 @@ export default {
   components: {
     AppBarLinkSource,
     AppBreadcrumbs,
+    NetworksFlags,
     TableAlerts
   },
   mixins: [AppAPICommon],
+  setup() {
+    return { theme: useTheme() }
+  },
   data: () => ({
     autoReload: true,
     reloadKey: 0,
@@ -58,9 +76,16 @@ export default {
   }),
   computed: {
     ...mapState(useMainStore, ['modelFiles']),
+    isDark() {
+      return this.theme.current.value.dark
+    },
+    // Path of the router's current route. (`$route` in a layout follows the rendered page and can lag behind)
+    currentPath() {
+      return this.$router.currentRoute.value.path
+    },
     // `<network>/<snapshot>/<file>` of the displayed model file (null on other pages)
     currentModelFile() {
-      const p = this.$route.params
+      const p = this.$router.currentRoute.value.params
       return p.network && p.snapshot && p.modelFile ? [p.network, p.snapshot, p.modelFile].join('/') : null
     }
   },
@@ -73,6 +98,7 @@ export default {
   mounted() {
     this.updateModelFiles()
     this.loadAutoReload()
+    this.loadTheme()
     document.addEventListener('visibilitychange', this.pollModelStatus)
     this.pollTimer = setInterval(this.pollModelStatus, this.pollIntervalMs)
   },
@@ -87,6 +113,26 @@ export default {
         this.autoReload = localStorage.getItem('netoviz.autoReload') !== 'false'
       } catch {
         // storage unavailable: keep default
+      }
+    },
+    // restore the manually selected theme (follows the OS setting until one is selected)
+    loadTheme() {
+      try {
+        const saved = localStorage.getItem('netoviz.theme')
+        if (saved === 'light' || saved === 'dark') {
+          this.theme.change(saved)
+        }
+      } catch {
+        // storage unavailable: keep default
+      }
+    },
+    toggleTheme() {
+      const next = this.isDark ? 'light' : 'dark'
+      this.theme.change(next)
+      try {
+        localStorage.setItem('netoviz.theme', next)
+      } catch {
+        // storage unavailable: ignore
       }
     },
     saveAutoReload(value) {

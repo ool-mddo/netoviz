@@ -5,6 +5,7 @@
 import RfcAttributeModelBase from '../attr-base'
 import MddoOspfTimer from '../tp-attr/mddo-ospf-timer'
 import MddoOspfNeighbor from '../tp-attr/mddo-ospf-neighbor'
+import MddoFhrp from '../tp-attr/mddo-fhrp'
 import MddoBgpTimer from '../tp-attr/mddo-bgp-timer'
 
 /**
@@ -105,9 +106,10 @@ export class MddoL3TermPointAttribute extends RfcAttributeModelBase {
    * @prop {string} description
    * @prop {Array<string>} flag
    * @prop {Array<string>} ipAddress
+   * @prop {Array<MddoFhrpData>} fhrp - fhrp (VRRP/HSRP) groups. (optional)
    */
   /**
-   * @param {MddoL3TermPointAttributeData|MddoL3TermPointAttribute} data - L1 term-point attribute data.
+   * @param {MddoL3TermPointAttributeData|MddoL3TermPointAttribute} data - L3 term-point attribute data.
    */
   constructor(data) {
     super(data)
@@ -120,6 +122,26 @@ export class MddoL3TermPointAttribute extends RfcAttributeModelBase {
     this.flag = data.flag || []
     /** @type {Array<string>} */
     this.ipAddress = data['ip-address'] || data.ipAddress || [] // notice: array
+    /** @type {Array<MddoFhrp>} */
+    this.fhrp = data.fhrp ? data.fhrp.map((f) => new MddoFhrp(f)) : []
+  }
+
+  /**
+   * Convert fhrp (VRRP/HSRP) groups to html string.
+   * @returns {string} HTML string (empty if the term-point does not have fhrp)
+   * @private
+   */
+  _fhrpToHtml() {
+    if (this.fhrp.length === 0) {
+      return ''
+    }
+    // the whole `fhrp` key is added/deleted
+    const keyClassStr = this._attrKeyClassString('fhrp', this.diffState.findDiffDataByPath('fhrp'))
+    const fhrpStr = this.fhrp.map((f, index) => f.toHtml(this.diffState.diffDataForArrayElement('fhrp', index)))
+    return `
+  <li><span class="${keyClassStr}">FHRP:</span>
+    <ul>${fhrpStr.join('')}</ul>
+  </li>`
   }
 
   /**
@@ -133,7 +155,7 @@ export class MddoL3TermPointAttribute extends RfcAttributeModelBase {
 <ul>
   <li>${this._toHtmlKeyValue('description', 'Description')}
   <li>${this._toHtmlKeyValue('ipAddress', 'IP Address')}
-  <li>${this._toHtmlKeyValue('flag', 'Flag')}
+  <li>${this._toHtmlKeyValue('flag', 'Flag')}${this._fhrpToHtml()}
 </ul>
 `
   }

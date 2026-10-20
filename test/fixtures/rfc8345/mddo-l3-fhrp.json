@@ -1,0 +1,99 @@
+{
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "layer3",
+        "network-types": { "mddo-topology:l3-network": {} },
+        "node": [
+          {
+            "node-id": "cr1",
+            "mddo-topology:l3-node-attributes": { "node-type": "node", "flag": [] },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "ge-0/0/2.0",
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "to_lan",
+                  "ip-address": ["192.168.101.2/24"],
+                  "flag": [],
+                  "fhrp": [
+                    {
+                      "protocol": "vrrp",
+                      "group-id": 1,
+                      "virtual-address": ["192.168.101.1"],
+                      "priority": 150,
+                      "preempt": true,
+                      "source-address": "192.168.101.2/24",
+                      "active": true
+                    }
+                  ]
+                }
+              },
+              {
+                "tp-id": "ge-0/0/3.0",
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "to_lan2",
+                  "ip-address": ["192.168.201.2/24"],
+                  "flag": [],
+                  "fhrp": [
+                    {
+                      "protocol": "vrrp",
+                      "group-id": 2,
+                      "virtual-address": ["192.168.201.1"],
+                      "priority": 100,
+                      "preempt": false,
+                      "source-address": "192.168.201.2/24",
+                      "active": false
+                    },
+                    {
+                      "protocol": "hsrp",
+                      "group-id": 10,
+                      "virtual-address": ["192.168.201.254"],
+                      "priority": 110,
+                      "preempt": true,
+                      "source-address": "192.168.201.2/24",
+                      "active": true
+                    }
+                  ]
+                }
+              },
+              {
+                "tp-id": "ge-0/0/0.0",
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "to_cr2",
+                  "ip-address": ["10.0.0.1/30"],
+                  "flag": []
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "cr2",
+            "mddo-topology:l3-node-attributes": { "node-type": "node", "flag": [] },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "ge-0/0/0.0",
+                "mddo-topology:l3-termination-point-attributes": {
+                  "description": "to_cr1",
+                  "ip-address": ["10.0.0.2/30"],
+                  "flag": []
+                }
+              }
+            ]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "cr1,ge-0/0/0.0,cr2,ge-0/0/0.0",
+            "source": { "source-node": "cr1", "source-tp": "ge-0/0/0.0" },
+            "destination": { "dest-node": "cr2", "dest-tp": "ge-0/0/0.0" }
+          },
+          {
+            "link-id": "cr2,ge-0/0/0.0,cr1,ge-0/0/0.0",
+            "source": { "source-node": "cr2", "source-tp": "ge-0/0/0.0" },
+            "destination": { "dest-node": "cr1", "dest-tp": "ge-0/0/0.0" }
+          }
+        ]
+      }
+    ]
+  }
+}

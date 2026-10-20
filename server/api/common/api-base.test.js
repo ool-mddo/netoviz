@@ -26,6 +26,25 @@ describe('APIBase', () => {
     })
   })
 
+  describe('getNetworksAttributes', () => {
+    const api = new APIBase(fixtureDistDir)
+
+    it('returns flags of mddo-topology:networks-attributes', async () => {
+      const attr = await api.getNetworksAttributes('sample-network/flagged-snapshot/topology.json')
+      expect(attr).toStrictEqual({ flag: ['blueprint=sample_blueprint1'] })
+    })
+
+    it('returns empty flags when the file has no attribute, is missing, or is omitted', async () => {
+      expect(await api.getNetworksAttributes(sampleJsonName)).toStrictEqual({ flag: [] })
+      expect(await api.getNetworksAttributes('sample-network/none/topology.json')).toStrictEqual({ flag: [] })
+      expect(await api.getNetworksAttributes()).toStrictEqual({ flag: [] })
+    })
+
+    it('rejects path traversal outside of the model directory', async () => {
+      expect(await api.getNetworksAttributes('../../package.json')).toStrictEqual({ flag: [] })
+    })
+  })
+
   describe('getModels', () => {
     it('reads and parses _index.json under <distDir>/model', async () => {
       const api = new APIBase(fixtureDistDir)

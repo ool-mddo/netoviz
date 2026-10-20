@@ -99,10 +99,10 @@ D3/DOM に依存しない**純粋なロジック**が大量にある一方、フ
 
 - `components/AppBreadcrumbs.test.js` — Pinia 不要、`path` prop のみに依存。単一/複数セグメント、
   前後スラッシュのエッジケースをテーブル駆動で検証。
-- `components/TableNetworks.test.js`, `TableSnapshots.test.js`, `TableModelFiles.test.js` —
+- `components/TableDiagrams.test.js` —
   `createTestingPinia({ initialState: { main: { modelFiles: [...] } } })` で 2 ネットワーク×2
   スナップショット程度の合成データを注入し、`v-data-table` は `stubs` で潰した上で
-  computed (`tableRows` 等) の出力を直接検証する (Vuetify の実描画までは検証しない)。
+  computed (`table_body_rows` 等) の出力を直接検証する (Vuetify の実描画までは検証しない)。
 - `components/VisualizeDiagram.test.js` — `visualizer` prop の 5 種類 + 不正値で、正しい子
   コンポーネント (または `NotFound`) が選ばれることを検証。5 つの `VisualizeDiagram*` 子コンポーネント
   自体は `stubs` で潰し、D3 に依存する `mounted()` が実行されないようにする。
@@ -201,10 +201,14 @@ Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意�
 - `server/graph/common/base.test.js`
 - `server/graph/common/diff-element.test.js`
 - `server/graph/common/diff-state.test.js`
+- `server/graph/common/diff-state-array-element.test.js` (`diffDataForArrayElement`: オブジェクト配列属性 (`fhrp` 等) の要素ごとの diff)
 - `server/graph/common/family-maker.test.js`
 - `server/graph/common/neighbor-maker.test.js`
 - `server/graph/rfc-model/topology.test.js` (ID採番・layerディスパッチ)
 - `server/graph/force-simulation/topology.test.js`
+- `server/graph/force-simulation/topology-fhrp.test.js` (図用データの TP 属性に `fhrp` が載ること)
+- `server/graph/rfc-model/tp-attr/mddo-fhrp.test.js` (`MddoFhrp`: kebab/camel 両キー、JSON 往復、`toHtml`)
+- `server/graph/rfc-model/tp-attr/mddo-l3-term-point-attribute-fhrp.test.js` (layer3 TP 属性の `fhrp` 表示と diff 表示)
 - `server/api/common/alert-util.test.js`
 - `server/api/common/api-base.test.js` (`getModelStatus` による自動リロード用シグネチャ取得を含む)
 - `lib/util/change-detector.test.js` (自動リロードの安定変化検知)
@@ -214,13 +218,12 @@ Phase 4 は着手しないことを決定した(D3/DOM smoke test 等の任意�
 - `lib/util/model-link.test.js`
 - `lib/diagram/common/alert-util.test.js`
 - `components/AppBreadcrumbs.test.js`
-- `components/TableNetworks.test.js`
-- `components/TableSnapshots.test.js`
-- `components/TableModelFiles.test.js`
+- `components/TableDiagrams.test.js`
 - `components/VisualizeDiagram.test.js`
 
 **fixture**
 - `test/fixtures/rfc8345/mixed-layers.json` (自作の最小 RFC8345、rfc-l2 + rfc-l3)
+- `test/fixtures/rfc8345/mddo-l3-fhrp.json` (mddo-l3 の TP に `fhrp` (VRRP / VRRP+HSRP / なし) を持つ最小トポロジ)
 - `test/fixtures/alert-util-cases.js` (2つの `alert-util.js` 実装で共有するテストケーステーブル)
 - `test/fixtures/model/` (REST API 統合テスト用、`static/model/` と同じディレクトリ構造)
 
